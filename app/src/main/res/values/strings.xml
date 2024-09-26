@@ -10,4 +10,8 @@
     <string name="hint_password">Password</string>
     <string name="sign_in_google">Sign in by Google</string>
     <string name="no_account">Not yet account?</string>
+    <string name="who">Who are you? </string>
+    <string name="player_role">Player</string>
+    <string name="court_owner_role">Court owner</string>
+    <string name="continuee">Continue</string>
 </resources>
