@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Court Image -->
+    <ImageView
+        android:id="@+id/court_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/old_trafford" />
+
+    <!-- Title (Court Name) -->
+    <TextView
+        android:id="@+id/court_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/court_image"
+        android:layout_alignTop="@id/court_image"
+        android:text="Football Court Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+
+    <!-- Description (Court details or availability) -->
+    <TextView
+        android:id="@+id/court_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/court_title"
+        android:layout_toEndOf="@id/court_image"
+        android:text="Court description or availability details"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="8dp" />
+
+    <!-- Edit Button -->
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/court_description"
+        android:layout_alignParentEnd="true"
+        android:text="Edit"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginTop="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
+    <!-- Delete Button -->
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/edit_button"
+        android:layout_below="@id/court_description"
+        android:text="Delete"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
+</RelativeLayout>
