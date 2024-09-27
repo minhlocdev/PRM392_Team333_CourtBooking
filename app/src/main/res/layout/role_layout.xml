@@ -18,19 +18,13 @@
             android:layout_width="0dp"
             android:layout_height="10dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_green_line"/>
+            android:background="@drawable/left_rounded_green_line"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="10dp"
             android:layout_weight="1"
-            android:background="@color/light_gray"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_gray"/>
+            android:background="@color/lime_green"/>
 
         <View
             android:layout_width="0dp"
