@@ -15,4 +15,9 @@
     <string name="player_role">Player</string>
     <string name="court_owner_role">Court owner</string>
     <string name="continuee">Continue</string>
+    <string name="court_owner_information">Personal information</string>
+    <string name="full_name">Full name</string>
+    <string name="hint_full_name">Michael Johnson</string>
+    <string name="contact_information">Contact information</string>
+    <string name="hint_contact_information">Phone number</string>
 </resources>
