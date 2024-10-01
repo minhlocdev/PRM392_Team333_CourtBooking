@@ -2,17 +2,17 @@ package Models;
 
 public class User {
     private int userId;
-    private String userName;
     private String fullName;
+    private String password;
     private String email;
     private String phone;
     private String role;
     private String dateCreated;
     private boolean isActive;
 
-    public User(int userId, String userName, String fullName, String email, String phone, String role, String dateCreated, boolean isActive) {
+    public User(int userId, String password, String fullName, String email, String phone, String role, String dateCreated, boolean isActive) {
         this.userId = userId;
-        this.userName = userName;
+        this.password = password;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -25,8 +25,8 @@ public class User {
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getPassword() {
+        return password;
     }
 
     public String getFullName() {
@@ -57,8 +57,8 @@ public class User {
         this.userId = userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setFullName(String fullName) {

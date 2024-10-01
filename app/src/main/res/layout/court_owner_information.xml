@@ -89,10 +89,10 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/tv_contact_information"
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contact_information"
+            android:text="@string/email"
             android:textStyle="bold"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
@@ -111,7 +111,7 @@
             android:padding="10dp"
             android:backgroundTint="#1732CD32"
             android:autofillHints="name"
-            android:inputType="phone" />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/sign_up_court"
@@ -264,7 +264,7 @@
             android:id="@+id/btn_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/continuee"
+            android:text="Done"
             android:layout_marginTop="200dp"
             android:layout_gravity="center"
             android:textAlignment="center"
