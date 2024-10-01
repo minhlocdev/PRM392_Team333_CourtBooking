@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define the background color (optional) -->
+    <item>
+        <shape>
+            <solid android:color="#FFFFFF" /> <!-- Background color -->
+        </shape>
+    </item>
+
+    <!-- Define the top, left, and bottom borders -->
+    <item>
+        <shape>
+            <!-- The stroke attribute defines the border -->
+            <stroke
+                android:width="2dp"
+                android:color="#C7C6C6" /> <!-- Border color -->
+
+            <!-- Using padding to simulate removing the right border -->
+            <padding android:right="2dp" />
+
+            <!-- Rounding the corners (optional) -->
+
+            <!-- Set specific padding for top, left, and bottom -->
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:bottom="0dp"/>
+        </shape>
+    </item>
+</layer-list>
