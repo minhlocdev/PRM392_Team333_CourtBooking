@@ -15,11 +15,10 @@ public class CourtRepository {
         dbHelper = new Sqlite(context);
     }
 
-    public long insertCourt(int courtId, int courtOwnerId, String courtName, String location, String address, String status, int sportId) {
+    public long insertCourt(int courtOwnerId, String courtName, String location, String address, String status, int sportId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("court_id", courtId);
         values.put("court_owner_id", courtOwnerId);
         values.put("court_name", courtName);
         values.put("location", location);

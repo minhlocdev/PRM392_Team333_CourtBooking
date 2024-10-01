@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
 import Models.User;
+import Repository.CourtRepository;
 import Repository.UserRepository;
 
 public class RegisterCourt extends AppCompatActivity implements View.OnClickListener{
@@ -28,6 +30,8 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
     private EditText etEmail;
 
     private UserRepository userRepository;
+
+    private CourtRepository courtRepository;
 
     private String phoneNumber;
 
@@ -49,6 +53,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         btnContinue = findViewById(R.id.btn_continue);
         userRepository = new UserRepository(this);
         phoneNumber = getIntent().getStringExtra("phoneNumber");
+        courtRepository = new CourtRepository(this);
 
 
 
@@ -128,12 +133,18 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
                 User user = userRepository.getUserByPhoneNumber(phoneNumber);
                 user.setFullName(etFullName.getText().toString());
                 user.setEmail(etEmail.getText().toString());
-
                 userRepository.updateUser(user);
+                long result = courtRepository.insertCourt(user.getUserId(), et_court_name.getText().toString(), "BD city", et_address.getText().toString(), "Active", 1);
 
-                Intent intent = new Intent(this, MainActivity.class);
+                if(result != -1){
+                    Intent intent = new Intent(this, MainActivity.class);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(this, "Fail to create your court", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this, "Fail validation", Toast.LENGTH_SHORT).show();
             }
         }
     }
