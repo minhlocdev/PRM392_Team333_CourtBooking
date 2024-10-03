@@ -124,6 +124,22 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            > <!-- Ensures the inner view fills the viewport -->
+
+            <!-- RecyclerView to display the courts -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/courtRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/court_list_search_view" />
+
+        </ScrollView>
+
     </LinearLayout>
 
 </FrameLayout>
