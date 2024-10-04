@@ -4,19 +4,27 @@ public class Court {
     private int courtId;
     private int courtOwnerId;
     private String courtName;
-    private String location;
+    private String openTime;
+    private String closedTime;
+    private String province;
     private String address;
     private String status;
-    private int sportId;
+    private byte[] image;
 
-    public Court(int courtId, int sportId, String status, String address, String location, String courtName, int courtOwnerId) {
+    public Court(int courtId, String status, String openTime, String closedTime, String address, String province, String courtName, int courtOwnerId, byte[] image) {
         this.courtId = courtId;
-        this.sportId = sportId;
+        this.openTime = openTime;
+        this.closedTime = closedTime;
         this.status = status;
         this.address = address;
-        this.location = location;
+        this.province = province;
         this.courtName = courtName;
         this.courtOwnerId = courtOwnerId;
+        this.image = image;
+    }
+
+    public byte[] getImage() {
+        return image;
     }
 
     public int getCourtId() {
@@ -31,8 +39,8 @@ public class Court {
         return courtName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getProvince() {
+        return province;
     }
 
     public String getAddress() {
@@ -43,8 +51,12 @@ public class Court {
         return status;
     }
 
-    public int getSportId() {
-        return sportId;
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public String getClosedTime() {
+        return closedTime;
     }
 
     public void setCourtId(int courtId) {
@@ -59,8 +71,8 @@ public class Court {
         this.courtName = courtName;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public void setAddress(String address) {
@@ -71,8 +83,16 @@ public class Court {
         this.status = status;
     }
 
-    public void setSportId(int sportId) {
-        this.sportId = sportId;
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public void setClosedTime(String closedTime) {
+        this.closedTime = closedTime;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
 

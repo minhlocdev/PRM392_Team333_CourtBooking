@@ -31,7 +31,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".LoginForCourtOwner" android:exported="true"/>
         <activity android:name=".RegisterCourt" android:exported="true"/>
+        <activity android:name=".SignUpForCourtOwner" android:exported="true"/>
+
+        <activity android:name=".AddCourtSlot" android:exported="true"/>
+        <activity android:name=".CourtListManage" android:exported="true"/>
     </application>
 
 </manifest>
