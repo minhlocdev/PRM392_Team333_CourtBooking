@@ -55,7 +55,7 @@ public class CourtFragment extends Fragment {
         courtList.add(new Court(10, 109, "Available", "Kerepesi út 5, 1089 Budapest, Hungary", "Budapest", "Puskás Aréna", 1));
 
         courtAdapter = new CourtAdapter(getContext(), courtList);
-        courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         courtRecyclerView.setAdapter(courtAdapter);
 
         return view;
