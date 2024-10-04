@@ -21,4 +21,5 @@
     <string name="contact_information">Contact information</string>
     <string name="hint_contact_information">Phone number</string>
     <string name="view_detail"><u>View detail >>></u></string>
+    <string name="avatar">\n</string>
 </resources>

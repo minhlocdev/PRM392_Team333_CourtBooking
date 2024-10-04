@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    android:elevation="4dp"
+    android:layout_margin="12dp"
+    android:clipToPadding="false"
+    android:layout_gravity="center">
+
+    <!-- Avatar Image -->
+    <ImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ten_hag"
+        android:background="@drawable/circle_avatar"
+        android:elevation="6dp" />
+
+    <!-- Follower Full Name -->
+    <TextView
+        android:id="@+id/follower_fullname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Erik ten Hag"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+
+        android:lineSpacingExtra="4dp"
+        android:paddingStart="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/avatar_image"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

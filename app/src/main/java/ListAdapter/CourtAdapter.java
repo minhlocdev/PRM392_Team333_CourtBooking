@@ -31,7 +31,7 @@
         @Override
         public CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             // Inflate the court_item layout for each item
-            View view = LayoutInflater.from(context).inflate(R.layout.court_list_search_view, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.fragment_player_search_court_item, parent, false);
             return new CourtViewHolder(view);
         }
 

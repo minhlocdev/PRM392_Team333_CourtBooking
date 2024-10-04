@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.activities;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.prm392_team333_courtbooking.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OwnerHomeFragment#newInstance} factory method to
+ * Use the {@link player_home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OwnerHomeFragment extends Fragment {
+public class player_home extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class OwnerHomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public OwnerHomeFragment() {
+    public player_home() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class OwnerHomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OwnerHomeFragment.
+     * @return A new instance of fragment player_home.
      */
     // TODO: Rename and change types and number of parameters
-    public static OwnerHomeFragment newInstance(String param1, String param2) {
-        OwnerHomeFragment fragment = new OwnerHomeFragment();
+    public static player_home newInstance(String param1, String param2) {
+        player_home fragment = new player_home();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class OwnerHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_owner_home, container, false);
+        return inflater.inflate(R.layout.fragment_player_home, container, false);
     }
 }
