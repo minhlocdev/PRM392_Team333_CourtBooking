@@ -15,16 +15,18 @@ public class CourtRepository {
         dbHelper = new Sqlite(context);
     }
 
-    public long insertCourt(int courtOwnerId, String courtName, String location, String address, String status, int sportId) {
+    public long insertCourt(int courtOwnerId, String courtName, String openTime, String closedTime, String province, String address, String status, byte[] image) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put("court_owner_id", courtOwnerId);
         values.put("court_name", courtName);
-        values.put("location", location);
+        values.put("open_time", openTime);
+        values.put("closed_time", closedTime);
+        values.put("province", province);
         values.put("address", address);
         values.put("status", status);
-        values.put("sport_id", sportId);
+        values.put("image", image);
 
         long result = db.insert("Court", null, values);
         db.close();

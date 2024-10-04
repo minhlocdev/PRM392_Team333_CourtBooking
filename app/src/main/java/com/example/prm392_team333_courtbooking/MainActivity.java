@@ -7,9 +7,8 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import SqliteHelper.Sqlite;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,10 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = view.getId();
 
         if(id == R.id.btn_login){
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, LoginForCourtOwner.class);
             startActivity(intent);
         }else if(id == R.id.btn_sign_up){
-            Intent intent = new Intent(this, SignUp.class);
+
+            /*Sqlite dbHelper = new Sqlite(this);
+            dbHelper.deleteDatabase(this);*/
+
+            Intent intent = new Intent(this, SignUpForCourtOwner.class);
             startActivity(intent);
         }
     }

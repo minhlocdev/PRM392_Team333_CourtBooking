@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- ScrollView to contain dynamically generated slots -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/slotContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Initial Slot -->
+            <LinearLayout
+                android:layout_width="393dp"
+                android:layout_height="99dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <!-- Time start field -->
+                <LinearLayout
+                    android:layout_width="77dp"
+                    android:layout_height="86dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Time start"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_time_start"
+                        android:layout_width="70dp"
+                        android:layout_height="52dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/retangle_input"
+                        android:backgroundTint="#1732CD32"
+                        android:hint="08:00"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <!-- Time end field -->
+                <LinearLayout
+                    android:layout_width="77dp"
+                    android:layout_height="86dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Time end"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_time_end"
+                        android:layout_width="84dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/retangle_input"
+                        android:backgroundTint="#1732CD32"
+                        android:hint="12:00"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <!-- Cost field -->
+                <LinearLayout
+                    android:layout_width="77dp"
+                    android:layout_height="86dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Cost"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_cost"
+                        android:layout_width="84dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/retangle_input"
+                        android:backgroundTint="#1732CD32"
+                        android:hint="10.000"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <!-- Plus button to add a new slot -->
+                <ImageButton
+                    android:id="@+id/btn_add_slot"
+                    android:layout_width="53dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Add new slot"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        />
+
+</LinearLayout>

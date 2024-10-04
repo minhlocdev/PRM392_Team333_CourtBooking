@@ -6,14 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Models.CourtOwner;
 import Models.User;
+import Repository.CourtOwnerRepository;
 import Repository.UserRepository;
 
-public class Login extends AppCompatActivity implements View.OnClickListener{
+public class LoginForCourtOwner extends AppCompatActivity implements View.OnClickListener{
 
     private EditText etPhoneNumber;
     private EditText etPassword;
@@ -21,12 +22,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private Button btnLogin;
     private TextView txtSignUp;
 
-    UserRepository userRepository;
+    CourtOwnerRepository courtOwnerRepository;
 
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        setContentView(R.layout.login_layout);
+        setContentView(R.layout.login_for_court_owner_layout);
 
         etPhoneNumber = findViewById(R.id.et_phone_number);
         etPassword = findViewById(R.id.et_password);
@@ -34,7 +35,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         btnLogin = findViewById(R.id.btn_login);
         txtSignUp = findViewById(R.id.txt_sign_up);
 
-        userRepository = new UserRepository(this);
+        courtOwnerRepository = new CourtOwnerRepository(this);
 
 
         btnLogin.setOnClickListener(this);
@@ -52,19 +53,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
         } else {
-            User user = userRepository.getUserByPhoneNumber(etPhoneNumber.getText().toString());
+            CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(etPhoneNumber.getText().toString());
 
-            if(user == null){
+            if(courtOwner == null){
                 etPhoneNumber.setError("No user with this phone number.");
                 etPhoneNumber.requestFocus();
                 return;
-            }else if (!user.getPassword().equals(etPassword.getText().toString())){
+            }else if (!courtOwner.getPassword().equals(etPassword.getText().toString())){
                 etPhoneNumber.setError("Wrong password.");
                 etPhoneNumber.requestFocus();
                 return;
             }
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, CourtListManage.class);
+            intent.putExtra("phoneNumber", etPhoneNumber.getText().toString());
             startActivity(intent);
         }
     }
@@ -78,7 +80,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             login();
 
         }else if(id == R.id.txt_sign_up){
-            Intent intent = new Intent(this, SignUp.class);
+            Intent intent = new Intent(this, SignUpForCourtOwner.class);
             startActivity(intent);
         }
     }

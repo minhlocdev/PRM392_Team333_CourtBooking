@@ -10,31 +10,33 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import Models.User;
-import Repository.UserRepository;
+import Models.CourtOwner;
+import Repository.CourtOwnerRepository;
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUpForCourtOwner extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnRegister;
     private EditText etPhoneNumber;
     private EditText etPassword;
+    private EditText etConfirmedPassword;
 
-    private UserRepository userRepository;
+    private CourtOwnerRepository courtOwnerRepository;
 
     private TextView txtSignIn;
     @Override
     public void onCreate (Bundle savedInstance){
         super.onCreate(savedInstance);
-        setContentView(R.layout.sign_up_layout);
+        setContentView(R.layout.sign_up_for_court_owner_layout);
 
         btnRegister = findViewById(R.id.btnRegister);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         etPassword = findViewById(R.id.etPassword);
         txtSignIn = findViewById(R.id.tvLogin);
-        userRepository = new UserRepository(this);
+        etConfirmedPassword = findViewById(R.id.etConfirmedPassword);
+
+        courtOwnerRepository = new CourtOwnerRepository(this);
 
         btnRegister.setOnClickListener(this);
         txtSignIn.setOnClickListener(this);
@@ -53,8 +55,22 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             return false;
         }
 
-        User user = userRepository.getUserByPhoneNumber(etPhoneNumber.getText().toString());
-        if(user != null){
+        if(etConfirmedPassword.getText().toString().trim().isEmpty()){
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        if(!etConfirmedPassword.getText().toString().equals(etPassword.getText().toString())){
+            etPassword.setError("Passwords are not match");
+            etConfirmedPassword.setError("Passwords are not match");
+            etPassword.requestFocus();
+            etConfirmedPassword.requestFocus();
+            return false;
+        }
+
+        CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(etPhoneNumber.getText().toString());
+        if(courtOwner != null){
             etPhoneNumber.setError("Phone number is already registered");
             etPhoneNumber.requestFocus();
             return false;
@@ -70,20 +86,19 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         if(id == R.id.btnRegister){
             long result = 0;
             if(validate()){
-                result = userRepository.insertUser(etPassword.getText().toString(), "", "", etPhoneNumber.getText().toString(), "", LocalDateTime.now().toString(), 1);
+                result = courtOwnerRepository.insertCourtOwner(etPassword.getText().toString(), "", "", etPhoneNumber.getText().toString(), LocalDateTime.now().toString(), 1, "");
 
                 if(result == -1){
                     Toast.makeText(this, "Fail to create", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent intent = new Intent(this, Role.class);
+                    Intent intent = new Intent(this, RegisterCourt.class);
                     intent.putExtra("phoneNumber", etPhoneNumber.getText().toString());
                     startActivity(intent);
                 }
             }
 
-
         }else if(id == R.id.tvLogin){
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, LoginForCourtOwner.class);
             startActivity(intent);
         }
     }

@@ -6,14 +6,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Sqlite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CourtBookingSystem.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     public Sqlite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public void deleteDatabase(Context context) {
+        context.deleteDatabase(DATABASE_NAME);
+    }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("PRAGMA foreign_keys = ON;"); // Enable foreign keys
 
         db.execSQL("CREATE TABLE Booking (" +
@@ -35,20 +41,30 @@ public class Sqlite extends SQLiteOpenHelper {
                 "full_name TEXT, " +
                 "email TEXT, " +
                 "phone TEXT, " +
-                "role TEXT, " +
                 "date_created TEXT, " +
                 "is_active INTEGER)");
+
+        db.execSQL("CREATE TABLE CourtOwner (" +
+                        "court_owner_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "password TEXT, " +
+                        "full_name TEXT, " +
+                        "email TEXT, " +
+                        "phone TEXT, " +
+                        "tax_code TEXT, " +
+                        "date_created TEXT, " +
+                        "is_active INTEGER)");
 
         db.execSQL("CREATE TABLE Court (" +
                 "court_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "court_owner_id INTEGER, " +
                 "court_name TEXT, " +
-                "location TEXT, " +
+                "open_time TEXT," +
+                "closed_time TEXT," +
+                "province TEXT, " +
                 "address TEXT, " +
+                "image BLOB," +
                 "status TEXT, " +
-                "sport_id INTEGER, " +
-                "FOREIGN KEY(court_owner_id) REFERENCES User(user_id), " +
-                "FOREIGN KEY(sport_id) REFERENCES Sport(sport_id))");
+                "FOREIGN KEY(court_owner_id) REFERENCES CourtOwner(court_owner_id))");
 
         db.execSQL("CREATE TABLE Review (" +
                 "review_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -63,10 +79,6 @@ public class Sqlite extends SQLiteOpenHelper {
                 "FOREIGN KEY(user_id) REFERENCES User(user_id), " +
                 "FOREIGN KEY(court_id) REFERENCES Court(court_id))");
 
-        db.execSQL("CREATE TABLE Sport (" +
-                "sport_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "sport_name TEXT)");
-
         db.execSQL("CREATE TABLE CourtSlot (" +
                 "court_slot_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "court_id INTEGER, " +
@@ -74,14 +86,6 @@ public class Sqlite extends SQLiteOpenHelper {
                 "time_end TEXT, " +
                 "cost REAL, " +
                 "FOREIGN KEY(court_id) REFERENCES Court(court_id))");
-
-        db.execSQL("CREATE TABLE UserSport (" +
-                "sport_id INTEGER, " +
-                "user_id INTEGER, " +
-                "level TEXT, " +
-                "PRIMARY KEY(sport_id, user_id), " +
-                "FOREIGN KEY(sport_id) REFERENCES Sport(sport_id), " +
-                "FOREIGN KEY(user_id) REFERENCES User(user_id))");
 
         db.execSQL("CREATE TABLE Reply (" +
                 "reply_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -104,25 +108,20 @@ public class Sqlite extends SQLiteOpenHelper {
 
     private void insertInitialData(SQLiteDatabase db) {
         // Insert default users
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, role, date_created, is_active) " +
-                "VALUES (1, '123', 'John Doe', 'john@example.com', '123456789', 'Player', '2024-10-01', 1)");
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, role, date_created, is_active) " +
-                "VALUES (2, '123', 'Jane Doe', 'jane@example.com', '987654321', 'Admin', '2024-10-02', 1)");
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, role, date_created, is_active) " +
-                "VALUES (3, '123', 'Sam Smith', 'sam@example.com', '543216789', 'Player', '2024-10-03', 1)");
-
-        // Insert default sports
-        db.execSQL("INSERT INTO Sport (sport_id, sport_name) VALUES (1, 'Tennis')");
-        db.execSQL("INSERT INTO Sport (sport_id, sport_name) VALUES (2, 'Football')");
-        db.execSQL("INSERT INTO Sport (sport_id, sport_name) VALUES (3, 'Basketball')");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
+                "VALUES (1, '123', 'John Doe', 'john@example.com', '123456789', '2024-10-01', 1)");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
+                "VALUES (2, '123', 'Jane Doe', 'jane@example.com', '987654321', '2024-10-02', 1)");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
+                "VALUES (3, '123', 'Sam Smith', 'sam@example.com', '543216789', '2024-10-03', 1)");
 
         // Insert default courts
-        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, location, address, status, sport_id) " +
-                "VALUES (1, 1, 'City Tennis Court', 'City Center', '123 Main St', 'available', 1)");
-        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, location, address, status, sport_id) " +
-                "VALUES (2, 2, 'Football Arena', 'Uptown', '456 High St', 'available', 2)");
-        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, location, address, status, sport_id) " +
-                "VALUES (3, 2, 'Basketball Court', 'Suburb', '789 Park Ave', 'available', 3)");
+        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
+                "VALUES (1, 1, 'City Tennis Court', '08:00', '21:00', 'City Center', '123 Main St',null, 'available')");
+        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
+                "VALUES (2, 1, 'Football Arena', '08:00', '21:00', 'Uptown', '456 High St', null, 'available')");
+        db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
+                "VALUES (3, 1, 'Basketball Court', '08:00', '21:00', 'Suburb', '789 Park Ave', null, 'available')");
 
         // Insert default bookings
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
@@ -164,16 +163,17 @@ public class Sqlite extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
                 "VALUES (3, 3, 'Thanks for your review', '2024-10-04', 'approved')");
 
-        // Insert default user sports
-        db.execSQL("INSERT INTO UserSport (sport_id, user_id, level) VALUES (1, 1, 'Advanced')");
-        db.execSQL("INSERT INTO UserSport (sport_id, user_id, level) VALUES (2, 2, 'Intermediate')");
-        db.execSQL("INSERT INTO UserSport (sport_id, user_id, level) VALUES (3, 3, 'Beginner')");
+        // Insert default court owner
+        db.execSQL("INSERT INTO CourtOwner (password, full_name, email, phone, tax_code, date_created, is_active) " +
+                "VALUES ('12345', 'John Doe', 'john.doe@example.com', '1234567890', 'TAX123456', '2024-10-03', 1)");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Booking");
         db.execSQL("DROP TABLE IF EXISTS User");
+        db.execSQL("DROP TABLE IF EXISTS CourtOwner");
         db.execSQL("DROP TABLE IF EXISTS Court");
         db.execSQL("DROP TABLE IF EXISTS Review");
         db.execSQL("DROP TABLE IF EXISTS Sport");

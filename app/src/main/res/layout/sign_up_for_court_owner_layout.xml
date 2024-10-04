@@ -42,19 +42,21 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="46dp"
+            android:layout_height="51dp"
             android:layout_gravity="center"
+            android:background="@color/white"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
 
             <ImageView
                 android:id="@+id/ivFlag"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="46dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
+                android:padding="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/vietname_flag" />
 
@@ -87,6 +89,18 @@
         android:padding="12dp"
         android:textColor="@color/black" />
 
+    <EditText
+        android:id="@+id/etConfirmedPassword"
+        android:layout_width="382dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_input"
+        android:backgroundTint="#506495ED"
+        android:hint="Confirmed Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
@@ -97,7 +111,7 @@
         android:backgroundTint="#6495ED"
         android:padding="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="230dp" />
+        android:layout_marginTop="150dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
