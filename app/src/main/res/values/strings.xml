@@ -15,4 +15,5 @@
     <string name="player_role">Player</string>
     <string name="court_owner_role">Court owner</string>
     <string name="continuee">Continue</string>
+    <string name="view_detail"><u>View detail >>>></u></string>
 </resources>

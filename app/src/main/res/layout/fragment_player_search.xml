@@ -59,12 +59,71 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/filterList"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="0dp"
-            android:orientation="horizontal" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:foregroundGravity="center_vertical">
+
+            <!-- child view -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+
+                <Button
+                    android:id="@+id/allFilterBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/filtered_search_btn"
+                    android:textColor="@color/black"
+                    android:text="All" />
+
+                <Button
+                    android:id="@+id/accountFilterBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/filtered_search_btn"
+                    android:textColor="@color/black"
+                    android:text="Account" />
+
+                <Button
+                    android:id="@+id/Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/filtered_search_btn"
+                    android:textColor="@color/black"
+                    android:text="Location" />
+
+                <Button
+                    android:id="@+id/courtFilterBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/filtered_search_btn"
+                    android:textColor="@color/black"
+                    android:text="Court" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </LinearLayout>
 
 </FrameLayout>
