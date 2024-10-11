@@ -31,7 +31,7 @@
         <!-- Court Details -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="118dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -57,7 +57,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="62dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
@@ -66,30 +66,41 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/court_status_background"
+                    android:elevation="4dp"
+                    android:fontFamily="sans-serif-black"
                     android:gravity="center"
+                    android:padding="8dp"
                     android:text="Active"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
+
                 <!-- Edit Button -->
-                <Button
-                    android:id="@+id/btn_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="@android:color/holo_blue_light"
+                <ImageButton
+                    android:id="@+id/ib_edit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:background="@drawable/baseline_edit_24"
+                    android:contentDescription="Edit court"
                     android:text="Edit"
                     android:textColor="@android:color/white" />
 
-                <!-- Delete Button -->
-                <Button
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <!-- Delete Button -->
+                <ImageButton
+                    android:id="@+id/ib_delete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    android:backgroundTint="@android:color/holo_red_light"
-                    android:text="Delete"
+                    android:background="@drawable/baseline_delete_24"
+                    android:contentDescription="Delete court"
+                    android:text="Del"
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>

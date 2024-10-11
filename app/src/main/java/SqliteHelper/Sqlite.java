@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Sqlite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CourtBookingSystem.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
 
     public Sqlite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

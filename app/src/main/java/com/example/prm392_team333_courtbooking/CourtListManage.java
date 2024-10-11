@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -18,9 +20,9 @@ import Repository.CourtOwnerRepository;
 import Repository.CourtRepository;
 import Repository.CourtSlotRepository;
 
-public class CourtListManage extends AppCompatActivity implements View.OnClickListener {
+public class CourtListManage extends AppCompatActivity{
 
-    private ListView courtList;
+    private RecyclerView courtList;
 
     private String phoneNumber;
 
@@ -41,6 +43,8 @@ public class CourtListManage extends AppCompatActivity implements View.OnClickLi
 
         courtList = findViewById(R.id.myListView);
 
+        courtList.setLayoutManager(new LinearLayoutManager(this));
+
 
         phoneNumber = getIntent().getStringExtra("phoneNumber");
 
@@ -50,16 +54,5 @@ public class CourtListManage extends AppCompatActivity implements View.OnClickLi
 
         adapter = new CourtAdapter(this, courts, R.layout.court_list_manage_item);
         courtList.setAdapter(adapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-
-        if(id == R.id.btn_edit){
-
-        }else if(id == R.id.btn_delete){
-
-        }
     }
 }
