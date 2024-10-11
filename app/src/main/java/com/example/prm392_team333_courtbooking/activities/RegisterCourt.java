@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.activities;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_team333_courtbooking.R;
 
 import java.util.Calendar;
 

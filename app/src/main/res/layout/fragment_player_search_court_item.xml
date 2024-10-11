@@ -1,0 +1,75 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Court Image -->
+        <ImageView
+            android:id="@+id/courtImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/old_trafford"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border"/>
+
+        <!-- Court Name -->
+        <TextView
+            android:id="@+id/courtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sân bóng đá Mini A Sò"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <!-- Court Rating -->
+        <TextView
+            android:id="@+id/courtRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="★★★★☆ (76)"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_orange_dark"
+            android:layout_marginTop="4dp" />
+
+        <!-- Court Price and Player Info -->
+        <TextView
+            android:id="@+id/courtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.00$/1h30 • 6-Player"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <!-- Court Status -->
+        <TextView
+            android:id="@+id/courtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Now"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_marginTop="4dp" />
+
+        <!-- Location -->
+        <TextView
+            android:id="@+id/courtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ho Chi Minh city"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

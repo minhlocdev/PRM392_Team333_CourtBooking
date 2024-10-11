@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -6,11 +6,9 @@ import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.prm392_team333_courtbooking.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class player_layout extends AppCompatActivity {

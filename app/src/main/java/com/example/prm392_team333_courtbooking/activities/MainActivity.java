@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.activities;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.prm392_team333_courtbooking.R;
 
 public class MainActivity extends AppCompatActivity {
 
