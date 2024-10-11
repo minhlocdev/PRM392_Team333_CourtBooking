@@ -43,16 +43,16 @@ public class CourtFragment extends Fragment {
 
         // Initialize the court list and add sample stadium data
         courtList = new ArrayList<>();
-        courtList.add(new Court(1, 100, "Available", "Avenida de Concha Espina 1, 28036 Madrid, Spain", "Madrid", "Santiago Bernabéu", 1));
-        courtList.add(new Court(2, 101, "Booked", "Carrer d'Aristides Maillol, 12, 08028 Barcelona, Spain", "Barcelona", "Camp Nou", 1));
-        courtList.add(new Court(3, 102, "Under Maintenance", "Wembley, London HA9 0WS, United Kingdom", "London", "Wembley Stadium", 1));
-        courtList.add(new Court(4, 103, "Available", "Werner-Heisenberg-Allee 25, 80939 München, Germany", "Munich", "Allianz Arena", 1));
-        courtList.add(new Court(5, 104, "Booked", "Piazza dello Sport, 1, 20151 Milano MI, Italy", "Milan", "San Siro", 1));
-        courtList.add(new Court(6, 105, "Available", "Strobelallee 50, 44139 Dortmund, Germany", "Dortmund", "Signal Iduna Park", 1));
-        courtList.add(new Court(7, 106, "Available", "Rua de Dr. António Ferreira, 4350-420 Porto, Portugal", "Porto", "Estadio do Dragão", 1));
-        courtList.add(new Court(8, 107, "Booked", "Stade de France, 93216 Saint-Denis, France", "Saint-Denis", "Stade de France", 1));
-        courtList.add(new Court(9, 108, "Under Maintenance", "Lansdowne Rd, Dublin 4, Ireland", "Dublin", "Aviva Stadium", 1));
-        courtList.add(new Court(10, 109, "Available", "Kerepesi út 5, 1089 Budapest, Hungary", "Budapest", "Puskás Aréna", 1));
+        /*courtList.add(new Court(1, "Available", "Avenida de Concha Espina 1, 28036 Madrid, Spain", "Madrid", "Santiago Bernabéu", 1));
+        courtList.add(new Court(2, "Booked", "Carrer d'Aristides Maillol, 12, 08028 Barcelona, Spain", "Barcelona", "Camp Nou", 1));
+        courtList.add(new Court(3, "Under Maintenance", "Wembley, London HA9 0WS, United Kingdom", "London", "Wembley Stadium", 1));
+        courtList.add(new Court(4, "Available", "Werner-Heisenberg-Allee 25, 80939 München, Germany", "Munich", "Allianz Arena", 1));
+        courtList.add(new Court(5, "Booked", "Piazza dello Sport, 1, 20151 Milano MI, Italy", "Milan", "San Siro", 1));
+        courtList.add(new Court(6, "Available", "Strobelallee 50, 44139 Dortmund, Germany", "Dortmund", "Signal Iduna Park", 1));
+        courtList.add(new Court(7, "Available", "Rua de Dr. António Ferreira, 4350-420 Porto, Portugal", "Porto", "Estadio do Dragão", 1));
+        courtList.add(new Court(8,  "Booked", "Stade de France, 93216 Saint-Denis, France", "Saint-Denis", "Stade de France", 1));
+        courtList.add(new Court(9, "Under Maintenance", "Lansdowne Rd, Dublin 4, Ireland", "Dublin", "Aviva Stadium", 1));
+        courtList.add(new Court(10,  "Available", "Kerepesi út 5, 1089 Budapest, Hungary", "Budapest", "Puskás Aréna", 1));*/
 
         courtAdapter = new CourtAdapter(getContext(), courtList);
         courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

@@ -19,7 +19,6 @@
     <string name="full_name">Full name</string>
     <string name="hint_full_name">Michael Johnson</string>
     <string name="contact_information">Contact information</string>
-    <string name="hint_contact_information">Phone number</string>
     <string name="view_detail"><u>View detail >>></u></string>
     <string name="avatar">\n</string>
     <string name="email">Email</string>

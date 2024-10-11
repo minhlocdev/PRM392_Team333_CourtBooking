@@ -45,7 +45,7 @@
 
             // Set the court name, location, and status
             holder.courtName.setText(court.getCourtName());
-            holder.courtLocation.setText(court.getLocation());
+            /*holder.courtLocation.setText(court.getLocation());*/
             holder.courtStatus.setText(court.getStatus());
         }
 
