@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PRM392_Team333_CourtBooking"
         tools:targetApi="31">
         <activity
-            android:name=".player_layout"
+            android:name=".activities.player_layout"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,11 +32,17 @@
         </activity>
 
         <activity android:name=".LoginForCourtOwner" android:exported="true"/>
-        <activity android:name=".RegisterCourt" android:exported="true"/>
+
+        <activity android:name=".court_manage.RegisterCourt" android:exported="true"/>
+
         <activity android:name=".SignUpForCourtOwner" android:exported="true"/>
 
-        <activity android:name=".AddCourtSlot" android:exported="true"/>
+        <activity android:name=".court_manage.AddCourtSlot" android:exported="true"/>
+
         <activity android:name=".CourtListManage" android:exported="true"/>
+
+        <activity android:name=".court_manage.EditCourt" android:exported="true"/>
+
     </application>
 
 </manifest>

@@ -53,6 +53,7 @@ public class CourtListManage extends AppCompatActivity{
         List<Court> courts = courtOwnerRepository.getCourtsByCourtOwnerId(courtOwner.getCourtOwnerId());
 
         adapter = new CourtAdapter(this, courts, R.layout.court_list_manage_item);
+
         courtList.setAdapter(adapter);
     }
 }

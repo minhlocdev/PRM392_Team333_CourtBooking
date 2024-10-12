@@ -2,8 +2,10 @@ package Repository;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import Models.Court;
 import SqliteHelper.Sqlite;
 
 public class CourtRepository {
@@ -31,6 +33,33 @@ public class CourtRepository {
         long result = db.insert("Court", null, values);
         db.close();
         return result;
+    }
+
+
+    public Court getCourtById(int courtId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Court court = null;
+        String query = "SELECT * FROM Court WHERE court_id = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtId)});
+        if (cursor.moveToFirst()) {
+            // Retrieve data and construct a Court object
+            int courtOwnerId = cursor.getInt(cursor.getColumnIndexOrThrow("court_owner_id"));
+            String courtName = cursor.getString(cursor.getColumnIndexOrThrow("court_name"));
+            String openTime = cursor.getString(cursor.getColumnIndexOrThrow("open_time"));
+            String closedTime = cursor.getString(cursor.getColumnIndexOrThrow("closed_time"));
+            String province = cursor.getString(cursor.getColumnIndexOrThrow("province"));
+            String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+            String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+            byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+
+            court = new Court(courtId, status, openTime, closedTime, address, province, courtName, courtOwnerId, image);
+        }
+
+        cursor.close();
+        db.close();
+
+        return court;
     }
 
 }

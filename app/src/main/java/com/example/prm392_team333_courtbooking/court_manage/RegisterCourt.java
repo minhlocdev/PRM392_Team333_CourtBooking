@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.court_manage;
 
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
@@ -15,6 +15,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_team333_courtbooking.CourtListManage;
+import com.example.prm392_team333_courtbooking.R;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -73,7 +76,6 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         et_province = findViewById(R.id.et_province);
         btnAddSlot = findViewById(R.id.btn_add_slot);
         btnDone = findViewById(R.id.btn_done);
-        et_cost = findViewById(R.id.et_cost);
         slotContainer = findViewById(R.id.slotContainer);
 
         //intent
@@ -89,6 +91,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         et_open_time.setOnClickListener(this);
         et_closed_time.setOnClickListener(this);
         btnDone.setOnClickListener(this);
+        btnAddSlot.setOnClickListener(this);
 
     }
 
@@ -115,7 +118,6 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         et_address.setError(null);
         etFullName.setError(null);
         etEmail.setError(null);
-        et_cost.setError(null);
 
 
         if(!Validate(et_court_name, et_address, etFullName, etEmail, et_open_time, et_closed_time, et_cost)){
@@ -130,13 +132,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
             return false;
         }
 
-        float cost;
-        try{
-            cost = Float.parseFloat(et_cost.getText().toString());
-        }catch (Exception e){
-            et_cost.setError("Invalid cost format (00.00)");
-            return false;
-        }
+
 
         CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(phoneNumber);
         courtOwner.setFullName(etFullName.getText().toString());
@@ -151,6 +147,15 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         for (View slot : allSlots) {
             EditText etTimeStart = slot.findViewById(R.id.et_time_start);
             EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
+            EditText etCost = slot.findViewById(R.id.et_cost);
+
+            float cost;
+            try{
+                cost = Float.parseFloat(et_cost.getText().toString());
+            }catch (Exception e){
+                et_cost.setError("Invalid cost format (00.00)");
+                return false;
+            }
 
             String timeStart = etTimeStart.getText().toString();
             String timeEnd = etTimeEnd.getText().toString();
@@ -294,10 +299,10 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
     }
 
     private void AddSlotView(){
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View newSlot = inflater.inflate(R.layout.add_court_slot_layout, null);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
 
-        // Add the new slot to the container
+        // Add the inflated slot layout to the container
         slotContainer.addView(newSlot);
 
         // Add the new slot to the list for tracking
@@ -328,7 +333,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
             AddSlotView();
         }
         else{
-                Toast.makeText(this, "Fail validation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Fail validation", Toast.LENGTH_SHORT).show();
         }
     }
 }

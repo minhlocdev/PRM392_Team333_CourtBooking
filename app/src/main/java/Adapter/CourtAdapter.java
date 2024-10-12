@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.court_manage.EditCourt;
 
 import java.util.List;
 
@@ -59,7 +61,9 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
 
         // Handle edit and delete button clicks
         holder.ibEdit.setOnClickListener(v -> {
-            // Handle edit action
+            Intent intent = new Intent(context, EditCourt.class);
+            intent.putExtra("court_id", courts.get(position).getCourtId());
+            context.startActivity(intent);
         });
 
         holder.ibDelete.setOnClickListener(v -> {
