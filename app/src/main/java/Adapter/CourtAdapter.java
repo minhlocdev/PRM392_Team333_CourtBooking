@@ -57,14 +57,7 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
             holder.ivImage.setImageResource(R.drawable.old_trafford);
         }
 
-        // Handle edit and delete button clicks
-        holder.ibEdit.setOnClickListener(v -> {
-            // Handle edit action
-        });
 
-        holder.ibDelete.setOnClickListener(v -> {
-            // Handle delete action
-        });
     }
 
     @Override

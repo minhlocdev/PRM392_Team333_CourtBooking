@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Models.User;
 import SqliteHelper.Sqlite;
 
@@ -74,6 +77,36 @@ public class UserRepository {
         return rowsUpdated;
     }
 
+    // Method to retrieve all users
+    public List<User> getAllUsers() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<User> userList = new ArrayList<>();
+
+        // Query to select all users
+        String query = "SELECT * FROM User";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+                String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
+                String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
+
+                // Create a new User object
+                User user = new User(userId, password, fullName, email, phone, dateCreated, isActive);
+                // Add user to the list
+                userList.add(user);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return userList;
+    }
 
 
 }

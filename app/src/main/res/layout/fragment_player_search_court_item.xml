@@ -16,60 +16,44 @@
 
         <!-- Court Image -->
         <ImageView
-            android:id="@+id/courtImage"
+            android:id="@+id/court_image"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/old_trafford"
-            android:layout_marginBottom="8dp"
-            />
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/old_trafford" />
 
         <!-- Court Name -->
         <TextView
-            android:id="@+id/courtName"
+            android:id="@+id/court_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sân bóng đá Mini A Sò"
+            android:text="Old Trafford"
             android:textSize="20sp"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
 
-        <!-- Court Rating -->
+        <!-- Court Timing (Open - Close Time) -->
         <TextView
-            android:id="@+id/courtRating"
+            android:id="@+id/court_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="★★★★☆ (76)"
-            android:textSize="16sp"
-            android:textColor="@android:color/holo_orange_dark"
-            android:layout_marginTop="4dp" />
-
-        <!-- Court Price and Player Info -->
-        <TextView
-            android:id="@+id/courtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8.00$/1h30 • 6-Player"
+            android:text="9:00 AM - 8:00 PM"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginBottom="8dp" />
 
         <!-- Court Status -->
         <TextView
-            android:id="@+id/courtStatus"
+            android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Open Now"
+            android:text="Open"
             android:textSize="14sp"
-            android:textColor="@android:color/holo_green_light"
-            android:layout_marginTop="4dp" />
+            android:textColor="@android:color/holo_green_dark"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Location -->
-        <TextView
-            android:id="@+id/courtLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ho Chi Minh city"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

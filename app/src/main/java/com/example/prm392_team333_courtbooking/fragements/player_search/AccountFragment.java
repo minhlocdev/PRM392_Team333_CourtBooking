@@ -16,14 +16,16 @@ import com.example.prm392_team333_courtbooking.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import ListAdapter.CourtAdapter;
-import ListAdapter.UserAdapter;
+import Adapter.UserAdapter;
 import Models.Court;
 import Models.User;
+import Repository.CourtRepository;
+import Repository.UserRepository;
 
 public class AccountFragment extends Fragment {
     private RecyclerView userRecyclerView;
     private UserAdapter userAdapter;
+    private UserRepository userRepository;
     private List<User> userList;
     public AccountFragment (){
 
@@ -41,21 +43,9 @@ public class AccountFragment extends Fragment {
         // Improve performance as layout size does not change
         userRecyclerView.setHasFixedSize(true);
 
-        // Khởi tạo danh sách trước khi thêm user
-        userList = new ArrayList<>();
-
-        // Add Manchester United football players to the list
-        userList.add(new User(1, "d_degea", "David de Gea", "degea@mu.com", "0123456789", "Goalkeeper",  true));
-        userList.add(new User(2, "r_varane", "Raphaël Varane", "varane@mu.com", "0123456789", "Defender",  true));
-        userList.add(new User(3, "l_martinez", "Lisandro Martínez", "martinez@mu.com", "0123456789", "Defender", true));
-        userList.add(new User(4, "l_shaw", "Luke Shaw", "shaw@mu.com", "0123456789", "Defender",  true));
-        userList.add(new User(5, "b_fernandes", "Bruno Fernandes", "fernandes@mu.com", "0123456789", "Midfielder",  true));
-        userList.add(new User(6, "m_mount", "Mason Mount", "mount@mu.com", "0123456789", "Midfielder",  true));
-        userList.add(new User(7, "m_rashford", "Marcus Rashford", "rashford@mu.com", "0123456789", "Forward",  true));
-        userList.add(new User(8, "a_martial", "Anthony Martial", "martial@mu.com", "0123456789", "Forward",  true));
-        userList.add(new User(9, "casemiro", "Casemiro", "casemiro@mu.com", "0123456789", "Midfielder",  true));
-        userList.add(new User(10, "h_maguire", "Harry Maguire", "maguire@mu.com", "0123456789", "Defender",  true));
-        userList.add(new User(11, "a_onana", "André Onana", "onana@mu.com", "0123456789", "Goalkeeper",  true));
+        // Initialize CourtRepository and load courts
+        userRepository = new UserRepository(getContext());
+        userList = userRepository.getAllUsers(); // Fetch all courts from the repository
 
         // Set up RecyclerView
         userAdapter = new UserAdapter(getContext(), userList);

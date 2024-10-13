@@ -21,7 +21,6 @@ import com.example.prm392_team333_courtbooking.fragements.player_search.Location
 import java.util.List;
 import java.util.Objects;
 
-import ListAdapter.CourtAdapter;
 import Models.Court;
 
 /**
