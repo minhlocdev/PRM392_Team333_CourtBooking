@@ -36,8 +36,6 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
     private EditText et_open_time;
     private EditText et_closed_time;
     private EditText et_province;
-    private EditText et_cost;
-
     private LinearLayout slotContainer;
     private ImageButton btnAddSlot;
     private Button btnDone;
@@ -53,7 +51,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
 
     private String phoneNumber;
 
-    private List<View> allSlots = new ArrayList<>();
+    private final List<View> allSlots = new ArrayList<>();
 
     List<LocalTime[]> slotTimes = new ArrayList<>();
 
@@ -77,6 +75,8 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         btnAddSlot = findViewById(R.id.btn_add_slot);
         btnDone = findViewById(R.id.btn_done);
         slotContainer = findViewById(R.id.slotContainer);
+
+        AddSlotView();
 
         //intent
         phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -120,7 +120,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         etEmail.setError(null);
 
 
-        if(!Validate(et_court_name, et_address, etFullName, etEmail, et_open_time, et_closed_time, et_cost)){
+        if(!Validate(et_court_name, et_address, etFullName, etEmail, et_open_time, et_closed_time)){
             return false;
         }
 
@@ -142,7 +142,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
 
         long courtId = courtRepository.insertCourt(courtOwner.getCourtOwnerId(), et_court_name.getText().toString()
                 , et_open_time.getText().toString(), et_closed_time.getText().toString()
-                , et_province.getText().toString(), et_address.getText().toString(), "Active", null);
+                , et_province.getText().toString(), et_address.getText().toString(), "OPEN", null);
 
         for (View slot : allSlots) {
             EditText etTimeStart = slot.findViewById(R.id.et_time_start);
@@ -151,9 +151,9 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
 
             float cost;
             try{
-                cost = Float.parseFloat(et_cost.getText().toString());
+                cost = Float.parseFloat(etCost.getText().toString());
             }catch (Exception e){
-                et_cost.setError("Invalid cost format (00.00)");
+                etCost.setError("Invalid cost format (00.00)");
                 return false;
             }
 
@@ -167,7 +167,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-    private boolean Validate(EditText et_court_name, EditText et_address, EditText etFullName, EditText etEmail, EditText et_open_time, EditText et_closed_time, EditText et_cost){
+    private boolean Validate(EditText et_court_name, EditText et_address, EditText etFullName, EditText etEmail, EditText et_open_time, EditText et_closed_time){
 
         // Validate court name
         if (et_court_name.getText().toString().trim().isEmpty() || et_court_name.getText().toString().isBlank()) {
@@ -302,8 +302,21 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         LayoutInflater inflater = LayoutInflater.from(this);
         View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
 
+        EditText etTimeStart = newSlot.findViewById(R.id.et_time_start);
+        EditText etTimeEnd = newSlot.findViewById(R.id.et_time_end);
+
+        etTimeStart.setOnClickListener( v -> {
+            showTimePickerDialog(etTimeStart);
+        });
+
+        etTimeEnd.setOnClickListener( v -> {
+            showTimePickerDialog(etTimeEnd);
+        });
+
+        int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
+
         // Add the inflated slot layout to the container
-        slotContainer.addView(newSlot);
+        slotContainer.addView(newSlot, index);
 
         // Add the new slot to the list for tracking
         allSlots.add(newSlot);

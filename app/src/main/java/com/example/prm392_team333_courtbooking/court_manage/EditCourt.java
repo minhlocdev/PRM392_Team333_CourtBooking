@@ -283,11 +283,21 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
         etTimeEnd.setText(endTime);
         etCost.setText(String.valueOf(cost));
 
+        etTimeStart.setOnClickListener( v -> {
+            showTimePickerDialog(etTimeStart);
+        });
+
+        etTimeEnd.setOnClickListener( v -> {
+            showTimePickerDialog(etTimeEnd);
+        });
+
         // Save the slotId in the tag of the view for tracking purposes
         newSlot.setTag(slotId);
 
+        int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
+
         // Add the inflated slot layout to the container
-        slotContainer.addView(newSlot);
+        slotContainer.addView(newSlot, index);
 
         // Add the new slot to the list for tracking
         allSlots.add(newSlot);
@@ -297,8 +307,10 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
         LayoutInflater inflater = LayoutInflater.from(this);
         View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
 
+        int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
+
         // Add the inflated slot layout to the container
-        slotContainer.addView(newSlot);
+        slotContainer.addView(newSlot, index);
 
         // Add the new slot to the list for tracking
         allSlots.add(newSlot);
