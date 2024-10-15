@@ -125,19 +125,21 @@ public class Sqlite extends SQLiteOpenHelper {
 
         // Insert default bookings
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
-                "VALUES (1, 1, 1, '2024-10-01', '10:00', '11:00', 50.0, 'confirmed', '2024-10-01')");
+                "VALUES (1, 1, 1, '2024-10-01', '10:00', '11:00', 50.0, 'COMPLETED', '2024-10-01')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
-                "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'confirmed', '2024-10-02')");
+                "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'COMPLETED', '2024-10-01')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
-                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'confirmed', '2024-10-03')");
+                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'COMPLETED', '2024-10-01')");
 
         // Insert default court slots
         db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +
-                "VALUES (1, 1, '10:00', '11:00', 30.0)");
+                "VALUES (1, 1, '13:00', '17:00', 100.0)");
         db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +
-                "VALUES (2, 2, '12:00', '13:00', 40.0)");
+                "VALUES (2, 1, '17:00', '21:00', 180.0)");
         db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +
-                "VALUES (3, 3, '14:00', '15:00', 50.0)");
+                "VALUES (3, 2, '12:00', '13:00', 40.0)");
+        db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +
+                "VALUES (4, 3, '14:00', '15:00', 50.0)");
 
         // Insert default slot bookings
         db.execSQL("INSERT INTO SlotBooking (booking_id, court_slot_id, status) " +
@@ -149,19 +151,19 @@ public class Sqlite extends SQLiteOpenHelper {
 
         // Insert default reviews
         db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (1, 1, 1, 1, 5, 'Great experience!', '2024-10-01', 'approved')");
+                "VALUES (1, 1, 1, 1, 5, 'Great experience!', '2024-10-01', 'APPROVED')");
         db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (2, 2, 2, 2, 4, 'Good but expensive', '2024-10-02', 'pending')");
+                "VALUES (2, 2, 2, 2, 4, 'Good but expensive', '2024-10-02', 'PENDING')");
         db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (3, 3, 3, 3, 3, 'Decent court', '2024-10-03', 'pending')");
+                "VALUES (3, 3, 3, 3, 3, 'Decent court', '2024-10-03', 'PENDING')");
 
         // Insert default replies
         db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (1, 1, 'Thank you for your feedback!', '2024-10-02', 'approved')");
+                "VALUES (1, 1, 'Thank you for your feedback!', '2024-10-02', 'APPROVED')");
         db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (2, 2, 'We will improve our pricing', '2024-10-03', 'pending')");
+                "VALUES (2, 2, 'We will improve our pricing', '2024-10-03', 'PENDING')");
         db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (3, 3, 'Thanks for your review', '2024-10-04', 'approved')");
+                "VALUES (3, 3, 'Thanks for your review', '2024-10-04', 'APPROVED')");
 
         // Insert default court owner
         db.execSQL("INSERT INTO CourtOwner (password, full_name, email, phone, tax_code, date_created, is_active) " +

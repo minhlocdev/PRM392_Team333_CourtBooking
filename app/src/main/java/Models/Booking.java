@@ -1,6 +1,11 @@
 package Models;
 
-public class Booking {
+import java.io.Serializable;
+
+public class Booking implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int bookingId;
     private int courtId;
     private int playerId;
@@ -10,6 +15,7 @@ public class Booking {
     private double price;
     private String status;
     private String createdAt;
+
 
     public Booking(int bookingId, int courtId, int playerId, String bookingDate, String startTime, String endTime, double price, String status, String createdAt) {
         this.bookingId = bookingId;

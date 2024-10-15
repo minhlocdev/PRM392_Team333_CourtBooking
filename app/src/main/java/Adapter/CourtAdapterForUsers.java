@@ -1,7 +1,6 @@
 package Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,43 +8,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.court_manage.EditCourt;
 import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDialog;
-
 import java.util.List;
-
 import Models.Court;
 
-public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
+public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUsers.CourtViewHolder> {
 
     private final Context context;
     private final List<Court> courts;
     private final int idLayout;
+    private final FragmentManager fragmentManager;
 
-    public CourtAdapter(Context context, List<Court> courts, int idLayout) {
+    public CourtAdapterForUsers(Context context, List<Court> courts, int idLayout, FragmentManager fragmentManager) {
         this.context = context;
         this.courts = courts;
         this.idLayout = idLayout;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
     @Override
-    public CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CourtAdapterForUsers.CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(idLayout, parent, false);
-        return new CourtViewHolder(view);
+        return new CourtAdapterForUsers.CourtViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CourtAdapterForUsers.CourtViewHolder holder, int position) {
         Court court = courts.get(position);
 
         // Set court name, open/close time, and status
@@ -62,15 +58,13 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
             holder.ivImage.setImageResource(R.drawable.old_trafford);
         }
 
-        // Handle edit and delete button clicks
-        holder.ibEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditCourt.class);
-            intent.putExtra("court_id", courts.get(position).getCourtId());
-            context.startActivity(intent);
-        });
+        holder.btnBook.setOnClickListener(v -> {
+            BookingDialog bookingDialog = new BookingDialog();
+            Bundle args = new Bundle();
+            args.putInt("courtId", courts.get(position).getCourtId());
+            bookingDialog.setArguments(args);
 
-        holder.ibDelete.setOnClickListener(v -> {
-            // Handle delete action
+            bookingDialog.show(fragmentManager, "BookingDialog");
         });
     }
 
@@ -86,8 +80,8 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         TextView tvCourtName;
         TextView tvDescription;
         TextView tvStatus;
-        ImageButton ibEdit;
-        ImageButton ibDelete;
+        RelativeLayout relativeLayout;
+        Button btnBook;
 
         public CourtViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,8 +89,8 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
             tvCourtName = itemView.findViewById(R.id.court_title);
             tvDescription = itemView.findViewById(R.id.court_description);
             tvStatus = itemView.findViewById(R.id.tv_status);
-            ibEdit = itemView.findViewById(R.id.ib_edit);
-            ibDelete = itemView.findViewById(R.id.ib_delete);
+            relativeLayout = itemView.findViewById(R.id.relativeLayout);
+            btnBook = itemView.findViewById(R.id.btn_booking);
         }
     }
 }

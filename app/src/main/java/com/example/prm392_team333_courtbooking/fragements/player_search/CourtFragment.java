@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.CourtAdapter;
+import Adapter.CourtAdapterForUsers;
 import Models.Court;
 import Repository.CourtRepository;
 
 public class CourtFragment extends Fragment {
     private RecyclerView courtRecyclerView;
-    private CourtAdapter courtAdapter;
+    private CourtAdapterForUsers courtAdapter;
     private List<Court> courtList;
     private CourtRepository courtRepository;
 
@@ -48,7 +49,7 @@ public class CourtFragment extends Fragment {
 
 
         // Set up the adapter with the court list
-        courtAdapter = new CourtAdapter(getContext(), courtList, R.layout.fragment_player_search_court_item);
+        courtAdapter = new CourtAdapterForUsers(getContext(), courtList, R.layout.fragment_player_search_court_item, getChildFragmentManager());
         courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         courtRecyclerView.setAdapter(courtAdapter);
 

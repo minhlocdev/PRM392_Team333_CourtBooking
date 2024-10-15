@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,8 +36,6 @@
         <activity android:name=".court_manage.RegisterCourt" android:exported="true"/>
 
         <activity android:name=".SignUpForCourtOwner" android:exported="true"/>
-
-        <activity android:name=".court_manage.AddCourtSlot" android:exported="true"/>
 
         <activity android:name=".CourtListManage" android:exported="true"/>
 

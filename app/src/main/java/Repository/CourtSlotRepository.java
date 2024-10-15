@@ -107,6 +107,34 @@ public class CourtSlotRepository {
         return rowsAffected; // Returns the number of rows affected
     }
 
+    public List<CourtSlot> getSlotsByCourtIdAndTime(int courtId, String bookingTimeStart, String bookingTimeEnd) {
+        List<CourtSlot> courtSlotList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        // Define the query to select slots based on the given conditions
+        String query = "SELECT * FROM CourtSlot WHERE court_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtId)});
+
+        // Loop through the results
+        if (cursor.moveToFirst()) {
+            do {
+                // Create a new CourtSlot object for each row in the result
+                int courtSlotId = cursor.getInt(cursor.getColumnIndexOrThrow("court_slot_id"));
+                String timeStart = cursor.getString(cursor.getColumnIndexOrThrow("time_start"));
+                String timeEnd = cursor.getString(cursor.getColumnIndexOrThrow("time_end"));
+                double cost = cursor.getDouble(cursor.getColumnIndexOrThrow("cost"));
+
+                CourtSlot courtSlot = new CourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
+                // Add the CourtSlot object to the list
+                courtSlotList.add(courtSlot);
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor and database connection
+        cursor.close();
+        db.close();
+
+        return courtSlotList;
+    }
 
 }

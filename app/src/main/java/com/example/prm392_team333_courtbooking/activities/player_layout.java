@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.fragements.player_search.BookingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class player_layout extends AppCompatActivity {
@@ -37,6 +38,8 @@ public class player_layout extends AppCompatActivity {
                     selectedFragment = new player_search();
                 } else if (item.getItemId() == R.id.profile) {
                     selectedFragment = new player_profile();
+                }else if(item.getItemId() == R.id.calendar){
+                    selectedFragment = new player_calendar();
                 }
 
                 if (selectedFragment != null) {

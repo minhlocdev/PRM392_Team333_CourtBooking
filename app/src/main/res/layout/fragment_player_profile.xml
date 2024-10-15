@@ -52,14 +52,14 @@
                 android:backgroundTint="@color/orange"
                 android:textColor="@android:color/white"/>
 
-            <!-- Personal Functions: Booking List, Favourite, My Evaluate -->
+            <!-- Personal Functions: BookingDialog List, Favourite, My Evaluate -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="24dp">
 
-                <!-- My Booking -->
+                <!-- My BookingDialog -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

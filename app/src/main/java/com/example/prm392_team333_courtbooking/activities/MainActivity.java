@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_team333_courtbooking.LoginForCourtOwner;
+import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.SignUpForCourtOwner;
 
 import SqliteHelper.Sqlite;
 

@@ -1,11 +1,13 @@
 package Models;
 
-public class SlotBooking {
-    public int bookingId;
-    public int courtSlotId;
-    public String status;
+public class BookingSlot {
+    private int bookingId;
 
-    public SlotBooking(int bookingId, int courtSlotId, String status) {
+    private int courtSlotId;
+
+    private String status;
+
+    public BookingSlot(int bookingId, int courtSlotId, String status) {
         this.bookingId = bookingId;
         this.courtSlotId = courtSlotId;
         this.status = status;
