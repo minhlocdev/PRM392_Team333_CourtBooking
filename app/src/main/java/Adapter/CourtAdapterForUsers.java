@@ -1,5 +1,6 @@
 package Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,13 +22,11 @@ import Models.Court;
 
 public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUsers.CourtViewHolder> {
 
-    private final Context context;
     private final List<Court> courts;
     private final int idLayout;
     private final FragmentManager fragmentManager;
 
     public CourtAdapterForUsers(Context context, List<Court> courts, int idLayout, FragmentManager fragmentManager) {
-        this.context = context;
         this.courts = courts;
         this.idLayout = idLayout;
         this.fragmentManager = fragmentManager;
@@ -40,6 +39,7 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
         return new CourtAdapterForUsers.CourtViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CourtAdapterForUsers.CourtViewHolder holder, int position) {
         Court court = courts.get(position);

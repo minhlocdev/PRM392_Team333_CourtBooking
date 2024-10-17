@@ -1,33 +1,23 @@
 package Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.R;
-
 import java.util.List;
-
 import Models.User;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
-    private final Context context;
     private final List<User> users;
     private final int idLayout;
 
     public UserAdapter(Context context, List<User> users) {
-        this.context = context;
         this.users = users;
         this.idLayout = R.layout.fragment_player_search_account_item;
     }

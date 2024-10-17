@@ -1,6 +1,6 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.player_login;
 
-import static Constant.SessionConstant.courtOwner;
+import static Constant.SessionConstant.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,21 +9,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.prm392_team333_courtbooking.court_manage.RegisterCourt;
+import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.activities.player_layout;
 import java.time.LocalDateTime;
-import Models.CourtOwner;
-import Repository.CourtOwnerRepository;
+import Models.User;
+import Repository.UserRepository;
 import Session.SessionManager;
 
-public class SignUpForCourtOwner extends AppCompatActivity implements View.OnClickListener {
-
+public class SignUpForPlayers extends AppCompatActivity implements View.OnClickListener {
     private EditText etPhoneNumber;
     private EditText etPassword;
     private EditText etConfirmedPassword;
 
-    private CourtOwnerRepository courtOwnerRepository;
+    private UserRepository userRepository;
 
     private SessionManager sessionManager;
+
     @Override
     public void onCreate (Bundle savedInstance){
         super.onCreate(savedInstance);
@@ -35,9 +36,9 @@ public class SignUpForCourtOwner extends AppCompatActivity implements View.OnCli
         TextView txtSignIn = findViewById(R.id.tvLogin);
         etConfirmedPassword = findViewById(R.id.etConfirmedPassword);
 
-        sessionManager = new SessionManager(this, courtOwner);
+        sessionManager = new SessionManager(this, user);
 
-        courtOwnerRepository = new CourtOwnerRepository(this);
+        userRepository = new UserRepository(this);
 
         btnRegister.setOnClickListener(this);
         txtSignIn.setOnClickListener(this);
@@ -70,8 +71,8 @@ public class SignUpForCourtOwner extends AppCompatActivity implements View.OnCli
             return false;
         }
 
-        CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(etPhoneNumber.getText().toString());
-        if(courtOwner != null){
+        User user = userRepository.getUserByPhoneNumber(etPhoneNumber.getText().toString());
+        if(user != null){
             etPhoneNumber.setError("Phone number is already registered");
             etPhoneNumber.requestFocus();
             return false;
@@ -87,23 +88,24 @@ public class SignUpForCourtOwner extends AppCompatActivity implements View.OnCli
         if(id == R.id.btnRegister){
             long result = 0;
             if(validate()){
-                result = courtOwnerRepository.insertCourtOwner(etPassword.getText().toString(), "", "", etPhoneNumber.getText().toString(), LocalDateTime.now().toString(), 1, "");
+                result = userRepository.insertUser(etPassword.getText().toString(),
+                        "", "",
+                        etPhoneNumber.getText().toString(),
+                        LocalDateTime.now().toString(), 1);
 
-                CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(etPhoneNumber.getText().toString());
+                User userPhoneNumber = userRepository.getUserByPhoneNumber(etPhoneNumber.getText().toString());
 
                 if(result == -1){
                     Toast.makeText(this, "Fail to create", Toast.LENGTH_SHORT).show();
                 }else{
-
-                    sessionManager.saveCourtOwnerId(courtOwner.getCourtOwnerId());
-
-                    Intent intent = new Intent(this, RegisterCourt.class);
+                    Intent intent = new Intent(this, player_layout.class);
+                    sessionManager.saveUserId(userPhoneNumber.getUserId());
                     startActivity(intent);
                 }
             }
 
         }else if(id == R.id.tvLogin){
-            Intent intent = new Intent(this, LoginForCourtOwner.class);
+            Intent intent = new Intent(this, LoginForPlayers.class);
             startActivity(intent);
         }
     }

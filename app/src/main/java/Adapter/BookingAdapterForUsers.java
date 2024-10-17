@@ -11,34 +11,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDetail;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDialog;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingFragment;
-
 import java.util.List;
-
 import Models.Booking;
 import Models.Court;
 import Repository.CourtRepository;
 
 public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterForUsers.BookingViewHolder> {
 
-    private final Context context;
     private List<Booking> bookings;
     private final int idLayout;
     private final FragmentManager fragmentManager;
-    private CourtRepository courtRepository;
-    private BookingDialogListener listener;
+    private final CourtRepository courtRepository;
+    private final BookingDialogListener listener;
 
     public BookingAdapterForUsers(Context context, List<Booking> bookings, int idLayout, FragmentManager fragmentManager, BookingDialogListener listener) {
-        this.context = context;
         this.bookings = bookings;
         this.idLayout = idLayout;
         this.fragmentManager = fragmentManager;
@@ -76,18 +68,15 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
         holder.tvDate.setText(booking.getBookingDate());
         holder.tvTime.setText(booking.getStartTime() + " - " + booking.getEndTime());
         holder.tvStatus.setText(booking.getStatus());
-        holder.tvPrice.setText("Total : " + String.valueOf(booking.getPrice()));
+        holder.tvPrice.setText("Total : " + booking.getPrice());
 
-        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.btnDetail.setOnClickListener( v -> {
                 BookingDetail bookingDetail = new BookingDetail();
                 Bundle args = new Bundle();
                 args.putInt("bookingId", bookings.get(position).getBookingId());
                 bookingDetail.setArguments(args);
                 bookingDetail.setListener(listener);
                 bookingDetail.show(fragmentManager, "BookingDetail");
-            }
         });
 
     }
@@ -100,13 +89,13 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
     // ViewHolder class to hold the view references
     public static class BookingViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivCourtImage;
-        private TextView tvCourtName;
-        private TextView tvDate;
-        private TextView tvTime;
-        private TextView tvStatus;
-        private TextView tvPrice;
-        private Button btnDetail;
+        private final ImageView ivCourtImage;
+        private final TextView tvCourtName;
+        private final TextView tvDate;
+        private final TextView tvTime;
+        private final TextView tvStatus;
+        private final TextView tvPrice;
+        private final Button btnDetail;
 
 
         public BookingViewHolder(@NonNull View itemView) {

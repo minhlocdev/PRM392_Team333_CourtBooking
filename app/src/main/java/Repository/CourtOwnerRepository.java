@@ -87,6 +87,33 @@ public class CourtOwnerRepository {
         return rowsUpdated;
     }
 
+    public CourtOwner getCourtOwnerById(int courtOwnerId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        CourtOwner courtOwner = null;
+
+        // Query to get court owner by court_owner_id
+        String query = "SELECT * FROM CourtOwner WHERE court_owner_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtOwnerId)});
+
+        if (cursor.moveToFirst()) {
+            // If court owner is found, create CourtOwner object
+            String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+            String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+            String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
+            String taxCode = cursor.getString(cursor.getColumnIndexOrThrow("tax_code"));
+
+            // Create a CourtOwner object
+            courtOwner = new CourtOwner(courtOwnerId, password, fullName, email, phone, dateCreated, isActive, taxCode);
+        }
+
+        cursor.close();
+        db.close();
+        return courtOwner;
+    }
+
     public List<Court> getCourtsByCourtOwnerId(int courtOwnerId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Court> courts = new ArrayList<>();

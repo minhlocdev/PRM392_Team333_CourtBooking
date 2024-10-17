@@ -42,6 +42,29 @@ public class UserRepository {
         return user;
     }
 
+    public User getUserById(int userId){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        User user = null;
+
+        String query = "SELECT * FROM User WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+            String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+            String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
+
+            user = new User(userId, password, fullName, email, phone, dateCreated, isActive);
+        }
+
+        cursor.close();
+        db.close();
+        return user;
+    }
+
     public long insertUser(String password, String fullName, String email, String phone, String dateCreated, int isActive) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();

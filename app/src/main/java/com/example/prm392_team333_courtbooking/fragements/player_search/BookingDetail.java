@@ -1,15 +1,15 @@
 package com.example.prm392_team333_courtbooking.fragements.player_search;
 
+import static Constant.SessionConstant.user;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,28 +20,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
-
+import com.example.prm392_team333_courtbooking.court_manage.CourtFeedback;
+import com.example.prm392_team333_courtbooking.player_login.LoginForPlayers;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.List;
-
 import Models.Booking;
 import Models.Court;
 import Models.CourtSlot;
 import Repository.BookingRepository;
 import Repository.CourtRepository;
 import Repository.CourtSlotRepository;
+import Session.SessionManager;
 
 public class BookingDetail extends DialogFragment {
 
@@ -98,6 +96,13 @@ public class BookingDetail extends DialogFragment {
         tvStatus = view.findViewById(R.id.tv_status);
         btnSave = view.findViewById(R.id.btn_save);
 
+        SessionManager sessionManager = new SessionManager(requireContext(), user);
+
+        if(!sessionManager.isLoggedInUser()){
+            Intent intent = new Intent(requireContext(), LoginForPlayers.class);
+            startActivity(intent);
+        }
+
         etTimeStart = view.findViewById(R.id.et_time_start);
         etTimeEnd = view.findViewById(R.id.et_time_end);
 
@@ -109,20 +114,9 @@ public class BookingDetail extends DialogFragment {
             bookingId = getArguments().getInt("bookingId");
         }
 
-        etTimeStart.setOnClickListener(v -> {
-            showTimePickerDialog(etTimeStart);
-        });
+        etTimeStart.setOnClickListener(v -> showTimePickerDialog(etTimeStart));
 
-        etTimeEnd.setOnClickListener(v -> {
-            showTimePickerDialog(etTimeEnd);
-        });
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Save();
-            }
-        });
+        etTimeEnd.setOnClickListener(v -> showTimePickerDialog(etTimeEnd));
 
         LoadData();
 
@@ -133,7 +127,8 @@ public class BookingDetail extends DialogFragment {
     private void Save(){
         String timeStart = etTimeStart.getText().toString().trim();
         String timeEnd = etTimeEnd.getText().toString().trim();
-        String date = tvDate.getText().toString().trim();
+        String formattedDate = tvDate.getText().toString().trim();  // Original date: 17/10/2024
+        String date = formattedDate.replace("/", "-");
 
         ValidateTime(timeStart, timeEnd);
 
@@ -147,7 +142,7 @@ public class BookingDetail extends DialogFragment {
             return;
         }
 
-        String createdAt = LocalDateTime.now().toString();
+        //String createdAt = LocalDateTime.now().toString();
 
         List<CourtSlot> courtSlotList = courtSlotRepository.getSlotsByCourtIdAndTime(courtId, timeStart, timeEnd);
 
@@ -157,7 +152,7 @@ public class BookingDetail extends DialogFragment {
 
         float totalPrice = calculateTotalPrice(courtSlotList, timeStart, timeEnd);
 
-        int id =  bookingRepository.updateBooking(bookingId, courtId, playerId, date, timeStart, timeEnd, totalPrice, "PENDING");
+        bookingRepository.updateBooking(bookingId, courtId, playerId, date, timeStart, timeEnd, totalPrice, "PENDING");
 
         LoadData();
 
@@ -166,16 +161,15 @@ public class BookingDetail extends DialogFragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void LoadData(){
         Booking booking = bookingRepository.getBookingsById(bookingId);
         Court court = courtRepository.getCourtById(booking.getCourtId());
 
         playerId = booking.getPlayerId();
-
         courtId = court.getCourtId();
 
         tvCourtName.setText(court.getCourtName());
-
 
         byte[] courtImage = court.getImage();
         if (courtImage != null) {
@@ -185,54 +179,69 @@ public class BookingDetail extends DialogFragment {
             ivCourtImage.setImageResource(R.drawable.old_trafford);
         }
 
-
         tvAddress.setText(court.getAddress() + " - " + court.getProvince());
-
         tvDate.setText(booking.getBookingDate());
         tvCost.setText(String.valueOf(booking.getPrice()));
         tvCourtTime.setText(court.getOpenTime() + " - " + court.getClosedTime());
         etTimeStart.setText(booking.getStartTime());
         etTimeEnd.setText(booking.getEndTime());
 
-        if(booking.getStatus().equals("BOOKED")){
-            tvStatus.setText("BOOKED");
-            int color = ContextCompat.getColor(getContext(), R.color.booked);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        // Change behavior based on booking status
+        switch (booking.getStatus()) {
+            case "BOOKED": {
+                tvStatus.setText("BOOKED");
+                int color = ContextCompat.getColor(requireContext(), R.color.booked);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
-            } else {
-                // For lower API levels, you might want to set a different approach
-                Drawable background = tvStatus.getBackground();
-                if (background != null) {
-                    background.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                }
+                btnSave.setText("SAVE");
+                btnSave.setOnClickListener(v -> Save());
+                break;
             }
-        }
-        else if(booking.getStatus().equals("PENDING")){
-            tvStatus.setText("PENDING");
-            int color = ContextCompat.getColor(getContext(), R.color.pending);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            case "PENDING": {
+                tvStatus.setText("PENDING");
+                int color = ContextCompat.getColor(requireContext(), R.color.pending);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
-            } else {
-                // For lower API levels, you might want to set a different approach
-                Drawable background = tvStatus.getBackground();
-                if (background != null) {
-                    background.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                }
+                btnSave.setText("SAVE");
+                break;
             }
-        }
-        else if(booking.getStatus().equals("CANCEL")){
-            tvStatus.setText("CANCEL");
-            int color = ContextCompat.getColor(getContext(), R.color.crimson);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            case "CANCEL": {
+                tvStatus.setText("CANCEL");
+                int color = ContextCompat.getColor(requireContext(), R.color.crimson);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
-            } else {
-                // For lower API levels, you might want to set a different approach
-                Drawable background = tvStatus.getBackground();
-                if (background != null) {
-                    background.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                }
+                btnSave.setVisibility(View.GONE);
+                break;
+            }
+            case "COMPLETED": {
+                tvStatus.setText("COMPLETED");
+                int color = ContextCompat.getColor(requireContext(), R.color.dark_orange);
+                tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                // Make fields readonly
+                etTimeStart.setEnabled(false);
+                etTimeEnd.setEnabled(false);
+                tvDate.setEnabled(false);
+
+                // Change button text to "FeedBack"
+                btnSave.setText("FEEDBACK");
+
+                // Handle feedback button click
+                btnSave.setOnClickListener(v -> {
+                    CourtFeedback courtFeedbackFragment = new CourtFeedback();
+
+                    Bundle args = new Bundle();
+                    args.putInt("courtId", courtId);
+
+                    courtFeedbackFragment.setArguments(args);
+
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameContainer, courtFeedbackFragment)  // Replace with the container ID
+                            .addToBackStack(null)  // Optional: allows you to navigate back
+                            .commit();
+
+                    dismiss();
+                });
+
+                break;
             }
         }
 
@@ -255,19 +264,19 @@ public class BookingDetail extends DialogFragment {
         timePickerDialog.show();
     }
 
-    private boolean ValidateTime(String timeStart, String timeEnd){
+    private void ValidateTime(String timeStart, String timeEnd){
 
         etTimeStart.setError(null);
         etTimeEnd.setError(null);
 
         if(timeStart.isEmpty() || timeStart.isBlank()){
             etTimeStart.setError("Time start cannot be empty");
-            return false;
+            return;
         }
 
         if (timeEnd.isEmpty()) {
             etTimeEnd.setError("Time end cannot be empty");
-            return false;
+            return;
         }
 
         try {
@@ -276,17 +285,14 @@ public class BookingDetail extends DialogFragment {
             if (!timeStarT.isBefore(timeEndT)) {
                 etTimeStart.setError("Time start must be earlier than time end");
                 etTimeEnd.setError("Time end must be later than time start");
-                return false;
             }
 
         }
         catch (DateTimeParseException e) {
             etTimeStart.setError("Invalid time format (HH:mm)");
             etTimeEnd.setError("Invalid time format (HH:mm)");
-            return false;
         }
 
-        return true;
     }
 
     private boolean IsOverLap(String date, String timeStart, String timeEnd) {
@@ -329,10 +335,10 @@ public class BookingDetail extends DialogFragment {
 
         // Show DatePickerDialog with the initial date
         ibCalendar.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                     (view, selectedYear, selectedMonth, selectedDay) -> {
                         // Format and display the selected date in the TextView
-                        String selectedDate = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear);
+                        @SuppressLint("DefaultLocale") String selectedDate = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear);
                         tvDate.setText(selectedDate);
                     }, year, month, day); // Pass the parsed date
 
@@ -362,7 +368,7 @@ public class BookingDetail extends DialogFragment {
                 // Calculate the price for this duration
                 double cost = slot.getCost();
                 double hours = (double) minutes /60;
-                totalPrice += hours * cost; // Assuming you have a getPricePerHour() method in CourtSlot
+                totalPrice += (float) (hours * cost); // Assuming you have a getPricePerHour() method in CourtSlot
             }
         }
 

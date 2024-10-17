@@ -1,6 +1,6 @@
-package com.example.prm392_team333_courtbooking;
+package com.example.prm392_team333_courtbooking.player_login;
 
-import static Constant.SessionConstant.courtOwner;
+import static Constant.SessionConstant.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,23 +8,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import Models.CourtOwner;
-import Repository.CourtOwnerRepository;
+import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.activities.player_layout;
+import Models.User;
+import Repository.UserRepository;
 import Session.SessionManager;
 
-public class LoginForCourtOwner extends AppCompatActivity implements View.OnClickListener{
+public class LoginForPlayers extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etPhoneNumber;
     private EditText etPassword;
 
-    CourtOwnerRepository courtOwnerRepository;
-
     private SessionManager sessionManager;
 
+    private UserRepository userRepository;
+
     @Override
-    public void onCreate(Bundle savedInstance){
-        super.onCreate(savedInstance);
-        setContentView(R.layout.login_for_court_owner_layout);
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_player);
 
         etPhoneNumber = findViewById(R.id.et_phone_number);
         etPassword = findViewById(R.id.et_password);
@@ -32,15 +34,23 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
         Button btnLogin = findViewById(R.id.btn_login);
         TextView txtSignUp = findViewById(R.id.txt_sign_up);
 
-        sessionManager = new SessionManager(this, courtOwner);
+        sessionManager = new SessionManager(this, user);
 
-        courtOwnerRepository = new CourtOwnerRepository(this);
-
+        userRepository = new UserRepository(this);
 
         btnLogin.setOnClickListener(this);
         txtSignUp.setOnClickListener(this);
 
-        checkSession();
+        //checkSession();
+
+    }
+
+    private void checkSession() {
+        if (sessionManager.isLoggedInUser()) {
+            Intent intent = new Intent(this, player_layout.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void login() {
@@ -54,44 +64,36 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
         } else {
-            CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(etPhoneNumber.getText().toString());
+            User user = userRepository.getUserByPhoneNumber(etPhoneNumber.getText().toString());
 
-            if(courtOwner == null){
+            if(user == null){
                 etPhoneNumber.setError("No user with this phone number.");
                 etPhoneNumber.requestFocus();
                 return;
-            }else if (!courtOwner.getPassword().equals(etPassword.getText().toString())){
+            }else if (!user.getPassword().equals(etPassword.getText().toString())){
                 etPhoneNumber.setError("Wrong password.");
                 etPhoneNumber.requestFocus();
                 return;
             }
 
-            sessionManager.saveCourtOwnerId(courtOwner.getCourtOwnerId());
+            sessionManager.saveUserId(user.getUserId());
 
-            Intent intent = new Intent(this, CourtListManage.class);
+            Intent intent = new Intent(this, player_layout.class);
             intent.putExtra("phoneNumber", etPhoneNumber.getText().toString());
             startActivity(intent);
-        }
-    }
-
-    private void checkSession() {
-        if (sessionManager.isLoggedInCourtOwner()) {
-            Intent intent = new Intent(this, CourtListManage.class);
-            startActivity(intent);
-            finish();
         }
     }
 
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
+      int id = view.getId();
 
         if(id == R.id.btn_login){
             login();
 
         }else if(id == R.id.txt_sign_up){
-            Intent intent = new Intent(this, SignUpForCourtOwner.class);
+            Intent intent = new Intent(this, SignUpForPlayers.class);
             startActivity(intent);
         }
     }

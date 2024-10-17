@@ -1,28 +1,21 @@
 package Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.court_manage.EditCourt;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDialog;
-
 import java.util.List;
-
 import Models.Court;
 
 public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
@@ -44,6 +37,7 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         return new CourtViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
         Court court = courts.get(position);

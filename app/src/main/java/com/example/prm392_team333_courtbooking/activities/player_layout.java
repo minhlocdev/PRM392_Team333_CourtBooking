@@ -2,14 +2,11 @@ package com.example.prm392_team333_courtbooking.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class player_layout extends AppCompatActivity {

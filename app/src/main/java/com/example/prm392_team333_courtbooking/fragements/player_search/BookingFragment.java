@@ -1,5 +1,7 @@
 package com.example.prm392_team333_courtbooking.fragements.player_search;
 
+import static Constant.SessionConstant.user;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +10,6 @@ import android.widget.CalendarView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
 import java.time.LocalDate;
@@ -18,26 +19,26 @@ import java.util.List;
 import Adapter.BookingAdapterForUsers;
 import Models.Booking;
 import Repository.BookingRepository;
+import Session.SessionManager;
 
 public class BookingFragment extends Fragment implements BookingDialogListener {
 
-    private RecyclerView rvBookings;
     private BookingRepository bookingRepository;
     private List<Booking> bookings;
     private BookingAdapterForUsers adapter;
-    private CalendarView calendarView;
 
+    private SessionManager sessionManager;
+
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_player_calendar, container, false);
 
-        calendarView = view.findViewById(R.id.calendarView);
+        CalendarView calendarView = view.findViewById(R.id.calendarView);
 
-        if (getArguments() != null) {
-            Booking booking = (Booking) getArguments().getSerializable("booking");
-        }
+        sessionManager = new SessionManager(requireContext(), user);
 
         // Set up the calendar to today's date
         calendarView.setDate(System.currentTimeMillis(), false, true);
@@ -59,7 +60,7 @@ public class BookingFragment extends Fragment implements BookingDialogListener {
         });
 
         // Initialize RecyclerView
-        rvBookings = view.findViewById(R.id.bookingRecyclerView);
+        RecyclerView rvBookings = view.findViewById(R.id.bookingRecyclerView);
 
         // Improve performance as layout size does not change
         rvBookings.setHasFixedSize(true);
@@ -81,15 +82,16 @@ public class BookingFragment extends Fragment implements BookingDialogListener {
 
     private void loadBookings(String date) {
         // Fetch bookings for the selected player and date
-        bookings = bookingRepository.getBookingsByPlayerIdAndDate(1, date);
+        bookings = bookingRepository.getBookingsByPlayerIdAndDate(sessionManager.getUserId(), date);
         if (bookings == null) {
             bookings = new ArrayList<>(); // Initialize to avoid NullPointerException
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBookingSaved(String date) {
-        bookings = bookingRepository.getBookingsByPlayerIdAndDate(1, date);
+        bookings = bookingRepository.getBookingsByPlayerIdAndDate(sessionManager.getUserId(), date);
         adapter.setBookings(bookings);
         adapter.notifyDataSetChanged();
     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    android:background="@drawable/feedback_background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="1dp"
+    android:padding="8dp">
+
+    <!-- Feedback Item -->
+    <TextView
+        android:id="@+id/tv_feedback_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tv_feedback_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10-10-2024"
+        android:textSize="12sp"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/tv_feedback_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is feedback about the court"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Replies :"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <!-- RecyclerView for Replies -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_replies_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false" />
+
+
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>

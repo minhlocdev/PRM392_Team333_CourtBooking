@@ -90,10 +90,12 @@ public class Sqlite extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE Reply (" +
                 "reply_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "review_id INTEGER, " +
+                "user_id INTEGER, " +
                 "content TEXT, " +
                 "create_at TEXT, " +
                 "status TEXT, " +
-                "FOREIGN KEY(review_id) REFERENCES Review(review_id))");
+                "FOREIGN KEY(review_id) REFERENCES Review(review_id) , " +
+                "FOREIGN KEY(user_id) REFERENCES User(user_id))");
 
         db.execSQL("CREATE TABLE SlotBooking (" +
                 "booking_id INTEGER, " +
@@ -125,9 +127,9 @@ public class Sqlite extends SQLiteOpenHelper {
 
         // Insert default bookings
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
-                "VALUES (1, 1, 1, '2024-10-01', '10:00', '11:00', 50.0, 'COMPLETED', '2024-10-01')");
+                "VALUES (1, 1, 1, '2024-10-01', '10:00', '11:00', 50.0, 'BOOKED', '2024-10-01')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
-                "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'COMPLETED', '2024-10-01')");
+                "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'CANCEL', '2024-10-01')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at) " +
                 "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'COMPLETED', '2024-10-01')");
 
@@ -143,11 +145,11 @@ public class Sqlite extends SQLiteOpenHelper {
 
         // Insert default slot bookings
         db.execSQL("INSERT INTO SlotBooking (booking_id, court_slot_id, status) " +
-                "VALUES (1, 1, 'booked')");
+                "VALUES (1, 1, 'BOOKED')");
         db.execSQL("INSERT INTO SlotBooking (booking_id, court_slot_id, status) " +
-                "VALUES (2, 2, 'booked')");
+                "VALUES (2, 2, 'CANCEL')");
         db.execSQL("INSERT INTO SlotBooking (booking_id, court_slot_id, status) " +
-                "VALUES (3, 3, 'booked')");
+                "VALUES (3, 3, 'COMPLETED')");
 
         // Insert default reviews
         db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
@@ -158,12 +160,12 @@ public class Sqlite extends SQLiteOpenHelper {
                 "VALUES (3, 3, 3, 3, 3, 'Decent court', '2024-10-03', 'PENDING')");
 
         // Insert default replies
-        db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (1, 1, 'Thank you for your feedback!', '2024-10-02', 'APPROVED')");
-        db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (2, 2, 'We will improve our pricing', '2024-10-03', 'PENDING')");
-        db.execSQL("INSERT INTO Reply (reply_id, review_id, content, create_at, status) " +
-                "VALUES (3, 3, 'Thanks for your review', '2024-10-04', 'APPROVED')");
+        db.execSQL("INSERT INTO Reply (reply_id, review_id, user_id, content, create_at, status) " +
+                "VALUES (1, 1, 1, 'Thank you for your feedback!', '2024-10-02', 'APPROVED')");
+        db.execSQL("INSERT INTO Reply (reply_id, review_id, user_id, content, create_at, status) " +
+                "VALUES (2, 2, 2, 'We will improve our pricing', '2024-10-03', 'PENDING')");
+        db.execSQL("INSERT INTO Reply (reply_id, review_id, user_id, content, create_at, status) " +
+                "VALUES (3, 3, 3, 'Thanks for your review', '2024-10-04', 'APPROVED')");
 
         // Insert default court owner
         db.execSQL("INSERT INTO CourtOwner (password, full_name, email, phone, tax_code, date_created, is_active) " +

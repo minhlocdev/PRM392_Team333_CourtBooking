@@ -1,5 +1,7 @@
 package com.example.prm392_team333_courtbooking.fragements.player_search;
 
+import static Constant.SessionConstant.user;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -19,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.player_login.LoginForPlayers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -31,6 +34,7 @@ import Models.Booking;
 import Models.CourtSlot;
 import Repository.BookingRepository;
 import Repository.CourtSlotRepository;
+import Session.SessionManager;
 
 public class BookingDialog extends DialogFragment {
 
@@ -40,15 +44,13 @@ public class BookingDialog extends DialogFragment {
 
     private EditText etTimeEnd;
 
-    private Button btnDone;
-
-    private Button btnCancel;
-
     private int courtId;
 
     private CourtSlotRepository courtSlotRepository;
 
     private BookingRepository bookingRepository;
+
+    private SessionManager sessionManager;
 
 
     @Override
@@ -68,8 +70,16 @@ public class BookingDialog extends DialogFragment {
         etTimeStart = view.findViewById(R.id.et_time_start);
         etTimeEnd = view.findViewById(R.id.et_time_end);
         cvDate = view.findViewById(R.id.calendarView);
-        btnDone = view.findViewById(R.id.btnSave);
-        btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnDone = view.findViewById(R.id.btnSave);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+
+        sessionManager = new SessionManager(requireContext(), user);
+
+        if(!sessionManager.isLoggedInUser()){
+            Intent intent = new Intent(requireContext(), LoginForPlayers.class);
+            startActivity(intent);
+        }
+
 
         Calendar calendar = Calendar.getInstance();
         long today = calendar.getTimeInMillis();
@@ -84,21 +94,13 @@ public class BookingDialog extends DialogFragment {
             courtId = getArguments().getInt("courtId");
         }
 
-        btnDone.setOnClickListener(v -> {
-            Save();
-        });
+        btnDone.setOnClickListener(v -> Save());
 
-        btnCancel.setOnClickListener(v -> {
-            dismiss();
-        });
+        btnCancel.setOnClickListener(v -> dismiss());
 
-        etTimeStart.setOnClickListener(v -> {
-            showTimePickerDialog(etTimeStart);
-        });
+        etTimeStart.setOnClickListener(v -> showTimePickerDialog(etTimeStart));
 
-        etTimeEnd.setOnClickListener(v -> {
-            showTimePickerDialog(etTimeEnd);
-        });
+        etTimeEnd.setOnClickListener(v -> showTimePickerDialog(etTimeEnd));
 
         return view;
 
@@ -117,7 +119,7 @@ public class BookingDialog extends DialogFragment {
         int month = selectedCalendar.get(Calendar.MONTH) + 1;
         int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
 
-        String selectedDate = String.format("%04d-%02d-%02d", year, month, day);
+        @SuppressLint("DefaultLocale") String selectedDate = String.format("%04d-%02d-%02d", year, month, day);
 
 
         boolean checkTimeInput = ValidateTime( timeStart, timeEnd);
@@ -147,7 +149,7 @@ public class BookingDialog extends DialogFragment {
 
         float totalPrice = calculateTotalPrice(courtSlotList, timeStart, timeEnd);
 
-        bookingRepository.insertBooking(courtId, 1, selectedDate, timeStart, timeEnd, totalPrice, "BOOKED", createdAt);
+        bookingRepository.insertBooking(courtId, sessionManager.getUserId(), selectedDate, timeStart, timeEnd, totalPrice, "BOOKED", createdAt);
 
         Toast.makeText(getContext(), "Your booking is successful", Toast.LENGTH_SHORT).show();
 
@@ -249,16 +251,11 @@ public class BookingDialog extends DialogFragment {
                 // Calculate the price for this duration
                 double cost = slot.getCost();
                 double hours = (double) minutes /60;
-                totalPrice += hours * cost; // Assuming you have a getPricePerHour() method in CourtSlot
+                totalPrice += (float) (hours * cost); // Assuming you have a getPricePerHour() method in CourtSlot
             }
         }
 
         return totalPrice;
-    }
-
-    private String getCurrentTimestamp() {
-        // Return the current timestamp as a string in the required format
-        return String.valueOf(System.currentTimeMillis());
     }
 
     private boolean validateBookingTime(List<CourtSlot> courtSlotList, String timeStart, String timeEnd) {

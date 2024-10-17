@@ -4,26 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_team333_courtbooking.R;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import Adapter.CourtAdapter;
 import Adapter.CourtAdapterForUsers;
 import Models.Court;
 import Repository.CourtRepository;
 
 public class CourtFragment extends Fragment {
-    private RecyclerView courtRecyclerView;
-    private CourtAdapterForUsers courtAdapter;
-    private List<Court> courtList;
-    private CourtRepository courtRepository;
 
     public CourtFragment(){
 
@@ -38,18 +28,18 @@ public class CourtFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_player_search_court, container, false);
 
         // Initialize RecyclerView
-        courtRecyclerView = view.findViewById(R.id.courtRecyclerView);
+        RecyclerView courtRecyclerView = view.findViewById(R.id.courtRecyclerView);
 
         // Improve performance as layout size does not change
         courtRecyclerView.setHasFixedSize(true);
 
         // Initialize CourtRepository and load courts
-        courtRepository = new CourtRepository(getContext());
-        courtList = courtRepository.getAllCourts(); // Fetch all courts from the repository
+        CourtRepository courtRepository = new CourtRepository(getContext());
+        List<Court> courtList = courtRepository.getAllCourts(); // Fetch all courts from the repository
 
 
         // Set up the adapter with the court list
-        courtAdapter = new CourtAdapterForUsers(getContext(), courtList, R.layout.fragment_player_search_court_item, getChildFragmentManager());
+        CourtAdapterForUsers courtAdapter = new CourtAdapterForUsers(getContext(), courtList, R.layout.fragment_player_search_court_item, getChildFragmentManager());
         courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         courtRecyclerView.setAdapter(courtAdapter);
 

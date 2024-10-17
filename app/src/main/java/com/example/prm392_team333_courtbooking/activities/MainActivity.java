@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.prm392_team333_courtbooking.LoginForCourtOwner;
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.SignUpForCourtOwner;
@@ -16,9 +14,6 @@ import SqliteHelper.Sqlite;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnSignIn;
-    private Button btnSignUp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.start_layout);
 
 
-        btnSignIn = findViewById(R.id.btn_login);
-        btnSignUp = findViewById(R.id.btn_sign_up);
+        Button btnSignIn = findViewById(R.id.btn_login);
+        Button btnSignUp = findViewById(R.id.btn_sign_up);
 
         btnSignUp.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
@@ -44,11 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if(id == R.id.btn_sign_up){
 
-            /*Sqlite dbHelper = new Sqlite(this);
-            dbHelper.deleteDatabase(this);*/
+            Sqlite dbHelper = new Sqlite(this);
+            dbHelper.deleteDatabase(this);
 
-            Intent intent = new Intent(this, SignUpForCourtOwner.class);
-            startActivity(intent);
+
+            /*Intent intent = new Intent(this, SignUpForCourtOwner.class);
+            startActivity(intent);*/
         }
     }
 }

@@ -3,17 +3,23 @@ package Models;
 public class Reply {
     private int replyId;
     private int reviewId;
+    private int userId;
     private String content;
     private String createAt;
     private String status;
 
-    public Reply(int replyId, int reviewId, String content, String createAt, String status) {
+    public Reply(int replyId, int reviewId, int userId, String content, String createAt, String status) {
         this.replyId = replyId;
         this.reviewId = reviewId;
+        this.userId = userId;
         this.content = content;
         this.createAt = createAt;
         this.status = status;
     }
+
+    public int getUserId() {return userId;}
+
+    public void setUserId(int userId) {this.userId = userId;}
 
     public int getReplyId() {
         return replyId;
