@@ -41,6 +41,7 @@ public class Sqlite extends SQLiteOpenHelper {
                 "full_name TEXT, " +
                 "email TEXT, " +
                 "phone TEXT, " +
+                "avatar BLOB, " +
                 "date_created TEXT, " +
                 "is_active INTEGER)");
 
@@ -110,12 +111,12 @@ public class Sqlite extends SQLiteOpenHelper {
 
     private void insertInitialData(SQLiteDatabase db) {
         // Insert default users
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
-                "VALUES (1, '123', 'John Doe', 'john@example.com', '123456789', '2024-10-01', 1)");
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
-                "VALUES (2, '123', 'Jane Doe', 'jane@example.com', '987654321', '2024-10-02', 1)");
-        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, date_created, is_active) " +
-                "VALUES (3, '123', 'Sam Smith', 'sam@example.com', '543216789', '2024-10-03', 1)");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, avatar, date_created, is_active) " +
+                "VALUES (1, '123', 'John Doe', 'john@example.com', '123456789', null, '2024-10-01', 1)");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, avatar, date_created, is_active) " +
+                "VALUES (2, '123', 'Jane Doe', 'jane@example.com', '987654321', null, '2024-10-02', 1)");
+        db.execSQL("INSERT INTO User (user_id, password, full_name, email, phone, avatar, date_created, is_active) " +
+                "VALUES (3, '123', 'Sam Smith', 'sam@example.com', '543216789', null, '2024-10-03', 1)");
 
         // Insert default courts
         db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +

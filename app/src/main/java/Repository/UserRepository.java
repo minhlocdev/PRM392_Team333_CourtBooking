@@ -32,9 +32,10 @@ public class UserRepository {
             String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
             String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
             String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            byte[] avatar = cursor.getBlob(cursor.getColumnIndexOrThrow("avatar"));
             boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
 
-            user = new User(userId, password, fullName, email, phone, dateCreated, isActive);
+            user = new User(userId, password, fullName, email, phone, avatar, dateCreated, isActive);
         }
 
         cursor.close();
@@ -53,11 +54,12 @@ public class UserRepository {
             String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
             String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
             String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+            byte[] avatar = cursor.getBlob(cursor.getColumnIndexOrThrow("avatar"));
             String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
             String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
             boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
 
-            user = new User(userId, password, fullName, email, phone, dateCreated, isActive);
+            user = new User(userId, password, fullName, email, phone, avatar, dateCreated, isActive);
         }
 
         cursor.close();
@@ -73,6 +75,7 @@ public class UserRepository {
         values.put("full_name", fullName);
         values.put("email", email);
         values.put("phone", phone);
+        values.put("avatar", (byte[]) null);
         values.put("date_created", dateCreated);
         values.put("is_active", isActive);
 
@@ -115,12 +118,13 @@ public class UserRepository {
                 String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
                 String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+                byte[] avatar = cursor.getBlob(cursor.getColumnIndexOrThrow("avatar"));
                 String dateCreated = cursor.getString(cursor.getColumnIndexOrThrow("date_created"));
                 String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
                 boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1;
 
                 // Create a new User object
-                User user = new User(userId, password, fullName, email, phone, dateCreated, isActive);
+                User user = new User(userId, password, fullName, email, phone, avatar, dateCreated, isActive);
                 // Add user to the list
                 userList.add(user);
             } while (cursor.moveToNext());

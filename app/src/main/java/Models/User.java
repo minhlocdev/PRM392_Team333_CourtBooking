@@ -6,10 +6,11 @@ public class User {
     private String password;
     private String email;
     private String phone;
+    private byte[] avatar;
     private String dateCreated;
     private boolean isActive;
 
-    public User(int userId, String password, String fullName, String email, String phone, String dateCreated, boolean isActive) {
+    public User(int userId, String password, String fullName, String email, String phone, byte[] avatar, String dateCreated, boolean isActive) {
         this.userId = userId;
         this.password = password;
         this.fullName = fullName;
@@ -18,6 +19,10 @@ public class User {
         this.dateCreated = dateCreated;
         this.isActive = isActive;
     }
+
+    public byte[] getAvatar() {return avatar;}
+
+    public void setAvatar(byte[] avatar) {this.avatar = avatar;}
 
     public int getUserId() {
         return userId;
