@@ -1,6 +1,9 @@
+/*
 package Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +41,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
          //If you have a user image, decode and set it here
          //Assuming getImage() method in User to get image bytes (if needed)
-         /*byte[] userImage = user.getImage();
+         byte[] userImage = user.getImage();
          if (userImage != null) {
              Bitmap bitmap = BitmapFactory.decodeByteArray(userImage, 0, userImage.length);
-             holder.ivImage.setImageBitmap(bitmap);
+             holder.ivAvatar.setImageBitmap(bitmap);
          } else {
-             holder.ivImage.setImageResource(R.drawable.ten_hag); // Replace with your default image
-         }*/
+             holder.ivAvatar.setImageResource(R.drawable.ten_hag); // Replace with your default image
+         }
+
 
 
     }
@@ -67,3 +71,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
 }
+*/

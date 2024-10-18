@@ -25,6 +25,12 @@ public class CourtFeedback extends Fragment {
 
         RecyclerView rvReviews = view.findViewById(R.id.rv_feedback_list);
 
+        String mode = "disabled";
+
+        if (getArguments() != null) {
+            mode = getArguments().getString("edit_mode");
+        }
+
         int courtId = 0;
 
         if (getArguments() != null) {

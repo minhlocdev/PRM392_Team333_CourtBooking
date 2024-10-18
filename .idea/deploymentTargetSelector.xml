@@ -15,6 +15,14 @@
       </SelectionState>
       <SelectionState runConfigName="LoginForPlayers">
         <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2024-10-18T04:16:36.219815300Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\nhat8\.android\avd\Pixel_8a_API_35.avd" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="LoginForCourtOwner">
         <option name="selectionMode" value="DROPDOWN" />

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <!-- Court Image -->
         <ImageView
@@ -30,53 +30,85 @@
             >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="242dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <!-- Court Name -->
                 <TextView
                     android:id="@+id/court_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:text="Old Trafford"
-                    android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <!-- Court Timing (Open - Close Time) -->
                 <TextView
                     android:id="@+id/court_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
                     android:text="9:00 AM - 8:00 PM"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_marginBottom="8dp" />
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="123 Le Hong Phong"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
                 <!-- Court Status -->
                 <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/date_backround"
                     android:text="Open"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:layout_marginBottom="12dp" />
+                    android:textStyle="bold" />
+
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_booking"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="160dp"
-                android:text="Book"
-                android:textStyle="bold"
-                android:background="@drawable/retangle_button"
-                android:backgroundTint="@color/forest_green"
-                />
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/retangle_button"
+                    android:backgroundTint="@color/forest_green"
+                    android:text="Review"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/retangle_button"
+                    android:backgroundTint="@color/forest_green"
+                    android:text="Book"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

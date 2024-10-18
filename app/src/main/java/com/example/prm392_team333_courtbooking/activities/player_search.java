@@ -7,12 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.player_search.AccountFragment;
-import com.example.prm392_team333_courtbooking.fragements.player_search.AllFragment;
 import com.example.prm392_team333_courtbooking.fragements.player_search.CourtFragment;
-import com.example.prm392_team333_courtbooking.fragements.player_search.LocationFragment;
 
 
 /**
@@ -65,44 +62,13 @@ public class player_search extends Fragment {
         View view = inflater.inflate(R.layout.fragment_player_search, container, false);
 
 
-        Button allFilterBtn = view.findViewById(R.id.allFilterBtn);
-        Button accountFilterBtn = view.findViewById(R.id.accountFilterBtn);
-        Button locationBtn = view.findViewById(R.id.Location);
-        Button courtFilterBtn = view.findViewById(R.id.courtFilterBtn);
-
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
 
-        // on click button All
-        allFilterBtn.setOnClickListener(v -> {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, new AllFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
 
-        // on click button Account
-        accountFilterBtn.setOnClickListener(v -> {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, new AccountFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-
-        // on click button Location
-        locationBtn.setOnClickListener(v -> {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, new LocationFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-
-        // on click button Court
-        courtFilterBtn.setOnClickListener(v -> {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, new CourtFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, new CourtFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         return view;
     }

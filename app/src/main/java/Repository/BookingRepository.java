@@ -168,6 +168,27 @@ public class BookingRepository {
         return rowsAffected; // Returns the number of rows affected by the update
     }
 
+    public boolean hasCompletedBooking(int playerId, int courtId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        boolean exists = false;
+
+        // SQL query to check for a completed booking
+        String query = "SELECT 1 FROM Booking WHERE player_id = ? AND court_id = ? AND status = ?";
+        String[] selectionArgs = { String.valueOf(playerId), String.valueOf(courtId), "COMPLETED" };
+
+        // Execute the query
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        // Check if there are any results
+        if (cursor.moveToFirst()) {
+            exists = true;
+        }
+
+        cursor.close();
+        db.close();
+        return exists; // Returns true if a completed booking exists, otherwise false
+    }
+
 
 
 }

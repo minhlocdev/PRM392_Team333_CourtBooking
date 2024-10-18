@@ -15,11 +15,6 @@ import Repository.CourtRepository;
 
 public class CourtFragment extends Fragment {
 
-    public CourtFragment(){
-
-    }
-
-
     // Search - Dia Diem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +34,7 @@ public class CourtFragment extends Fragment {
 
 
         // Set up the adapter with the court list
-        CourtAdapterForUsers courtAdapter = new CourtAdapterForUsers(getContext(), courtList, R.layout.fragment_player_search_court_item, getChildFragmentManager());
+        CourtAdapterForUsers courtAdapter = new CourtAdapterForUsers(requireContext(), courtList, R.layout.fragment_player_search_court_item, getChildFragmentManager());
         courtRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         courtRecyclerView.setAdapter(courtAdapter);
 

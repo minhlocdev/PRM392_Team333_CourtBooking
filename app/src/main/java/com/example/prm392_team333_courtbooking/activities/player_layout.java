@@ -22,16 +22,14 @@ public class player_layout extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         if (savedInstanceState == null) {
-            loadFragment(new player_home());
+            loadFragment(new player_search());
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
 
-                if (item.getItemId() == R.id.home) {
-                    selectedFragment = new player_home();
-                } else if (item.getItemId() == R.id.search) {
+                if (item.getItemId() == R.id.search) {
                     selectedFragment = new player_search();
                 } else if (item.getItemId() == R.id.profile) {
                     selectedFragment = new player_profile();
