@@ -21,5 +21,6 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 materialCalendarView = { module = "com.prolificinteractive:material-calendarview", version.ref = "materialCalendarView" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
