@@ -1,0 +1,5 @@
+<!-- feedback_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FAF0E6" /> <!-- Gray background -->
+    <corners android:radius="8dp" /> <!-- Optional: rounded corners -->
+</shape>

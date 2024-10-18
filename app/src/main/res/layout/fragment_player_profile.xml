@@ -3,13 +3,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".player_profile">
+    tools:context=".activities.player_profile">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="profile" />
+        android:padding="16dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Avatar and User Full Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp">
+
+                <!-- Avatar -->
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ten_hag"
+                    android:layout_marginEnd="16dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="User Avatar"/>
+
+                <!-- User Full Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Erik ten Hag"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
+            <!-- Button to update user information -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your information"
+                android:padding="12dp"
+                android:backgroundTint="@color/orange"
+                android:textColor="@android:color/white"/>
+
+            <!-- Personal Functions: BookingDialog List, Favourite, My Evaluate -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="24dp">
+
+                <!-- My BookingDialog -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Booking"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Booking List"/>
+                </LinearLayout>
+
+                <!-- My Favourite -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Favourite"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Favourite"/>
+                </LinearLayout>
+
+                <!-- My Evaluate -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Evaluate"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Evaluate"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- System Helper: Mail Support, Report Error, Terms and Policies -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="24dp">
+
+                <!-- Mail Supporter -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mail Supporter"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Mail Support"/>
+                </LinearLayout>
+
+                <!-- Report Error -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report Error"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Report Error"/>
+                </LinearLayout>
+
+                <!-- Terms and Policies -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Terms and Policies"/>
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/external_link"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Navigate to Terms and Policies"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Button to Log out -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:padding="12dp"
+                android:backgroundTint="@color/orange"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="24dp"/>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

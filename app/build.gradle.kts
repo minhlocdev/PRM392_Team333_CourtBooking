@@ -25,7 +25,7 @@ android {
             )
         }
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
     compileOptions {
@@ -35,20 +35,23 @@ android {
     sourceSets {
         getByName("main") {
             res {
-                srcDirs("src\\main\\res",
-                    "src\\main\\res\\player_layouts",
-                    "src\\main\\res\\court_layouts")
+                srcDirs("src/main/res",
+                    "src/main/res/player_layouts",
+                    "src/main/res/court_layouts")
             }
         }
     }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.viewpager2)
+    implementation(libs.materialCalendarView)
+
+    // Testing libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
