@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+
 import com.example.prm392_team333_courtbooking.R;
 
 import java.time.LocalTime;
@@ -59,6 +62,26 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_court_layout);
+        View appBar = findViewById(R.id.editAppbar);
+        ViewCompat.setOnApplyWindowInsetsListener(appBar, (v, insets) -> {
+            int topInset = insets.getSystemWindowInsetTop();
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            params.topMargin = topInset+10;
+            v.setLayoutParams(params);
+            return insets;
+        });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Enable back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Handle back button press
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         etCourtName = findViewById(R.id.et_court_name);
         etAddress = findViewById(R.id.et_address);

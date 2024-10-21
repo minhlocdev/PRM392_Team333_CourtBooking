@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_team333_courtbooking.CourtListManage;
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.activities.court_owner_layout;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -337,7 +338,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "Fail to create your court", Toast.LENGTH_SHORT).show();
             }
 
-            Intent intent = new Intent(this, CourtListManage.class);
+            Intent intent = new Intent(this, court_owner_layout.class);
             intent.putExtra("phoneNumber", phoneNumber);
             startActivity(intent);
 

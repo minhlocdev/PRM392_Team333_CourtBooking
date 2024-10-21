@@ -3,9 +3,15 @@ package com.example.prm392_team333_courtbooking;
 import static Constant.SessionConstant.courtOwner;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.List;
 import Adapter.CourtAdapter;
 import Models.Court;
@@ -13,27 +19,31 @@ import Models.CourtOwner;
 import Repository.CourtOwnerRepository;
 import Session.SessionManager;
 
-public class CourtListManage extends AppCompatActivity{
+public class CourtListManage extends Fragment {
 
+    @Nullable
     @Override
-    public void onCreate (Bundle savedInstance){
-        super.onCreate(savedInstance);
-        setContentView(R.layout.court_list_manage);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Inflate the fragment layout
+        View view = inflater.inflate(R.layout.court_list_manage, container, false);
 
-        CourtOwnerRepository courtOwnerRepository = new CourtOwnerRepository(this);
+        // Initialize repository and session manager
+        CourtOwnerRepository courtOwnerRepository = new CourtOwnerRepository(requireContext());
+        SessionManager sessionManager = new SessionManager(requireContext(), courtOwner);
 
-        SessionManager sessionManager = new SessionManager(this, courtOwner);
+        // Set up RecyclerView
+        RecyclerView courtList = view.findViewById(R.id.myListView);
+        courtList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        RecyclerView courtList = findViewById(R.id.myListView);
-
-        courtList.setLayoutManager(new LinearLayoutManager(this));
-
+        // Get court owner and courts
         CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerById(sessionManager.getCourtOwnerId());
-
         List<Court> courts = courtOwnerRepository.getCourtsByCourtOwnerId(courtOwner.getCourtOwnerId());
 
-        CourtAdapter adapter = new CourtAdapter(this, courts, R.layout.court_list_manage_item);
-
+        // Set adapter
+        CourtAdapter adapter = new CourtAdapter(requireContext(), courts, R.layout.court_list_manage_item);
         courtList.setAdapter(adapter);
+
+        return view;
     }
 }
