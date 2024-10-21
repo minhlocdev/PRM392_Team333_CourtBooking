@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM392_Team333_CourtBooking"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activities.court_owner_layout"
+            android:exported="false" />
         <activity
             android:name=".player_login.LoginForPlayers"
             android:exported="true">
@@ -40,19 +42,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".court_manage.RegisterCourt" android:exported="true"/>
-
-        <activity android:name=".SignUpForCourtOwner" android:exported="true"/>
-
-        <activity android:name=".CourtListManage" android:exported="true"/>
-
-        <activity android:name=".court_manage.EditCourt" android:exported="true"/>
-
-        <activity android:name=".player_login.SignUpForPlayers" android:exported="true"/>
-
-        <activity android:name=".activities.player_layout" android:exported="true"/>
-
+        <activity
+            android:name=".court_manage.RegisterCourt"
+            android:exported="true" />
+        <activity
+            android:name=".SignUpForCourtOwner"
+            android:exported="true" />
+        <activity
+            android:name=".CourtListManage"
+            android:exported="true" />
+        <activity
+            android:name=".court_manage.EditCourt"
+            android:exported="true" />
+        <activity
+            android:name=".player_login.SignUpForPlayers"
+            android:exported="true" />
+        <activity
+            android:name=".activities.player_layout"
+            android:exported="true" />
     </application>
 
 </manifest>
