@@ -101,14 +101,14 @@
         android:padding="12dp"
         android:textColor="@color/black" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:textColor="@color/white"
         android:background="@drawable/retangle_button"
-        android:backgroundTint="#6495ED"
+        android:backgroundTint="@color/blue_dark"
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginTop="150dp" />
