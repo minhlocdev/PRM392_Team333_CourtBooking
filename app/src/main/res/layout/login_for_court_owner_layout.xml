@@ -54,29 +54,18 @@
         android:inputType="textPassword"
         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="354dp"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="120dp"
         android:background="@drawable/retangle_button"
-        android:padding="10dp"
+        android:backgroundTint="@color/orange_400"
+        android:paddingVertical="20dp"
+        android:textColor="@color/white"
         android:text="@string/sign_in"
         android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_login_by_google"
-        android:layout_width="354dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/retangle_button"
-        android:drawableStart="@drawable/ic_google"
-        android:padding="10dp"
-        android:text="@string/sign_in_google"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
