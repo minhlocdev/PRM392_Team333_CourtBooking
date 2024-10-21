@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_team333_courtbooking.activities.court_owner_layout;
+
 import Models.CourtOwner;
 import Repository.CourtOwnerRepository;
 import Session.SessionManager;
@@ -68,7 +71,7 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
 
             sessionManager.saveCourtOwnerId(courtOwner.getCourtOwnerId());
 
-            Intent intent = new Intent(this, CourtListManage.class);
+            Intent intent = new Intent(this, court_owner_layout.class);
             intent.putExtra("phoneNumber", etPhoneNumber.getText().toString());
             startActivity(intent);
         }
@@ -76,7 +79,7 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
 
     private void checkSession() {
         if (sessionManager.isLoggedInCourtOwner()) {
-            Intent intent = new Intent(this, CourtListManage.class);
+            Intent intent = new Intent(this, court_owner_layout.class);
             startActivity(intent);
             finish();
         }

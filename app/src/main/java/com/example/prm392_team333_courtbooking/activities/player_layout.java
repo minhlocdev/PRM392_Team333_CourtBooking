@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.profile.player_profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class player_layout extends AppCompatActivity {

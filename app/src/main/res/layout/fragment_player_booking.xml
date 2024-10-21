@@ -1,126 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- BookingDialog Date -->
+
+    <TextView
+        android:id="@+id/textBookingDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- BookingDialog Date -->
-
-        <TextView
-            android:id="@+id/textBookingDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date :"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="start" />
+        android:layout_gravity="start"
+        android:layout_marginTop="16dp"
+        android:text="Date :"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <!-- Time start field -->
+        <LinearLayout
+            android:layout_width="77dp"
+            android:layout_height="86dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            >
+            android:orientation="vertical">
 
-            <!-- Time start field -->
-            <LinearLayout
-                android:layout_width="77dp"
-                android:layout_height="86dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:text="Time start"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Time start"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_time_start"
-                    android:layout_width="70dp"
-                    android:layout_height="52dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/retangle_input"
-                    android:backgroundTint="#1732CD32"
-                    android:hint="08:00"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-            <!-- Time end field -->
-            <LinearLayout
-                android:layout_width="77dp"
-                android:layout_height="86dp"
+            <EditText
+                android:id="@+id/et_time_start"
+                android:layout_width="70dp"
+                android:layout_height="52dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:background="@drawable/retangle_input"
+                android:backgroundTint="#1732CD32"
+                android:hint="08:00"
+                android:textAlignment="center" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Time end"
-                    android:textAlignment="center"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+        <!-- Time end field -->
+        <LinearLayout
+            android:layout_width="77dp"
+            android:layout_height="86dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_time_end"
-                    android:layout_width="84dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/retangle_input"
-                    android:backgroundTint="#1732CD32"
-                    android:hint="12:00"
-                    android:textAlignment="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Time end"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-            </LinearLayout>
-
+            <EditText
+                android:id="@+id/et_time_end"
+                android:layout_width="84dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/retangle_input"
+                android:backgroundTint="#1732CD32"
+                android:hint="12:00"
+                android:textAlignment="center" />
 
         </LinearLayout>
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        >
+        android:orientation="horizontal">
 
         <!-- Submit Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/dark_green"
             android:text="Book"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_gravity="center"/>
+            android:layout_marginEnd="20dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancle"
-            android:textSize="18sp"
+            android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:layout_gravity="center"/>
+            android:text="Cancle"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

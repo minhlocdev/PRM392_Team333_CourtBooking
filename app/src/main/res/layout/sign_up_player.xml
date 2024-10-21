@@ -77,38 +77,51 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="382dp"
-        android:layout_height="67dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/retangle_input"
-        android:backgroundTint="#506495ED"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:textColor="@color/black" />
+        app:passwordToggleEnabled="true"
+        android:hint="Password">
 
-    <EditText
-        android:id="@+id/etConfirmedPassword"
-        android:layout_width="382dp"
-        android:layout_height="67dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:background="@drawable/retangle_input"
+            android:backgroundTint="#506495ED"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/retangle_input"
-        android:backgroundTint="#506495ED"
-        android:hint="Confirmed Password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:textColor="@color/black" />
+        app:passwordToggleEnabled="true"
+        android:hint="Confirmed Password">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etConfirmedPassword"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:background="@drawable/retangle_input"
+            android:backgroundTint="#506495ED"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:textColor="@color/white"
         android:background="@drawable/retangle_button"
-        android:backgroundTint="#6495ED"
+        android:backgroundTint="@color/blue_dark"
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginTop="150dp" />
