@@ -13,4 +13,20 @@
     <color name="pending">#EEE8AA</color>
     <color name="dark_orange">#FF8C00</color>
     <color name="dark_green">#006400</color>
+
+    <!-- Blue Shades -->
+    <color name="blue">#6495ED</color>
+    <color name="blue_light">#ADD8E6</color>
+    <color name="blue_dark">#4169E1</color>
+
+    <!-- Orange Shades -->
+    <color name="orange_400">#FF7043</color>
+    <color name="orange_500">#FF5722</color>
+    <color name="orange_600">#F4511E</color>
+    <color name="orange_700">#E64A19</color>
+    <color name="orange_800">#D84315</color>
+
+    <!-- Lighter and darker shades of existing colors -->
+    <color name="forest_green_light">#2E8B57</color>
+    <color name="forest_green_dark">#006400</color>
 </resources>
