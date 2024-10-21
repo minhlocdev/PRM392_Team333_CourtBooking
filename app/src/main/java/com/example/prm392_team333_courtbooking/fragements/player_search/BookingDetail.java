@@ -229,6 +229,7 @@ public class BookingDetail extends DialogFragment {
 
                     Bundle args = new Bundle();
                     args.putInt("courtId", courtId);
+                    args.putString("mode", "enable");
 
                     courtFeedbackFragment.setArguments(args);
 

@@ -69,14 +69,12 @@ public class Sqlite extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE Review (" +
                 "review_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "booking_id INTEGER, " +
                 "user_id INTEGER, " +
                 "court_id INTEGER, " +
                 "rating INTEGER, " +
                 "content TEXT, " +
                 "create_at TEXT, " +
                 "status TEXT, " +
-                "FOREIGN KEY(booking_id) REFERENCES Booking(booking_id), " +
                 "FOREIGN KEY(user_id) REFERENCES User(user_id), " +
                 "FOREIGN KEY(court_id) REFERENCES Court(court_id))");
 
@@ -153,12 +151,12 @@ public class Sqlite extends SQLiteOpenHelper {
                 "VALUES (3, 3, 'COMPLETED')");
 
         // Insert default reviews
-        db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (1, 1, 1, 1, 5, 'Great experience!', '2024-10-01', 'APPROVED')");
-        db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (2, 2, 2, 2, 4, 'Good but expensive', '2024-10-02', 'PENDING')");
-        db.execSQL("INSERT INTO Review (review_id, booking_id, user_id, court_id, rating, content, create_at, status) " +
-                "VALUES (3, 3, 3, 3, 3, 'Decent court', '2024-10-03', 'PENDING')");
+        db.execSQL("INSERT INTO Review (review_id, user_id, court_id, rating, content, create_at, status) " +
+                "VALUES (1, 1, 1, 5, 'Great experience!', '2024-10-01', 'APPROVED')");
+        db.execSQL("INSERT INTO Review (review_id, user_id, court_id, rating, content, create_at, status) " +
+                "VALUES (2, 2, 2, 4, 'Good but expensive', '2024-10-02', 'PENDING')");
+        db.execSQL("INSERT INTO Review (review_id, user_id, court_id, rating, content, create_at, status) " +
+                "VALUES (3, 3, 3, 3, 'Decent court', '2024-10-03', 'PENDING')");
 
         // Insert default replies
         db.execSQL("INSERT INTO Reply (reply_id, review_id, user_id, content, create_at, status) " +

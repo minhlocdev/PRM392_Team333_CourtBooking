@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/et_reply"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/review_background"
+        android:gravity="top"
+        android:hint="Enter your feedback"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:overScrollMode="always"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:scrollHorizontally="false"/>
+
+    <Button
+        android:id="@+id/btn_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/retangle_button"
+        android:text="POST"
+        android:textSize="15sp" />
+</LinearLayout>

@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="15dp"
     android:layout_marginBottom="105dp"
     android:padding="10dp">
@@ -18,15 +19,53 @@
                 android:text="Reviews :"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 />
 
-            <!-- RecyclerView for Feedback List -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_feedback_list"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+                >
+
+                <EditText
+                    android:id="@+id/et_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/review_background"
+                    android:gravity="top"
+                    android:hint="Enter your feedback"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:overScrollMode="always"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
+                    android:scrollHorizontally="false"/>
+
+                <Button
+                    android:id="@+id/btn_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/retangle_button"
+                    android:text="POST" />
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <!-- RecyclerView for Feedback List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_feedback_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    tools:listitem="@layout/comment_layout"
+                    />
+            </ScrollView>
         </LinearLayout>
 
 </FrameLayout>

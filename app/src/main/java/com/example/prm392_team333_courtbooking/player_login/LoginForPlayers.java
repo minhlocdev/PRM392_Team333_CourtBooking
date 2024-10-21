@@ -41,7 +41,7 @@ public class LoginForPlayers extends AppCompatActivity implements View.OnClickLi
         btnLogin.setOnClickListener(this);
         txtSignUp.setOnClickListener(this);
 
-        //checkSession();
+        checkSession();
 
     }
 

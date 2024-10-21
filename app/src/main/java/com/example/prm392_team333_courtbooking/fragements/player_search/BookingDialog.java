@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.player_login.LoginForPlayers;
@@ -30,6 +32,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.List;
 
+import Adapter.CourtSlotAdapter;
 import Models.Booking;
 import Models.CourtSlot;
 import Repository.BookingRepository;
@@ -52,6 +55,8 @@ public class BookingDialog extends DialogFragment {
 
     private SessionManager sessionManager;
 
+    private String selectedDate;
+
 
     @Override
     public void onStart() {
@@ -62,6 +67,7 @@ public class BookingDialog extends DialogFragment {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +78,11 @@ public class BookingDialog extends DialogFragment {
         cvDate = view.findViewById(R.id.calendarView);
         Button btnDone = view.findViewById(R.id.btnSave);
         Button btnCancel = view.findViewById(R.id.btnCancel);
+        RecyclerView rvSlotTime = view.findViewById(R.id.recyclerViewTimeSlots);
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvSlotTime.setLayoutManager(layoutManager);
 
         sessionManager = new SessionManager(requireContext(), user);
 
@@ -85,14 +96,26 @@ public class BookingDialog extends DialogFragment {
         long today = calendar.getTimeInMillis();
         cvDate.setMinDate(today);
 
+        cvDate.setDate(today, true, true);
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        selectedDate = String.format("%04d-%02d-%02d", year, month, day);
+
         courtSlotRepository = new CourtSlotRepository(getContext());
 
         bookingRepository = new BookingRepository(getContext());
 
-
         if (getArguments() != null) {
             courtId = getArguments().getInt("courtId");
         }
+
+        List<CourtSlot> courtSlots = courtSlotRepository.getSlotsByCourtId(courtId);
+
+        CourtSlotAdapter adapter = new CourtSlotAdapter(courtSlots);
+        rvSlotTime.setAdapter(adapter);
 
         btnDone.setOnClickListener(v -> Save());
 
@@ -102,6 +125,20 @@ public class BookingDialog extends DialogFragment {
 
         etTimeEnd.setOnClickListener(v -> showTimePickerDialog(etTimeEnd));
 
+        cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+
+                Calendar selectedCalendar = Calendar.getInstance();
+                selectedCalendar.set(year, month, dayOfMonth);
+
+                 selectedDate = String.format("%04d-%02d-%02d",
+                        year, month + 1, dayOfMonth);
+
+            }
+        });
+
         return view;
 
     }
@@ -110,17 +147,6 @@ public class BookingDialog extends DialogFragment {
 
         String timeStart = etTimeStart.getText().toString();
         String timeEnd = etTimeEnd.getText().toString();
-
-        long selectedDateInMillis = cvDate.getDate();
-        Calendar selectedCalendar = Calendar.getInstance();
-        selectedCalendar.setTimeInMillis(selectedDateInMillis);
-
-        int year = selectedCalendar.get(Calendar.YEAR);
-        int month = selectedCalendar.get(Calendar.MONTH) + 1;
-        int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
-
-        @SuppressLint("DefaultLocale") String selectedDate = String.format("%04d-%02d-%02d", year, month, day);
-
 
         boolean checkTimeInput = ValidateTime( timeStart, timeEnd);
 
@@ -275,12 +301,12 @@ public class BookingDialog extends DialogFragment {
             LocalTime slotEndTime = LocalTime.parse(slot.getTimeEnd());
 
             // Check if timeStart is in the current slot
-            if (newStartTime.isAfter(slotStartTime) && newStartTime.isBefore(slotEndTime)) {
+            if ((newStartTime.equals(slotStartTime)|| newStartTime.isAfter(slotStartTime)) && newStartTime.isBefore(slotEndTime)) {
                 startInSlot = true;
             }
 
             // Check if timeEnd is in the current slot
-            if (newEndTime.isAfter(slotStartTime) && newEndTime.isBefore(slotEndTime)) {
+            if (newEndTime.equals(slotStartTime) || newEndTime.isAfter(slotStartTime) && newEndTime.isBefore(slotEndTime)) {
                 endInSlot = true;
             }
 
