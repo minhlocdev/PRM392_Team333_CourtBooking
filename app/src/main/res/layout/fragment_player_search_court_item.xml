@@ -86,24 +86,26 @@
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_review"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/retangle_button"
                     android:backgroundTint="@color/forest_green"
                     android:text="Review"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_booking"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/retangle_button"
-                    android:backgroundTint="@color/forest_green"
+                    android:backgroundTint="@color/blue_dark"
+                    android:textColor="@color/white"
                     android:text="Book"
                     android:textStyle="bold" />
 
