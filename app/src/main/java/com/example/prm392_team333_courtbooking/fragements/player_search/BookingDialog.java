@@ -175,7 +175,7 @@ public class BookingDialog extends DialogFragment {
 
         float totalPrice = calculateTotalPrice(courtSlotList, timeStart, timeEnd);
 
-        bookingRepository.insertBooking(courtId, sessionManager.getUserId(), selectedDate, timeStart, timeEnd, totalPrice, "BOOKED", createdAt);
+        bookingRepository.insertBooking(courtId, sessionManager.getUserId(), selectedDate, timeStart, timeEnd, totalPrice, "BOOKED", createdAt, "");
 
         Toast.makeText(getContext(), "Your booking is successful", Toast.LENGTH_SHORT).show();
 

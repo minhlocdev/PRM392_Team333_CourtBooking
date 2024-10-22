@@ -1,4 +1,6 @@
 package com.example.prm392_team333_courtbooking.court_manage;
 
-public class AddCourt {
+import androidx.fragment.app.Fragment;
+
+public class AddCourt extends Fragment {
 }

@@ -152,7 +152,7 @@ public class BookingDetail extends DialogFragment {
 
         float totalPrice = calculateTotalPrice(courtSlotList, timeStart, timeEnd);
 
-        bookingRepository.updateBooking(bookingId, courtId, playerId, date, timeStart, timeEnd, totalPrice, "PENDING");
+        bookingRepository.updateBooking(bookingId, courtId, playerId, date, timeStart, timeEnd, totalPrice, "PENDING", "");
 
         LoadData();
 
@@ -190,7 +190,7 @@ public class BookingDetail extends DialogFragment {
         switch (booking.getStatus()) {
             case "BOOKED": {
                 tvStatus.setText("BOOKED");
-                int color = ContextCompat.getColor(requireContext(), R.color.booked);
+                int color = ContextCompat.getColor(requireContext(), R.color.olive_drab);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 btnSave.setText("SAVE");
                 btnSave.setOnClickListener(v -> Save());
@@ -212,7 +212,7 @@ public class BookingDetail extends DialogFragment {
             }
             case "COMPLETED": {
                 tvStatus.setText("COMPLETED");
-                int color = ContextCompat.getColor(requireContext(), R.color.dark_orange);
+                int color = ContextCompat.getColor(requireContext(), R.color.booked);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
 
                 // Make fields readonly
@@ -244,6 +244,15 @@ public class BookingDetail extends DialogFragment {
 
                 break;
             }
+            case "REFUSED":
+                tvStatus.setText("REFUSED");
+                etTimeStart.setEnabled(false);
+                etTimeEnd.setEnabled(false);
+                tvDate.setEnabled(false);
+                btnSave.setEnabled(false);
+                int color = ContextCompat.getColor(requireContext(), R.color.dark_orange);
+                tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
         }
 
         setInitialDate(booking.getBookingDate());
