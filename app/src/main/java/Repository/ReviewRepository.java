@@ -21,12 +21,10 @@ public class ReviewRepository {
         dbHelper = new Sqlite(context);
     }
 
-    public long insertReview(int reviewId, int bookingId, int userId, int courtId, int rating, String content, String createdAt, String status) {
+    public long insertReview(int userId, int courtId, int rating, String content, String createdAt, String status) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("review_id", reviewId);
-        values.put("booking_id", bookingId);
         values.put("user_id", userId);
         values.put("court_id", courtId);
         values.put("rating", rating);
@@ -45,7 +43,6 @@ public class ReviewRepository {
 
         String[] columns = {
                 "review_id",
-                "booking_id",
                 "user_id",
                 "court_id",
                 "rating",
@@ -60,14 +57,13 @@ public class ReviewRepository {
             do {
                 // Create a new Review object and set its fields
                 int reviewId = cursor.getInt(cursor.getColumnIndexOrThrow("review_id"));
-                int bookingId = cursor.getInt(cursor.getColumnIndexOrThrow("booking_id"));
                 int userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
                 int rate = cursor.getInt(cursor.getColumnIndexOrThrow("rating"));
                 String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
                 String createAt = cursor.getString(cursor.getColumnIndexOrThrow("create_at"));
                 String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
 
-                Review review = new Review(reviewId, bookingId, userId, courtId, rate, content, createAt, status);
+                Review review = new Review(reviewId, userId, courtId, rate, content, createAt, status);
 
                 // Add the review to the list
                 reviews.add(review);

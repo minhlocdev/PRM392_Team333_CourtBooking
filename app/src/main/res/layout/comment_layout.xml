@@ -40,8 +40,26 @@
         android:text="This is feedback about the court"
         android:textSize="14sp"
         android:textColor="@android:color/black"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reply"
+        android:textSize="10sp"
+        android:background="@drawable/date_backround"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="70dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/replyContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,6 +68,7 @@
         android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="30dp"
         />
 
     <!-- RecyclerView for Replies -->

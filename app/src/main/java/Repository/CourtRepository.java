@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.Court;
+import Models.CourtListDown;
 import SqliteHelper.Sqlite;
 
 public class CourtRepository {
@@ -92,5 +93,56 @@ public class CourtRepository {
         db.close();
         return courtList;
     }
+
+    public List<Court> getCourtsByCourtOwnerId(int courtOwnerId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<Court> courtList = new ArrayList<>();
+
+        String query = "SELECT * FROM Court WHERE court_owner_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtOwnerId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int courtId = cursor.getInt(cursor.getColumnIndexOrThrow("court_id"));
+                String courtName = cursor.getString(cursor.getColumnIndexOrThrow("court_name"));
+                String openTime = cursor.getString(cursor.getColumnIndexOrThrow("open_time"));
+                String closedTime = cursor.getString(cursor.getColumnIndexOrThrow("closed_time"));
+                String province = cursor.getString(cursor.getColumnIndexOrThrow("province"));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+
+                Court court = new Court(courtId, status, openTime, closedTime, address, province, courtName, courtOwnerId, image);
+                courtList.add(court);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return courtList;
+    }
+
+    public List<CourtListDown> getCourtsByCourtOwnerIdForListDown(int courtOwnerId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<CourtListDown> courtList = new ArrayList<>();
+
+        String query = "SELECT * FROM Court WHERE court_owner_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtOwnerId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int courtId = cursor.getInt(cursor.getColumnIndexOrThrow("court_id"));
+                String courtName = cursor.getString(cursor.getColumnIndexOrThrow("court_name"));
+
+                CourtListDown court = new CourtListDown(courtId, courtName);
+                courtList.add(court);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return courtList;
+    }
+
 
 }

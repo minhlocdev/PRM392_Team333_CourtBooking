@@ -2,7 +2,6 @@ package Models;
 
 public class Review {
     private int reviewId;
-    private int bookingId;
     private int userId;
     private int courtId;
     private int rating;
@@ -10,9 +9,8 @@ public class Review {
     private String createAt;
     private String status;
 
-    public Review(int reviewId, int bookingId, int userId, int courtId, int rating, String content, String createAt, String status) {
+    public Review(int reviewId, int userId, int courtId, int rating, String content, String createAt, String status) {
         this.reviewId = reviewId;
-        this.bookingId = bookingId;
         this.userId = userId;
         this.courtId = courtId;
         this.rating = rating;
@@ -23,10 +21,6 @@ public class Review {
 
     public int getReviewId() {
         return reviewId;
-    }
-
-    public int getBookingId() {
-        return bookingId;
     }
 
     public int getUserId() {
@@ -55,10 +49,6 @@ public class Review {
 
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
     }
 
     public void setUserId(int userId) {

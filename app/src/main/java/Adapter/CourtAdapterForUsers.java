@@ -97,9 +97,9 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
             Bundle args = new Bundle();
 
             if(hasBookingCompleted){
-                args.putString("edit_mode", "enable");
+                args.putString("mode", "enable");
             }else{
-                args.putString("edit_mode", "disable");
+                args.putString("mode", "disable");
             }
 
             courtFeedback.setArguments(args);
