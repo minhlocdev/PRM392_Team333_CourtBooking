@@ -85,7 +85,7 @@ public class SignUpForCourtOwner extends AppCompatActivity implements View.OnCli
         int id = view.getId();
 
         if(id == R.id.btnRegister){
-            long result = 0;
+            long result;
             if(validate()){
                 result = courtOwnerRepository.insertCourtOwner(etPassword.getText().toString(), "", "", etPhoneNumber.getText().toString(), LocalDateTime.now().toString(), 1, "");
 
@@ -98,6 +98,7 @@ public class SignUpForCourtOwner extends AppCompatActivity implements View.OnCli
                     sessionManager.saveCourtOwnerId(courtOwner.getCourtOwnerId());
 
                     Intent intent = new Intent(this, RegisterCourt.class);
+                    intent.putExtra("phoneNumber", courtOwner.getPhone());
                     startActivity(intent);
                 }
             }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDetail;
+
 import java.util.List;
 import Models.Booking;
 import Models.Court;
@@ -108,7 +109,6 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvPrice = itemView.findViewById(R.id.tv_price);
             btnDetail = itemView.findViewById(R.id.btn_detail);
-
         }
     }
 }

@@ -52,7 +52,9 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ReplyViewHol
 
     public static class ReplyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvUserName, tvDate, tvContent;
+        private final TextView tvUserName;
+        private final TextView tvDate;
+        private final TextView tvContent;
 
         public ReplyViewHolder(@NonNull View view) {
             super(view);

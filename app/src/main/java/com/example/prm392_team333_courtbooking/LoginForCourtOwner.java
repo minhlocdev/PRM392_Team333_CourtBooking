@@ -43,7 +43,7 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
         btnLogin.setOnClickListener(this);
         txtSignUp.setOnClickListener(this);
 
-        checkSession();
+         checkSession();
     }
 
     private void login() {
