@@ -35,13 +35,15 @@ public class FeedbackCourtAdapter extends RecyclerView.Adapter<FeedbackCourtAdap
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
     private final SessionManager sessionManager;
+    private String mode;
 
-    public FeedbackCourtAdapter(Context context, List<Review> reviews,  FragmentManager fragmentManager) {
+    public FeedbackCourtAdapter(Context context, List<Review> reviews,  FragmentManager fragmentManager, String mode) {
         this.context = context;
         this.reviews = reviews;
         userRepository = new UserRepository(context);
         replyRepository = new ReplyRepository(context);
         sessionManager = new SessionManager(context, user);
+        this.mode = mode;
     }
 
     @NonNull
@@ -68,6 +70,10 @@ public class FeedbackCourtAdapter extends RecyclerView.Adapter<FeedbackCourtAdap
 
         holder.rvReplies.setLayoutManager(new LinearLayoutManager(context));
         holder.rvReplies.setAdapter(adapter);
+
+        if(mode.equals("disable")){
+            holder.tvReply.setEnabled(false);
+        }
 
         holder.tvReply.setOnClickListener(v -> {
 
