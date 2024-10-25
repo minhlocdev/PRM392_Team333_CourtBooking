@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.prm392_team333_courtbooking.CourtListManage;
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.court_manage.AddCourt;
 import com.example.prm392_team333_courtbooking.fragements.player_search.BookingFragment;
 import com.example.prm392_team333_courtbooking.fragements.player_search.CourtFragment;
 
@@ -57,12 +58,10 @@ public class court_owner_add extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_court_owner_add, container, false);
 
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, new CourtListManage());
+       /* FragmentTransaction transaction = requireContext().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, new court_owner_add());
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commit();*/
 
 
 

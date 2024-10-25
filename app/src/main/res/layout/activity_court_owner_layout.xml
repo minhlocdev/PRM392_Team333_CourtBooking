@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.player_layout"
     android:background="@color/white">
-<!--
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/blue_dark">
 
-            &lt;!&ndash; Title text in the Toolbar &ndash;&gt;
+            <!-- Title text in the Toolbar -->
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -36,7 +35,6 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    -->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
@@ -44,9 +42,9 @@
         android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-        <!--app:layout_constraintTop_toBottomOf="@+id/appBarLayout"-->
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"

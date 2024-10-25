@@ -1,5 +1,6 @@
 package com.example.prm392_team333_courtbooking.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,7 +62,10 @@ public class court_owner_layout extends AppCompatActivity {
                     transaction.commit();
                     //selectedFragment = new CourtListManage();
                 } else if (item.getItemId() == R.id.add) {
-                    selectedFragment = new AddCourt();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragmentContainer, new AddCourt());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }else if(item.getItemId() == R.id.calendar){
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new Bookings());

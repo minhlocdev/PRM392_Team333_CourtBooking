@@ -57,7 +57,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
     List<LocalTime[]> slotTimes = new ArrayList<>();
 
 
-    private int hour, minute;
+        private int hour, minute;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
