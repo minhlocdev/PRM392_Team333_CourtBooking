@@ -1,5 +1,7 @@
 package com.example.prm392_team333_courtbooking.court_manage;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -58,6 +60,7 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
 
     private final CourtSlotRepository courtSlotRepository = new CourtSlotRepository(this);
 
+    private int hour, minute;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -343,14 +346,20 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
     private void showTimePickerDialog(final EditText timeField) {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
 
         // Create a new TimePickerDialog
-        @SuppressLint("DefaultLocale") TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (TimePicker view, int selectedHour, int selectedMinute) -> {
-                    // Format and display the selected time in the EditText
-                    timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                    // Check if the selected minute is 00 or 30
+                    if (selectedMinute == 0 || selectedMinute == 30) {
+                        // Format and display the valid selected time in the EditText
+                        timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                    } else {
+                        // Show an error message if the selected minute is not 00 or 30
+                        Toast.makeText(this, "Please select a time with minutes as 00 or 30 only.", Toast.LENGTH_SHORT).show();
+                    }
                 }, hour, minute, true);
 
         timePickerDialog.show();

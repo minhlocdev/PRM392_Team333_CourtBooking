@@ -5,6 +5,8 @@ import static Constant.SessionConstant.courtOwner;
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +88,10 @@ public class AddCourt extends Fragment implements View.OnClickListener {
         btnDone.setOnClickListener(this);
         btnAddSlot.setOnClickListener(this);
 
+        // Add TextWatchers to validate time input
+        addTimeValidation(et_open_time);
+        addTimeValidation(et_closed_time);
+
         return view;
     }
 
@@ -96,14 +102,21 @@ public class AddCourt extends Fragment implements View.OnClickListener {
         minute = calendar.get(Calendar.MINUTE);
 
         // Create a new TimePickerDialog
-        @SuppressLint("DefaultLocale") TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
+        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
                 (TimePicker view, int selectedHour, int selectedMinute) -> {
-                    // Format and display the selected time in the EditText
-                    timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                    // Check if the selected minute is 00 or 30
+                    if (selectedMinute == 0 || selectedMinute == 30) {
+                        // Format and display the valid selected time in the EditText
+                        timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                    } else {
+                        // Show an error message if the selected minute is not 00 or 30
+                        Toast.makeText(requireContext(), "Please select a time with minutes as 00 or 30 only.", Toast.LENGTH_SHORT).show();
+                    }
                 }, hour, minute, true);
 
         timePickerDialog.show();
     }
+
 
     private boolean AddSlots() {
         // Validate input fields
@@ -175,7 +188,25 @@ public class AddCourt extends Fragment implements View.OnClickListener {
         slotContainer.addView(newSlot, index);
         allSlots.add(newSlot);
     }
+    private void addTimeValidation(EditText timeField) {
+        timeField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString();
+
+                // Validate input against required format HH:00 or HH:30
+                if (!input.matches("^([01]?\\d|2[0-3]):(00|30)$")) {
+                    timeField.setError("Time must be in HH:00 or HH:30 format");
+                }
+            }
+        });
+    }
     @Override
     public void onClick(View view) {
         int id = view.getId();
