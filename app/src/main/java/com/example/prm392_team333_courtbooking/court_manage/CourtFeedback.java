@@ -68,11 +68,6 @@ public class CourtFeedback extends Fragment {
 
         List<Review> reviews = reviewRepository.getAllReviewsByCourtId(courtId);
 
-        adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager());
-
-        rvReviews.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rvReviews.setAdapter(adapter);
-
         if(mode != null && mode.equals("disable")){
             etReview.setFocusable(false);
             etReview.setClickable(false);
@@ -80,7 +75,15 @@ public class CourtFeedback extends Fragment {
             etReview.setLongClickable(false);
 
             btnPost.setEnabled(false);
+
+            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "disable");
+        }else{
+            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");
+
         }
+
+        rvReviews.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvReviews.setAdapter(adapter);
 
         btnPost.setOnClickListener(v -> post());
         return view;
@@ -104,6 +107,5 @@ public class CourtFeedback extends Fragment {
         List<Review> reviews = reviewRepository.getAllReviewsByCourtId(courtId);
         adapter.setReviews(reviews);
         adapter.notifyDataSetChanged();
-
     }
 }
