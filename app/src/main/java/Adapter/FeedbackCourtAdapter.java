@@ -73,6 +73,7 @@ public class FeedbackCourtAdapter extends RecyclerView.Adapter<FeedbackCourtAdap
 
         if(mode.equals("disable")){
             holder.tvReply.setEnabled(false);
+            holder.tvReply.setVisibility(View.GONE);
         }
 
         holder.tvReply.setOnClickListener(v -> {

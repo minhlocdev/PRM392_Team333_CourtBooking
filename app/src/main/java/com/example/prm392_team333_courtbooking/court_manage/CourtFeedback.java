@@ -76,6 +76,7 @@ public class CourtFeedback extends Fragment {
 
             btnPost.setEnabled(false);
 
+
             adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "disable");
         }else{
             adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");

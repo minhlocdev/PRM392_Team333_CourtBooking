@@ -332,6 +332,7 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
 
         int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
 
+        newSlot.setTag(0);
         // Add the inflated slot layout to the container
         slotContainer.addView(newSlot, index);
 
