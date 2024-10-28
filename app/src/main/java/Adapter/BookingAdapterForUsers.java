@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDetail;
+import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingDetail;
 
 import java.util.List;
 import Models.Booking;

@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.court_manage.DeleteDialog;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.court_manage.DeleteDialog;
 
 import java.util.List;
 import Models.Booking;

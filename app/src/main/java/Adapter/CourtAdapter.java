@@ -1,33 +1,42 @@
 package Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.court_manage.EditCourt;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.court_manage.EditCourt;
 import java.util.List;
 import Models.Court;
+import Repository.CourtRepository;
 
 public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
 
     private final Context context;
     private final List<Court> courts;
     private final int idLayout;
+    private final CourtRepository repository;
+
 
     public CourtAdapter(Context context, List<Court> courts, int idLayout) {
         this.context = context;
         this.courts = courts;
         this.idLayout = idLayout;
+        this.repository = new CourtRepository(context);
     }
 
     @NonNull
@@ -47,6 +56,16 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         holder.tvDescription.setText(court.getOpenTime() + " - " + court.getClosedTime());
         holder.tvStatus.setText(court.getStatus());
 
+        // Use more visually appealing colors
+        if ("closed".equals(court.getStatus())) {
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#FF4444")); // Bright red for closed courts
+            holder.tvStatus.setTextColor(Color.WHITE); // White text for contrast
+            holder.tvStatus.setPadding(8, 8, 8, 8); // Add padding for better readability
+        } else {
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#4CAF50")); // Green for open courts
+            holder.tvStatus.setTextColor(Color.WHITE); // White text for contrast
+            holder.tvStatus.setPadding(8, 8, 8, 8); // Add padding for better readability
+        }
         // Set court image
         byte[] courtImage = court.getImage();
         if (courtImage != null) {
@@ -64,8 +83,36 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         });
 
         holder.ibDelete.setOnClickListener(v -> {
-            // Handle delete action
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Confirm Delete");
+            builder.setMessage("Are you sure you want to delete this court?");
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                int courtId = courts.get(position).getCourtId();
+                CourtRepository courtRepo = new CourtRepository(context);
+
+                // Update status to closed first
+                int updateResult = courtRepo.updateCourtStatus(courtId);
+
+                if (updateResult > 0) {
+                    // Now delete the court
+                    int deleteResult = courtRepo.deleteCourt(courtId);
+                    if (deleteResult > 0) {
+                        Toast.makeText(context, "Court deleted successfully", Toast.LENGTH_SHORT).show();
+                        // Optionally refresh the list or remove the court from the list and notify the adapter
+                        courts.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, courts.size());
+                    } else {
+                        Toast.makeText(context, "Failed to delete court", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to update status", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+            builder.show();
         });
+
     }
 
     @Override

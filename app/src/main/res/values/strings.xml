@@ -23,4 +23,10 @@
     <string name="avatar">\n</string>
     <string name="email">Email</string>
     <string name="hint_contact_information">Email</string>
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="home_page">Home Page</string>
+    <string name="edit">+</string>
 </resources>

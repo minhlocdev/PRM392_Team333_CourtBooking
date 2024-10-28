@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.prm392_team333_courtbooking.LoginForCourtOwner;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.login.LoginForCourtOwner;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.SignUpForCourtOwner;
 
 import SqliteHelper.Sqlite;
 

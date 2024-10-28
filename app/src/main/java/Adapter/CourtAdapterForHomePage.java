@@ -15,61 +15,59 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedback;
-import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingDialog;
+
 import java.util.List;
+
 import Models.Court;
 import Repository.BookingRepository;
+import Repository.CourtOwnerRepository;
 import Session.SessionManager;
 
-public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUsers.CourtViewHolder> {
-
+public class CourtAdapterForHomePage extends RecyclerView.Adapter<CourtAdapterForHomePage.CourtViewHolder> {
     private final List<Court> courts;
     private final int idLayout;
     private final FragmentManager fragmentManager;
     private final Context context;
     private final BookingRepository bookingRepository;
     private final SessionManager sessionManager;
+    private final CourtOwnerRepository courtOwnerRepository;
 
-    public CourtAdapterForUsers(Context context, List<Court> courts, int idLayout, FragmentManager fragmentManager) {
+    public CourtAdapterForHomePage(Context context, List<Court> courts, int idLayout, FragmentManager fragmentManager) {
         this.context = context;
         this.courts = courts;
         this.idLayout = idLayout;
         this.fragmentManager = fragmentManager;
         bookingRepository = new BookingRepository(context);
         sessionManager = new SessionManager(context, user);
+        courtOwnerRepository = new CourtOwnerRepository(context);
     }
 
     @NonNull
     @Override
-    public CourtAdapterForUsers.CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CourtAdapterForHomePage.CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(idLayout, parent, false);
-        return new CourtAdapterForUsers.CourtViewHolder(view);
+        return new CourtAdapterForHomePage.CourtViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull CourtAdapterForUsers.CourtViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CourtAdapterForHomePage.CourtViewHolder holder, int position) {
         Court court = courts.get(position);
 
         // Set court name, open/close time, and status
         holder.tvCourtName.setText(court.getCourtName());
         holder.tvDescription.setText(court.getOpenTime() + " - " + court.getClosedTime());
-        holder.tvStatus.setText(court.getStatus());
         holder.tvAddress.setText(court.getAddress() + " - " + court.getProvince());
-
-        int color = ContextCompat.getColor(context, R.color.booked);
-
-        if(court.getStatus().equals("CLOSED")){
-            color = ContextCompat.getColor(context, R.color.crimson);
-        }
-
-        holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
 
         // Set court image
         byte[] courtImage = court.getImage();
@@ -80,36 +78,19 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
             holder.ivImage.setImageResource(R.drawable.old_trafford);
         }
 
-        holder.btnBook.setOnClickListener(v -> {
-            BookingDialog bookingDialog = new BookingDialog();
+        // Set feedback button click listener
+        holder.btnFeedBack.setOnClickListener(v -> {
+            // Create a new CourtFeedback fragment and pass court ID as argument
+            CourtFeedback courtFeedbackFragment = new CourtFeedback();
             Bundle args = new Bundle();
-            args.putInt("courtId", courts.get(position).getCourtId());
-            bookingDialog.setArguments(args);
+            args.putInt("court_id", court.getCourtId());  // Assuming Court model has a getId() method
+            courtFeedbackFragment.setArguments(args);
 
-            bookingDialog.show(fragmentManager, "BookingDialog");
-        });
-
-        holder.btnReview.setOnClickListener(v -> {
-
-            boolean hasBookingCompleted = bookingRepository.hasCompletedBooking(sessionManager.getUserId(), court.getCourtId());
-
-            CourtFeedback courtFeedback = new CourtFeedback();
-            Bundle args = new Bundle();
-
-            if(hasBookingCompleted){
-                args.putString("mode", "enable");
-            }else{
-                args.putString("mode", "disable");
-            }
-
-            courtFeedback.setArguments(args);
-
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, courtFeedback)
-                    .addToBackStack(null)
-                    .commit();
-
+            // Replace current fragment with CourtFeedback fragment
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragmentContainer, courtFeedbackFragment);
+            transaction.addToBackStack(null);  // Optional: add to back stack
+            transaction.commit();
         });
     }
 
@@ -120,25 +101,21 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
 
     // ViewHolder class to hold the view references
     public static class CourtViewHolder extends RecyclerView.ViewHolder {
-
         ImageView ivImage;
         TextView tvCourtName;
         TextView tvDescription;
-        TextView tvStatus;
         TextView tvAddress;
-        RelativeLayout relativeLayout;
-        Button btnBook, btnReview;
+        AppCompatButton btnFeedBack;
 
         public CourtViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // Initialize view components based on the new layout structure
             ivImage = itemView.findViewById(R.id.court_image);
             tvCourtName = itemView.findViewById(R.id.court_title);
             tvDescription = itemView.findViewById(R.id.court_description);
-            tvStatus = itemView.findViewById(R.id.tv_status);
-            relativeLayout = itemView.findViewById(R.id.relativeLayout);
-            btnBook = itemView.findViewById(R.id.btn_booking);
             tvAddress = itemView.findViewById(R.id.tv_address);
-            btnReview = itemView.findViewById(R.id.btn_review);
+            btnFeedBack = itemView.findViewById(R.id.btn_review);
         }
     }
 }

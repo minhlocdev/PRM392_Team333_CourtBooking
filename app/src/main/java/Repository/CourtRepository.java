@@ -144,5 +144,23 @@ public class CourtRepository {
         return courtList;
     }
 
+    public int updateCourtStatus(int courtId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", "closed"); // Set status to closed
+
+        // Update the court status where court_id matches
+        int rowsAffected = db.update("Court", values, "court_id = ?", new String[]{String.valueOf(courtId)});
+        db.close();
+        return rowsAffected; // Returns the number of rows affected
+    }
+    public int deleteCourt(int courtId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // Delete the court where court_id matches
+        int rowsDeleted = db.delete("Court", "court_id = ?", new String[]{String.valueOf(courtId)});
+        db.close();
+        return rowsDeleted; // Returns the number of rows deleted
+    }
 
 }

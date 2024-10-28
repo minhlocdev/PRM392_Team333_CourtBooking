@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Home" android:icon="@drawable/baseline_home_24"
+    <item
+        android:title="@string/home"
+        android:icon="@drawable/baseline_home_24"
         android:id="@+id/home"/>
-    <item android:title="Add" android:icon="@drawable/round_add_circle_24"
+    <item
+        android:title="@string/add"
+        android:icon="@drawable/round_add_circle_24"
         android:id="@+id/add"/>
-    <item android:title="Calendar" android:icon="@drawable/baseline_calendar_month_24"
+    <item
+        android:title="@string/calendar"
+        android:icon="@drawable/baseline_calendar_month_24"
         android:id="@+id/calendar"/>
-    <item android:title="Profile" android:icon="@drawable/baseline_person_24"
+    <item
+        android:title="@string/profile"
+        android:icon="@drawable/baseline_person_24"
         android:id="@+id/profile"/>
 </menu>
