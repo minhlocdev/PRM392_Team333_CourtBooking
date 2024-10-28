@@ -1,4 +1,4 @@
-package com.example.prm392_team333_courtbooking.activities.owner;
+package com.example.prm392_team333_courtbooking.activities.player;
 
 import static Constant.SessionConstant.courtOwner;
 import static Constant.SessionConstant.user;
