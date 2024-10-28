@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedback;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedbackCourtOwner;
 import com.example.prm392_team333_courtbooking.fragements.player.login.LoginForPlayers;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -225,7 +225,7 @@ public class BookingDetail extends DialogFragment {
 
                 // Handle feedback button click
                 btnSave.setOnClickListener(v -> {
-                    CourtFeedback courtFeedbackFragment = new CourtFeedback();
+                    CourtFeedbackCourtOwner courtFeedbackFragment = new CourtFeedbackCourtOwner();
 
                     Bundle args = new Bundle();
                     args.putInt("courtId", courtId);

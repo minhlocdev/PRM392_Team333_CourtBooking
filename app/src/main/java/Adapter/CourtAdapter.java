@@ -94,19 +94,13 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
                 int updateResult = courtRepo.updateCourtStatus(courtId);
 
                 if (updateResult > 0) {
-                    // Now delete the court
-                    int deleteResult = courtRepo.deleteCourt(courtId);
-                    if (deleteResult > 0) {
-                        Toast.makeText(context, "Court deleted successfully", Toast.LENGTH_SHORT).show();
-                        // Optionally refresh the list or remove the court from the list and notify the adapter
-                        courts.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, courts.size());
-                    } else {
-                        Toast.makeText(context, "Failed to delete court", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(context, "Court closed successfully", Toast.LENGTH_SHORT).show();
+                    // Optionally refresh the list or update the UI to reflect the change
+                    // For example, you might want to update the court's status in your local list if needed
+                    courts.get(position).setStatus("closed");
+                    notifyItemChanged(position);
                 } else {
-                    Toast.makeText(context, "Failed to update status", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Failed to close court", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
