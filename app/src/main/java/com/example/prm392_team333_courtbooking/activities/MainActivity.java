@@ -1,6 +1,7 @@
 package com.example.prm392_team333_courtbooking.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.blue_dark));
+            window.setStatusBarColor(Color.TRANSPARENT);
         }
         Button btnSignIn = findViewById(R.id.btn_login);
         Button btnSignUp = findViewById(R.id.btn_sign_up);
