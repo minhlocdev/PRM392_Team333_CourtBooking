@@ -2,8 +2,12 @@ package com.example.prm392_team333_courtbooking.fragements.court_owner.login;
 
 import static Constant.SessionConstant.courtOwner;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +33,13 @@ public class LoginForCourtOwner extends AppCompatActivity implements View.OnClic
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.login_for_court_owner_layout);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
 
         etPhoneNumber = findViewById(R.id.et_phone_number);
         etPassword = findViewById(R.id.et_password);
