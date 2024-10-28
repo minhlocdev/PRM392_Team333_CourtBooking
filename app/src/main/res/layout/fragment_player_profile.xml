@@ -30,7 +30,7 @@
                     android:src="@drawable/ten_hag"
                     android:background="@drawable/circle_avatar"/>
 
-                <Button
+                <!--<Button
                     android:id="@+id/btn_edit_avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     android:text="+"
                     android:textColor="@android:color/white"
                     android:padding="4dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp" />-->
             </RelativeLayout>
 
 
@@ -96,7 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Enter your phone"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:enabled="false"/>
 
             <TextView
                 android:layout_width="wrap_content"

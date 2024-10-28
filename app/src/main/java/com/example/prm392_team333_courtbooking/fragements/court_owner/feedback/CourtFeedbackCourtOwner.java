@@ -23,7 +23,7 @@ import Models.Review;
 import Repository.ReviewRepository;
 import Session.SessionManager;
 
-public class CourtFeedback extends Fragment {
+public class CourtFeedbackCourtOwner extends Fragment {
 
     private EditText etReview;
 
@@ -45,7 +45,7 @@ public class CourtFeedback extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.court_feedback_layout, container, false);
+        View view = inflater.inflate(R.layout.court_feedback_layout_court_owner, container, false);
 
         etReview = view.findViewById(R.id.et_review);
         Button btnPost = view.findViewById(R.id.btn_post);
