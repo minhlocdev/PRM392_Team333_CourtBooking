@@ -1,160 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="120dp"
-    android:padding="16dp">
+    android:background="@android:color/background_light">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            >
+            android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="140dp"
-                android:layout_height="111dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ten_hag"/>
+            <!-- Avatar Section -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
+                <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ten_hag"
+                    android:background="@drawable/circle_avatar"/>
+
+                <Button
+                    android:id="@+id/btn_edit_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_avatar"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/retangle_button"
+                    android:text="+"
+                    android:textColor="@android:color/white"
+                    android:padding="4dp"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+
+
+            <!-- Logout Button -->
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/orange_700"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" /> <!-- Add some margin above the logout button -->
+
+            <!-- User Info Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full name :"
-                android:layout_marginTop="20dp"
+                android:text="Full Name:"
                 android:textStyle="bold"
-                />
+                android:layout_marginTop="20dp"/>
 
             <EditText
                 android:id="@+id/et_full_name"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/date_backround"
-                android:backgroundTint="#50B0C4DE"
-                android:hint="Enter your full name" />
+                android:layout_height="48dp"
+                android:hint="Enter your full name"
+                android:padding="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email :"
-                android:layout_marginTop="20dp"
+                android:text="Email:"
                 android:textStyle="bold"
-                />
+                android:layout_marginTop="16dp"/>
 
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="48dp"
                 android:hint="Enter your email"
-                android:background="@drawable/date_backround"
-                android:backgroundTint="#50B0C4DE"
-                android:layout_margin="10dp"
-                />
+                android:padding="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone :"
-                android:layout_marginTop="20dp"
+                android:text="Phone:"
                 android:textStyle="bold"
-                />
+                android:layout_marginTop="16dp"/>
 
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="48dp"
                 android:hint="Enter your phone"
-                android:background="@drawable/date_backround"
-                android:backgroundTint="#50B0C4DE"
-                android:layout_margin="10dp"
-                />
+                android:padding="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password :"
-                android:layout_marginTop="20dp"
+                android:text="Password:"
                 android:textStyle="bold"
-                />
+                android:layout_marginTop="16dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/et_password"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/date_backround"
-                    android:layout_marginStart="10dp"
-                    android:inputType="textPassword" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:hint="Enter your password"
+                    android:inputType="textPassword"
+                    android:padding="10dp"/>
 
                 <ImageButton
                     android:id="@+id/ib_hide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="2dp"
-                    android:src="@drawable/baseline_key_24" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/baseline_key_24"
+                    android:contentDescription="Hide/Show Password"/>
 
                 <TextView
                     android:id="@+id/tv_change_pwd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="8dp"
                     android:text="Change"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Created at :"
+                    android:textColor="@color/orange"
                     android:textStyle="bold"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_create_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10-10-2024"
-                    android:background="@drawable/date_backround"
-                    android:layout_marginStart="10dp"
-                    />
-
+                    android:paddingTop="10dp"/>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created at:"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_create_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-10-2024"
+                android:layout_marginStart="10dp"/>
 
             <Button
                 android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginTop="40dp"
-                android:layout_gravity="center"
+                android:background="@color/orange"
                 android:text="SAVE"
-                android:textStyle="bold"
-                android:layout_marginBottom="50dp"
-                />
-
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
         </LinearLayout>
     </ScrollView>
-
-
 </FrameLayout>

@@ -71,17 +71,17 @@ public class CourtSlotRepository {
         // Define the query to select slots by courtId
         String query = "SELECT * FROM CourtSlot WHERE court_slot_id = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(courtSlotId)});
+        CourtSlot courtSlot = null;
+        
+        if(cursor.moveToFirst()){
 
+            int courtId = cursor.getInt(cursor.getColumnIndexOrThrow("court_id"));
+            String timeStart = cursor.getString(cursor.getColumnIndexOrThrow("time_start"));
+            String timeEnd = cursor.getString(cursor.getColumnIndexOrThrow("time_end"));
+            double cost = cursor.getDouble(cursor.getColumnIndexOrThrow("cost"));
 
-                CourtSlot courtSlot = null;
-                int courtId = cursor.getInt(cursor.getColumnIndexOrThrow("court_id"));
-                String timeStart = cursor.getString(cursor.getColumnIndexOrThrow("time_start"));
-                String timeEnd = cursor.getString(cursor.getColumnIndexOrThrow("time_end"));
-                double cost = cursor.getDouble(cursor.getColumnIndexOrThrow("cost"));
-
-                courtSlot = new CourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
-                // Add the CourtSlot object to the list
-
+            courtSlot = new CourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
+        }
 
         // Close the cursor and database connection
         cursor.close();
