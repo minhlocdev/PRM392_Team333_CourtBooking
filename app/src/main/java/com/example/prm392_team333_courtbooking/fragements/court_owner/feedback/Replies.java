@@ -21,7 +21,7 @@ public class Replies extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.court_feedback_layout, container, false);
+        View view = inflater.inflate(R.layout.court_feedback_layout_court_owner, container, false);
 
         RecyclerView rvReviews = view.findViewById(R.id.rv_feedback_list);
 

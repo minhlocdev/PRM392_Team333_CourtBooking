@@ -20,7 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedback;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedbackCourtOwner;
+import com.example.prm392_team333_courtbooking.fragements.player.feedback.CourtFeedbackPlayer;
 import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingDialog;
 import java.util.List;
 import Models.Court;
@@ -93,7 +94,7 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
 
             boolean hasBookingCompleted = bookingRepository.hasCompletedBooking(sessionManager.getUserId(), court.getCourtId());
 
-            CourtFeedback courtFeedback = new CourtFeedback();
+            CourtFeedbackPlayer courtFeedback = new CourtFeedbackPlayer();
             Bundle args = new Bundle();
 
             if(hasBookingCompleted){

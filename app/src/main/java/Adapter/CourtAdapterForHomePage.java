@@ -4,27 +4,23 @@ import static Constant.SessionConstant.user;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedback;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedbackCourtOwner;
 
 import java.util.List;
 
@@ -81,7 +77,7 @@ public class CourtAdapterForHomePage extends RecyclerView.Adapter<CourtAdapterFo
         // Set feedback button click listener
         holder.btnFeedBack.setOnClickListener(v -> {
             // Create a new CourtFeedback fragment and pass court ID as argument
-            CourtFeedback courtFeedbackFragment = new CourtFeedback();
+            CourtFeedbackCourtOwner courtFeedbackFragment = new CourtFeedbackCourtOwner();
             Bundle args = new Bundle();
             args.putInt("court_id", court.getCourtId());  // Assuming Court model has a getId() method
             courtFeedbackFragment.setArguments(args);
