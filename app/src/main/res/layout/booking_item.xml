@@ -131,11 +131,11 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_refused"
-                    android:layout_width="63dp"
+                    android:layout_width="match_parent"
                     android:layout_height="33dp"
                     android:layout_gravity="center"
                     android:background="@drawable/retangle_button"
-                    android:backgroundTint="@color/forest_green"
+                    android:backgroundTint="@color/dark_orange"
                     android:text="REFUSE"
                     android:textColor="@color/white"
                     android:textSize="10sp"

@@ -30,30 +30,32 @@
                     android:src="@drawable/ten_hag"
                     android:background="@drawable/circle_avatar"/>
 
-                <!--<Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_edit_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_below="@id/iv_avatar"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/retangle_button"
-                    android:text="+"
-                    android:textColor="@android:color/white"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_add_circle_24"
+                    android:backgroundTint="@color/blue_dark"
                     android:padding="4dp"
-                    android:layout_marginTop="8dp" />-->
+                    android:text="+"
+                    android:textColor="@android:color/white" />
             </RelativeLayout>
 
 
             <!-- Logout Button -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/orange_700"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/seach_container"
+                android:backgroundTint="@color/dim_gray"
                 android:text="Logout"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" /> <!-- Add some margin above the logout button -->
+                android:textStyle="bold" /> <!-- Add some margin above the logout button -->
 
             <!-- User Info Section -->
             <TextView
@@ -134,10 +136,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
+                    android:paddingTop="10dp"
                     android:text="Change"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold"
-                    android:paddingTop="10dp"/>
+                    android:textColor="@color/forest_green_dark"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
@@ -154,15 +156,15 @@
                 android:text="10-10-2024"
                 android:layout_marginStart="10dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="40dp"
-                android:background="@color/orange"
+                android:background="@color/blue_dark"
                 android:text="SAVE"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
