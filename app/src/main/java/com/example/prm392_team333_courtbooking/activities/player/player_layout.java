@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.activities.owner.player_profile_screen;
 import com.example.prm392_team333_courtbooking.fragements.player.profile.player_profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
