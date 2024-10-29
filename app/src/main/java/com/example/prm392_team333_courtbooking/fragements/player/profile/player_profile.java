@@ -1,6 +1,8 @@
 package com.example.prm392_team333_courtbooking.fragements.player.profile;
 
 import static Constant.SessionConstant.user;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import com.example.prm392_team333_courtbooking.Interface.OnLogoutListener;
 import com.example.prm392_team333_courtbooking.Interface.PasswordDialogListener;
 import com.example.prm392_team333_courtbooking.R;
+import com.example.prm392_team333_courtbooking.fragements.player.login.LoginForPlayers;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import Models.User;
 import Repository.UserRepository;
@@ -63,9 +67,14 @@ public class player_profile extends Fragment implements PasswordDialogListener {
 
         // Set click listener for the logout button
         btnLogout.setOnClickListener(v -> {
-            if (logoutListener != null) {
-                logoutListener.onLogout(); // Call the logout method in the container fragment
-            }
+            SessionManager sessionManager = new SessionManager(requireContext(), "user");
+            sessionManager.clearSession();
+
+            Intent intent = new Intent(requireContext(), LoginForPlayers.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
+            startActivity(intent);
+            requireActivity().finish(); // Finish the current activity
+            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
         });
         btnSave.setOnClickListener(v -> {
             save(user);
@@ -147,7 +156,4 @@ public class player_profile extends Fragment implements PasswordDialogListener {
         Toast.makeText(requireContext(), "Update password successfully!", Toast.LENGTH_SHORT).show();
     }
 
-    public void setLogoutListener(OnLogoutListener listener) {
-        this.logoutListener = listener;
-    }
 }

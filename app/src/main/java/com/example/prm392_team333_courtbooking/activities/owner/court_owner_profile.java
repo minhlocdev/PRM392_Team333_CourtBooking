@@ -17,6 +17,7 @@ import com.example.prm392_team333_courtbooking.Interface.OnLogoutListener;
 import com.example.prm392_team333_courtbooking.Interface.TitleProvider;
 import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.activities.MainActivity;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.login.LoginForCourtOwner;
 
 import Session.SessionManager;
 
@@ -82,7 +83,7 @@ public class court_owner_profile extends Fragment implements OnLogoutListener {
         SessionManager sessionManager = new SessionManager(requireContext(), courtOwner);
         sessionManager.clearSession();
 
-        Intent intent = new Intent(requireContext(), MainActivity.class);
+        Intent intent = new Intent(requireContext(), LoginForCourtOwner.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
         startActivity(intent);
         requireActivity().finish(); // Finish the current activity
