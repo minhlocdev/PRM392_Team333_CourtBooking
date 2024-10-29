@@ -45,7 +45,7 @@ public class player_layout extends AppCompatActivity {
                 if (item.getItemId() == R.id.search) {
                     selectedFragment = new player_search();
                 } else if (item.getItemId() == R.id.profile) {
-                    selectedFragment = new player_profile_screen();
+                    selectedFragment = new player_profile();
                 }else if(item.getItemId() == R.id.calendar){
                     selectedFragment = new player_calendar();
                 }

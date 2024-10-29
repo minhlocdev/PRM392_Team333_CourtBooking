@@ -29,6 +29,8 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ten_hag"
                     tools:src="@tools:sample/avatars" />
 
                 <LinearLayout
@@ -89,7 +91,7 @@
                             android:textColor="#6F6F6F" />
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/yesterdayText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="328.000 VND"
@@ -113,7 +115,7 @@
                             android:textColor="#6f6f6f" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/thisMonthText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="328.000 VND"
@@ -137,7 +139,7 @@
                             android:textColor="#6f6f6f" />
 
                         <TextView
-                            android:id="@+id/textView9"
+                            android:id="@+id/lastMonthText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -171,7 +173,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/todayText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -205,7 +207,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/numberOfBookingText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
