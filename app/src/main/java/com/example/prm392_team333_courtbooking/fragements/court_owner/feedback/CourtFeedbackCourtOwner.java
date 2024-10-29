@@ -46,7 +46,7 @@ public class CourtFeedbackCourtOwner extends Fragment {
         ReviewRepository reviewRepository1 = new ReviewRepository(requireContext());
 
         if (getArguments() != null) {
-            courtId = getArguments().getInt("courtId");
+            courtId = getArguments().getInt("court_id");
         }
 
         ReviewRepository reviewRepository = new ReviewRepository(requireContext());

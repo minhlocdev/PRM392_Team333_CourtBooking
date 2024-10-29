@@ -97,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Enter your phone"
+                android:enabled="false"
                 android:padding="10dp"/>
 
             <TextView

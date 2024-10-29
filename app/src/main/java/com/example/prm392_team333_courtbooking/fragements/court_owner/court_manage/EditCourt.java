@@ -2,6 +2,10 @@ package com.example.prm392_team333_courtbooking.fragements.court_owner.court_man
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
+import static java.security.AccessController.getContext;
+
+import static Constant.SessionConstant.courtOwner;
+
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -41,6 +45,7 @@ import Models.Court;
 import Models.CourtSlot;
 import Repository.CourtRepository;
 import Repository.CourtSlotRepository;
+import Session.SessionManager;
 
 public class EditCourt extends AppCompatActivity implements View.OnClickListener {
 
@@ -182,38 +187,19 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
         return adapter;
     }
 
-    private boolean OverLap( List<LocalTime[]> slotTimes){
-        for (int i = 0; i < slotTimes.size(); i++) {
-            LocalTime[] currentSlot = slotTimes.get(i);
-            LocalTime currentStart = currentSlot[0];
-            LocalTime currentEnd = currentSlot[1];
-
-            for (int j = i + 1; j < slotTimes.size(); j++) {
-                LocalTime[] nextSlot = slotTimes.get(j);
-                LocalTime nextStart = nextSlot[0];
-                LocalTime nextEnd = nextSlot[1];
-
-                // Check if current slot overlaps with the next one
-                if (currentStart.isBefore(nextEnd) && nextStart.isBefore(currentEnd)) {
-                    Toast.makeText(this, "Slot " + (i + 1) + " overlaps with Slot " + (j + 1), Toast.LENGTH_LONG).show();
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean AddSlots() {
-        if(!Validate(etCourtName, etAddress, etOpenTime, etClosedTime, etProvince)){
+   /* private boolean AddSlots() {
+        // Validate basic inputs first
+        if (!ValidateInputs()) {
             return false;
         }
 
-        if(!ValidateTime(allSlots)){
+        // Ensure each slot's time meets the format, duration, and open/close hours
+        if (!ValidateTime(allSlots)) {
             return false;
         }
 
-        if(OverLap(slotTimes)){
+        // Check for any overlaps in slot times
+        if (hasOverlappingSlots(slotTimes)) {
             return false;
         }
 
@@ -269,67 +255,252 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
             // Update or insert the slot as appropriate
             int courtSlotId = Integer.parseInt(slot.getTag().toString());
             CourtSlot courtSlot = courtSlotRepository.getSlotById(courtSlotId);
-            courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
 
-            /*if(courtSlot != null){
+            //courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
+
+            if(courtSlot != null){
                 courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
             } else {
                 courtSlotRepository.insertCourtSlot(courtId, timeStart, timeEnd, cost);
-            }*/
+            }
+        }
+        // Proceed to add slots if all validations are successful
+        *//*for (View slot : allSlots) {
+            EditText etTimeStart = slot.findViewById(R.id.et_time_start);
+            EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
+            EditText etCost = slot.findViewById(R.id.et_cost);
+
+            try {
+                float cost = Float.parseFloat(etCost.getText().toString());
+                LocalTime timeStart = LocalTime.parse(etTimeStart.getText().toString());
+                LocalTime timeEnd = LocalTime.parse(etTimeEnd.getText().toString());
+
+                int courtSlotId = Integer.parseInt(slot.getTag().toString());
+                CourtSlot courtSlot = courtSlotRepository.getSlotById(courtSlotId);
+                courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart.toString(), timeEnd.toString(), cost);
+
+                if(courtSlot != null){
+                    courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart.toString(), timeEnd.toString(), cost);
+                } else {
+                    courtSlotRepository.insertCourtSlot(courtId, timeStart.toString(), timeEnd.toString(), cost);
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(this, "Error saving slot information.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }*//*
+        return true;
+    }*/
+
+    private boolean AddSlots() {
+        // Validate basic inputs first
+        if (!ValidateInputs()) {
+            return false;
+        }
+
+        // Ensure each slot's time meets the format, duration, and open/close hours
+        if (!ValidateTime(allSlots)) {
+            return false;
+        }
+
+        // Check for any overlaps in slot times
+        if (hasOverlappingSlots(slotTimes)) {
+            return false;
+        }
+
+        // Proceed with saving the slots if all validations pass
+        SessionManager sessionManager = new SessionManager(this, courtOwner);
+        courtRepository.updateCourt(
+                courtId,
+                etCourtName.getText().toString(),
+                etOpenTime.getText().toString(),
+                etClosedTime.getText().toString(),
+                etProvince.getText().toString(),
+                etAddress.getText().toString()
+        );
+        Court court = courtRepository.getCourtById(courtId);
+
+        // Insert each slot into the database
+        for (View slot : allSlots) {
+            EditText etTimeStart = slot.findViewById(R.id.et_time_start);
+            EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
+            EditText etCost = slot.findViewById(R.id.et_cost);
+
+            float cost;
+            try {
+                cost = Float.parseFloat(etCost.getText().toString());
+                if (cost < 0) {
+                    etCost.setError("Cost cannot be less than 0");
+                    return false;
+                }
+            } catch (Exception e) {
+                etCost.setError("Invalid cost format (00.00)");
+                return false;
+            }
+
+            String timeStart = etTimeStart.getText().toString();
+            String timeEnd = etTimeEnd.getText().toString();
+
+            // Update or insert the slot as appropriate
+            int courtSlotId = Integer.parseInt(slot.getTag().toString());
+            CourtSlot courtSlot = courtSlotRepository.getSlotById(courtSlotId);
+
+            //courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
+
+            if(courtSlot != null){
+                courtSlotRepository.updateCourtSlot(courtSlotId, courtId, timeStart, timeEnd, cost);
+            } else {
+                courtSlotRepository.insertCourtSlot(courtId, timeStart, timeEnd, cost);
+            }
         }
         return true;
     }
 
+    private boolean hasOverlappingSlots(List<LocalTime[]> slotTimes) {
+        for (int i = 0; i < slotTimes.size(); i++) {
+            LocalTime[] currentSlot = slotTimes.get(i);
+            for (int j = i + 1; j < slotTimes.size(); j++) {
+                LocalTime[] otherSlot = slotTimes.get(j);
+                if (currentSlot[0].isBefore(otherSlot[1]) && otherSlot[0].isBefore(currentSlot[1])) {
+                    Toast.makeText(this, "Slot " + (i + 1) + " overlaps with Slot " + (j + 1), Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-    private boolean Validate(EditText etCourtName, EditText etAddress, EditText etOpenTime, EditText etClosedTime, EditText etProvince){
+    private void AddSlotView(View view){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
 
-        // Validate court name
-        if (etCourtName.getText().toString().trim().isEmpty() || etCourtName.getText().toString().isBlank()) {
-            etCourtName.setError("Court name is required");
-            etCourtName.requestFocus();
+        int index = slotContainer.indexOfChild(view.findViewById(R.id.btn_add_slot));
+
+        newSlot.setTag(0);
+        // Add the inflated slot layout to the container
+        slotContainer.addView(newSlot, index);
+
+        // Add the new slot to the list for tracking
+        allSlots.add(newSlot);
+    }
+
+    // In ValidateInputs(), check if the court's open and close times meet the requirements
+    private boolean ValidateInputs() {
+        // Basic validation for input fields (name, address, open/close times, province)
+        if (etCourtName.getText().toString().isEmpty() || etAddress.getText().toString().isEmpty()
+                || etProvince.getText().toString().isEmpty() || etOpenTime.getText().toString().isEmpty()
+                || etClosedTime.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Validate address
-        if (etAddress.getText().toString().trim().isEmpty() || etAddress.getText().toString().isBlank()) {
-            etAddress.setError("Address is required");
-            etAddress.requestFocus();
+        try {
+            LocalTime openTime = LocalTime.parse(etOpenTime.getText().toString());
+            LocalTime closeTime = LocalTime.parse(etClosedTime.getText().toString());
+
+            // Check if open and close times meet hour or half-hour increments and are at least 90 minutes apart
+            if (!isValidMinute(openTime) || !isValidMinute(closeTime)) {
+                Toast.makeText(this, "Open and Close times must be on the hour or half-hour.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            if (java.time.Duration.between(openTime, closeTime).toMinutes() < 90) {
+                Toast.makeText(this, "Court open and close times must span at least 90 minutes.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } catch (DateTimeParseException e) {
+            Toast.makeText(this, "Invalid time format. Use HH:mm.", Toast.LENGTH_SHORT).show();
             return false;
         }
+        return true;
+    }
 
-        // Validate province
-        if (etProvince.getText().toString().trim().isEmpty() || etProvince.getText().toString().isBlank()) {
-            etProvince.setError("Province is required");
-            etProvince.requestFocus();
-            return false;
-        }
+    // In ValidateTime(), check if each slot meets the 90-minute duration requirement
+    private boolean ValidateTime(List<View> allSlots) {
+        for (View slot : allSlots) {
+            EditText etTimeStart = slot.findViewById(R.id.et_time_start);
+            EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
 
+            String timeStart = etTimeStart.getText().toString();
+            String timeEnd = etTimeEnd.getText().toString();
 
-        if(etOpenTime.getText().toString().trim().isEmpty() || etOpenTime.getText().toString().isBlank()){
-            etOpenTime.setError("Open time is required");
-            etOpenTime.requestFocus();
-            return false;
-        }
+            try {
+                LocalTime timeStartT = LocalTime.parse(timeStart);
+                LocalTime timeEndT = LocalTime.parse(timeEnd);
 
-        if(etClosedTime.getText().toString().trim().isEmpty() || etClosedTime.getText().toString().isBlank()){
-            etClosedTime.setError("Closed time is required");
-            etClosedTime.requestFocus();
-            return false;
-        }
+                // Ensure slot start and end times meet hour or half-hour increments
+                if (!isValidMinute(timeStartT) || !isValidMinute(timeEndT)) {
+                    etTimeStart.setError("Time start and end must be on the hour or half-hour.");
+                    etTimeEnd.setError("Time start and end must be on the hour or half-hour.");
+                    return false;
+                }
 
-        try{
-            if(!LocalTime.parse(etOpenTime.getText().toString()).isBefore(LocalTime.parse(etClosedTime.getText().toString()))){
-                Toast.makeText(this, "Open time is bigger than closed time", Toast.LENGTH_SHORT).show();
+                /*// Ensure each slot duration is at least 90 minutes
+                if (java.time.Duration.between(timeStartT, timeEndT).toMinutes() < 90) {
+                    etTimeStart.setError("Each slot must be at least 90 minutes long.");
+                    etTimeEnd.setError("Each slot must be at least 90 minutes long.");
+                    return false;
+                }*/
+
+                // Ensure each slot is within open and close hours
+                if (!isSlotWithinCourtHours(timeStartT, timeEndT)) {
+                    etTimeStart.setError("Slot times must be within court open and close hours.");
+                    etTimeEnd.setError("Slot times must be within court open and close hours.");
+                    return false;
+                }
+
+                // Store start and end times for overlap checking
+                slotTimes.add(new LocalTime[]{timeStartT, timeEndT});
+            } catch (DateTimeParseException e) {
+                etTimeStart.setError("Invalid time format (HH:mm)");
+                etTimeEnd.setError("Invalid time format (HH:mm)");
                 return false;
             }
         }
-        catch (Exception e){
-            etOpenTime.setError("Invalid time format (HH:mm)");
-            etClosedTime.setError("Invalid time format (HH:mm)");
+        return true;
+    }
+
+    private void showTimePickerDialog(final EditText timeField) {
+        Calendar calendar = Calendar.getInstance();
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (TimePicker view, int selectedHour, int selectedMinute) -> {
+            if (selectedMinute == 0 || selectedMinute == 30) {
+                timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+            } else {
+                Toast.makeText(this, "Please select a time with minutes as 00 or 30 only.", Toast.LENGTH_SHORT).show();
+            }
+        }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    private boolean isValidMinute(LocalTime time) {
+        int minute = time.getMinute();
+        return minute == 0 || minute == 30;
+    }
+
+    private boolean isSlotWithinCourtHours(LocalTime slotStart, LocalTime slotEnd) {
+        try {
+            LocalTime openTime = LocalTime.parse(etOpenTime.getText().toString());
+            LocalTime closeTime = LocalTime.parse(etClosedTime.getText().toString());
+
+            // Check if the slot start and end times are within the open and close times
+            if (slotStart.isBefore(openTime) || slotEnd.isAfter(closeTime)) {
+                Toast.makeText(this, "Slot times must be within the court's open and close hours.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            Toast.makeText(this, "Invalid open or close time format.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
+    }
+
+    private boolean isValidSlotDuration(LocalTime startTime, LocalTime endTime) {
+        return java.time.Duration.between(startTime, endTime).toMinutes() >= 90;
     }
 
     private void LoadSlotView(int slotId, String startTime, String endTime, double cost) {
@@ -366,86 +537,10 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
         allSlots.add(newSlot);
     }
 
-    private void AddSlotView(){
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
-
-        int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
-
-        newSlot.setTag(0);
-        // Add the inflated slot layout to the container
-        slotContainer.addView(newSlot, index);
-
-        // Add the new slot to the list for tracking
-        allSlots.add(newSlot);
-    }
-
-    private void showTimePickerDialog(final EditText timeField) {
-        // Get the current time
-        Calendar calendar = Calendar.getInstance();
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
-
-        // Create a new TimePickerDialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (TimePicker view, int selectedHour, int selectedMinute) -> {
-                    // Check if the selected minute is 00 or 30
-                    if (selectedMinute == 0 || selectedMinute == 30) {
-                        // Format and display the valid selected time in the EditText
-                        timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
-                    } else {
-                        // Show an error message if the selected minute is not 00 or 30
-                        Toast.makeText(this, "Please select a time with minutes as 00 or 30 only.", Toast.LENGTH_SHORT).show();
-                    }
-                }, hour, minute, true);
-
-        timePickerDialog.show();
-    }
-
-
-    private boolean ValidateTime(List<View> allSlots){
-        for (View slot : allSlots) {
-            EditText etTimeStart = slot.findViewById(R.id.et_time_start);
-            EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
-            EditText etCost = slot.findViewById(R.id.et_cost);
-
-            String timeStart = etTimeStart.getText().toString();
-            String timeEnd = etTimeEnd.getText().toString();
-            String cost = etCost.getText().toString();
-
-            if(timeStart.isEmpty() || timeStart.isBlank()){
-                etTimeStart.setError("Time start cannot be empty");
-                return false;
-            }
-
-            if (timeEnd.isEmpty()) {
-                etTimeEnd.setError("Time end cannot be empty");
-                return false;
-            }
-            if (cost.isEmpty()) {
-                etCost.setError("Cost cannot be empty");
-                return false;
-            }
-
-            try {
-                LocalTime timeStarT = LocalTime.parse(timeStart);
-                LocalTime timeEndT = LocalTime.parse(timeEnd);
-                if (!timeStarT.isBefore(timeEndT)) {
-                    etTimeStart.setError("Time start must be earlier than time end");
-                    etTimeEnd.setError("Time end must be later than time start");
-                    return false;
-                }
-
-                // Store start and end times for overlap checking
-                slotTimes.add(new LocalTime[]{timeStarT, timeEndT});
-            }
-            catch (DateTimeParseException e) {
-                etTimeStart.setError("Invalid time format (HH:mm)");
-                etTimeEnd.setError("Invalid time format (HH:mm)");
-                return false;
-            }
+    private void setError(String message, EditText... fields) {
+        for (EditText field : fields) {
+            field.setError(message);
         }
-        return true;
     }
 
     @Override
@@ -457,17 +552,12 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
         }else if(id== R.id.et_closing_time){
             showTimePickerDialog(etClosedTime);
         }else if(id == R.id.btn_add_slot){
-            AddSlotView();
+            AddSlotView(view);
         }else if(id == R.id.btn_save){
             if(AddSlots()){
                 Toast.makeText(this, "Court Update Successfully", Toast.LENGTH_SHORT).show();
 
-                // Navigate back to court_owner_court_manage
-                Fragment courtManageFragment = new court_owner_court_manage();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentContainer, courtManageFragment);
-                transaction.addToBackStack(null); // Optional: Adds to the back stack
-                transaction.commit();
+                finish();
             }
         }
     }

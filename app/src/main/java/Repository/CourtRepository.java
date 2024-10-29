@@ -39,7 +39,6 @@ public class CourtRepository {
         return result;
     }
 
-
     public Court getCourtById(int courtId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Court court = null;
@@ -194,6 +193,23 @@ public class CourtRepository {
         cursor.close();
         db.close();
         return courtList;
+    }
+
+    public int updateCourt(int courtId, String courtName, String openTime, String closedTime, String province, String address) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Update fields with new values from the Court object
+        values.put("court_name", courtName);
+        values.put("open_time",openTime);
+        values.put("closed_time", closedTime);
+        values.put("province", province);
+        values.put("address",address);
+
+        // Update the court where court_id matches
+        int rowsAffected = db.update("Court", values, "court_id = ?", new String[]{String.valueOf(courtId)});
+        db.close();
+        return rowsAffected; // Returns the number of rows affected
     }
 
 }
