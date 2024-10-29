@@ -1,5 +1,7 @@
 package com.example.prm392_team333_courtbooking.fragements.court_owner.court_manage;
 
+import static Constant.SessionConstant.courtOwner;
+
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import Models.CourtOwner;
 import Repository.CourtOwnerRepository;
 import Repository.CourtRepository;
 import Repository.CourtSlotRepository;
+import Session.SessionManager;
 
 public class RegisterCourt extends AppCompatActivity implements View.OnClickListener{
     private EditText et_court_name;
@@ -75,7 +78,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         btnDone = findViewById(R.id.btn_done);
         slotContainer = findViewById(R.id.slotContainer);
 
-        AddSlotView();
+        //AddSlotView();
 
         //intent
         phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -94,24 +97,7 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
 
     }
 
-
-    private void showTimePickerDialog(final EditText timeField) {
-        // Get the current time
-        Calendar calendar = Calendar.getInstance();
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
-
-        // Create a new TimePickerDialog
-        @SuppressLint("DefaultLocale") TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (TimePicker view, int selectedHour, int selectedMinute) -> {
-                    // Format and display the selected time in the EditText
-                    timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
-                }, hour, minute, true);
-
-        timePickerDialog.show();
-    }
-
-    private boolean AddSlots() {
+    /*private boolean AddSlots() {
         // Clear previous errors
         et_court_name.setError(null);
         et_address.setError(null);
@@ -119,19 +105,20 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         etEmail.setError(null);
 
 
-        if(!Validate(et_court_name, et_address, etFullName, etEmail, et_open_time, et_closed_time)){
+        // Validate basic inputs first
+        if (!ValidateInputs()) {
             return false;
         }
 
-        if(!ValidateTime(allSlots)){
+        // Ensure each slot's time meets the format, duration, and open/close hours
+        if (!ValidateTime(allSlots)) {
             return false;
         }
 
-        if(OverLap(slotTimes)){
+        // Check for any overlaps in slot times
+        if (hasOverlappingSlots(slotTimes)) {
             return false;
         }
-
-
 
         CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(phoneNumber);
         courtOwner.setFullName(etFullName.getText().toString());
@@ -164,109 +151,170 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
 
 
         return true;
-    }
+    }*/
+    private boolean AddSlots() {
+        // Clear previous errors
+        et_court_name.setError(null);
+        et_address.setError(null);
+        etFullName.setError(null);
+        etEmail.setError(null);
 
-    private boolean Validate(EditText et_court_name, EditText et_address, EditText etFullName, EditText etEmail, EditText et_open_time, EditText et_closed_time){
 
-        // Validate court name
-        if (et_court_name.getText().toString().trim().isEmpty() || et_court_name.getText().toString().isBlank()) {
-            et_court_name.setError("Court name is required");
-            et_court_name.requestFocus();
+        // Validate basic inputs first
+        if (!ValidateInputs()) {
             return false;
         }
 
-        // Validate address
-        if (et_address.getText().toString().trim().isEmpty() || et_address.getText().toString().isBlank()) {
-            et_address.setError("Address is required");
-            et_address.requestFocus();
+        // Ensure each slot's time meets the format, duration, and open/close hours
+        if (!ValidateTime(allSlots)) {
             return false;
         }
 
-        // Validate province
-        if (et_province.getText().toString().trim().isEmpty() || et_province.getText().toString().isBlank()) {
-            et_province.setError("Province is required");
-            et_province.requestFocus();
+        // Check for any overlaps in slot times
+        if (hasOverlappingSlots(slotTimes)) {
             return false;
         }
 
-        // Validate full name
-        if (etFullName.getText().toString().trim().isEmpty() || et_province.getText().toString().isBlank()) {
-            etFullName.setError("Full name is required");
-            etFullName.requestFocus();
-            return false;
-        }
+        CourtOwner courtOwner = courtOwnerRepository.getCourtOwnerByPhoneNumber(phoneNumber);
+        courtOwner.setFullName(etFullName.getText().toString());
+        courtOwner.setEmail(etEmail.getText().toString());
 
-        //Validate email
-        if(etEmail.getText().toString().trim().isEmpty() || etEmail.getText().toString().isBlank()){
-            etEmail.setError("Email is required");
-            etEmail.requestFocus();
-            return false;
-        }
+        courtOwnerRepository.updateCourtOwner(courtOwner);
 
-        if(et_open_time.getText().toString().trim().isEmpty() || et_open_time.getText().toString().isBlank()){
-            et_open_time.setError("Open time is required");
-            et_open_time.requestFocus();
-            return false;
-        }
 
-        if(et_closed_time.getText().toString().trim().isEmpty() || et_closed_time.getText().toString().isBlank()){
-            et_closed_time.setError("Closed time is required");
-            et_closed_time.requestFocus();
-            return false;
-        }
+        long courtId = courtRepository.insertCourt(
+                courtOwner.getCourtOwnerId(),
+                et_court_name.getText().toString(),
+                et_open_time.getText().toString(),
+                et_closed_time.getText().toString(),
+                et_province.getText().toString(),
+                et_address.getText().toString(),
+                "OPEN",
+                null
+        );
 
-        try{
-            if(!LocalTime.parse(et_open_time.getText().toString()).isBefore(LocalTime.parse(et_closed_time.getText().toString()))){
-                Toast.makeText(this, "Open time is bigger than closed time", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        catch (Exception e){
-            et_open_time.setError("Invalid time format (HH:mm)");
-            et_closed_time.setError("Invalid time format (HH:mm)");
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean ValidateTime(List<View> allSlots){
+        // Insert each slot into the database
         for (View slot : allSlots) {
             EditText etTimeStart = slot.findViewById(R.id.et_time_start);
             EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
             EditText etCost = slot.findViewById(R.id.et_cost);
 
+            float cost;
+            try {
+                cost = Float.parseFloat(etCost.getText().toString());
+                if (cost < 0) {
+                    etCost.setError("Cost cannot be less than 0");
+                    return false;
+                }
+            } catch (Exception e) {
+                etCost.setError("Invalid cost format (00.00)");
+                return false;
+            }
+
             String timeStart = etTimeStart.getText().toString();
             String timeEnd = etTimeEnd.getText().toString();
-            String cost = etCost.getText().toString();
 
-            if(timeStart.isEmpty() || timeStart.isBlank()){
-                etTimeStart.setError("Time start cannot be empty");
+            courtSlotRepository.insertCourtSlot((int) courtId, timeStart, timeEnd, cost);
+        }
+        return true;
+    }
+
+    private boolean hasOverlappingSlots(List<LocalTime[]> slotTimes) {
+        for (int i = 0; i < slotTimes.size(); i++) {
+            LocalTime[] currentSlot = slotTimes.get(i);
+            for (int j = i + 1; j < slotTimes.size(); j++) {
+                LocalTime[] otherSlot = slotTimes.get(j);
+                if (currentSlot[0].isBefore(otherSlot[1]) && otherSlot[0].isBefore(currentSlot[1])) {
+                    Toast.makeText(this, "Slot " + (i + 1) + " overlaps with Slot " + (j + 1), Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void AddSlotView(View view){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
+
+        int index = slotContainer.indexOfChild(view.findViewById(R.id.btn_add_slot));
+
+        newSlot.setTag(0);
+        // Add the inflated slot layout to the container
+        slotContainer.addView(newSlot, index);
+
+        // Add the new slot to the list for tracking
+        allSlots.add(newSlot);
+    }
+
+    // In ValidateInputs(), check if the court's open and close times meet the requirements
+    private boolean ValidateInputs() {
+        // Basic validation for input fields (name, address, open/close times, province)
+        if (et_court_name.getText().toString().isEmpty() || et_address.getText().toString().isEmpty()
+                || et_province.getText().toString().isEmpty() || et_open_time.getText().toString().isEmpty()
+                || et_closed_time.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        try {
+            LocalTime openTime = LocalTime.parse(et_open_time.getText().toString());
+            LocalTime closeTime = LocalTime.parse(et_closed_time.getText().toString());
+
+            // Check if open and close times meet hour or half-hour increments and are at least 90 minutes apart
+            if (!isValidMinute(openTime) || !isValidMinute(closeTime)) {
+                Toast.makeText(this, "Open and Close times must be on the hour or half-hour.", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
-            if (timeEnd.isEmpty()) {
-                etTimeEnd.setError("Time end cannot be empty");
+            if (java.time.Duration.between(openTime, closeTime).toMinutes() < 90) {
+                Toast.makeText(this, "Court open and close times must span at least 90 minutes.", Toast.LENGTH_SHORT).show();
                 return false;
             }
-            if (cost.isEmpty()) {
-                etCost.setError("Cost cannot be empty");
-                return false;
-            }
+
+        } catch (DateTimeParseException e) {
+            Toast.makeText(this, "Invalid time format. Use HH:mm.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean ValidateTime(List<View> allSlots) {
+        for (View slot : allSlots) {
+            EditText etTimeStart = slot.findViewById(R.id.et_time_start);
+            EditText etTimeEnd = slot.findViewById(R.id.et_time_end);
+
+            String timeStart = etTimeStart.getText().toString();
+            String timeEnd = etTimeEnd.getText().toString();
 
             try {
-                LocalTime timeStarT = LocalTime.parse(timeStart);
+                LocalTime timeStartT = LocalTime.parse(timeStart);
                 LocalTime timeEndT = LocalTime.parse(timeEnd);
-                if (!timeStarT.isBefore(timeEndT)) {
-                    etTimeStart.setError("Time start must be earlier than time end");
-                    etTimeEnd.setError("Time end must be later than time start");
+
+                // Ensure slot start and end times meet hour or half-hour increments
+                if (!isValidMinute(timeStartT) || !isValidMinute(timeEndT)) {
+                    etTimeStart.setError("Time start and end must be on the hour or half-hour.");
+                    etTimeEnd.setError("Time start and end must be on the hour or half-hour.");
+                    return false;
+                }
+
+                /*// Ensure each slot duration is at least 90 minutes
+                if (java.time.Duration.between(timeStartT, timeEndT).toMinutes() < 90) {
+                    etTimeStart.setError("Each slot must be at least 90 minutes long.");
+                    etTimeEnd.setError("Each slot must be at least 90 minutes long.");
+                    return false;
+                }*/
+
+                // Ensure each slot is within open and close hours
+                if (!isSlotWithinCourtHours(timeStartT, timeEndT)) {
+                    etTimeStart.setError("Slot times must be within court open and close hours.");
+                    etTimeEnd.setError("Slot times must be within court open and close hours.");
                     return false;
                 }
 
                 // Store start and end times for overlap checking
-                slotTimes.add(new LocalTime[]{timeStarT, timeEndT});
-            }
-            catch (DateTimeParseException e) {
+                slotTimes.add(new LocalTime[]{timeStartT, timeEndT});
+            } catch (DateTimeParseException e) {
                 etTimeStart.setError("Invalid time format (HH:mm)");
                 etTimeEnd.setError("Invalid time format (HH:mm)");
                 return false;
@@ -275,51 +323,44 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-    private boolean OverLap( List<LocalTime[]> slotTimes){
-        for (int i = 0; i < slotTimes.size(); i++) {
-            LocalTime[] currentSlot = slotTimes.get(i);
-            LocalTime currentStart = currentSlot[0];
-            LocalTime currentEnd = currentSlot[1];
+    private void showTimePickerDialog(final EditText timeField) {
+        Calendar calendar = Calendar.getInstance();
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
 
-            for (int j = i + 1; j < slotTimes.size(); j++) {
-                LocalTime[] nextSlot = slotTimes.get(j);
-                LocalTime nextStart = nextSlot[0];
-                LocalTime nextEnd = nextSlot[1];
-
-                // Check if current slot overlaps with the next one
-                if (currentStart.isBefore(nextEnd) && nextStart.isBefore(currentEnd)) {
-                    Toast.makeText(this, "Slot " + (i + 1) + " overlaps with Slot " + (j + 1), Toast.LENGTH_LONG).show();
-                    return true;
-                }
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (TimePicker view, int selectedHour, int selectedMinute) -> {
+            if (selectedMinute == 0 || selectedMinute == 30) {
+                timeField.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+            } else {
+                Toast.makeText(this, "Please select a time with minutes as 00 or 30 only.", Toast.LENGTH_SHORT).show();
             }
+        }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    private boolean isValidMinute(LocalTime time) {
+        int minute = time.getMinute();
+        return minute == 0 || minute == 30;
+    }
+
+    private boolean isSlotWithinCourtHours(LocalTime slotStart, LocalTime slotEnd) {
+        try {
+            LocalTime openTime = LocalTime.parse(et_open_time.getText().toString());
+            LocalTime closeTime = LocalTime.parse(et_closed_time.getText().toString());
+
+            // Check if the slot start and end times are within the open and close times
+            if (slotStart.isBefore(openTime) || slotEnd.isAfter(closeTime)) {
+                Toast.makeText(this, "Slot times must be within the court's open and close hours.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            Toast.makeText(this, "Invalid open or close time format.", Toast.LENGTH_SHORT).show();
+            return false;
         }
-
-        return false;
+        return true;
     }
 
-    private void AddSlotView(){
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View newSlot = inflater.inflate(R.layout.court_slot_item, slotContainer, false);
 
-        EditText etTimeStart = newSlot.findViewById(R.id.et_time_start);
-        EditText etTimeEnd = newSlot.findViewById(R.id.et_time_end);
-
-        etTimeStart.setOnClickListener( v -> {
-            showTimePickerDialog(etTimeStart);
-        });
-
-        etTimeEnd.setOnClickListener( v -> {
-            showTimePickerDialog(etTimeEnd);
-        });
-
-        int index = slotContainer.indexOfChild(findViewById(R.id.btn_add_slot));
-
-        // Add the inflated slot layout to the container
-        slotContainer.addView(newSlot, index);
-
-        // Add the new slot to the list for tracking
-        allSlots.add(newSlot);
-    }
 
     @Override
     public void onClick(View view) {
@@ -332,17 +373,15 @@ public class RegisterCourt extends AppCompatActivity implements View.OnClickList
             showTimePickerDialog(et_closed_time);
         }
         else if(id == R.id.btn_done){
-            if(!AddSlots()){
-                Toast.makeText(this, "Fail to create your court", Toast.LENGTH_SHORT).show();
+            if(AddSlots()){
+                Intent intent = new Intent(this, court_owner_layout.class);
+                intent.putExtra("phoneNumber", phoneNumber);
+                startActivity(intent);
             }
-
-            Intent intent = new Intent(this, court_owner_layout.class);
-            intent.putExtra("phoneNumber", phoneNumber);
-            startActivity(intent);
-
-            }
+            else Toast.makeText(this, "Fail to create your court", Toast.LENGTH_SHORT).show();
+        }
         else if(id == R.id.btn_add_slot){
-            AddSlotView();
+            AddSlotView(view);
         }
         else{
             Toast.makeText(this, "Fail validation", Toast.LENGTH_SHORT).show();

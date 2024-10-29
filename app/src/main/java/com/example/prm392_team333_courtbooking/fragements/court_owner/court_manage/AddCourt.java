@@ -301,10 +301,10 @@ public class AddCourt extends Fragment implements View.OnClickListener {
                 return false;
             }
 
-            if (!isValidSlotDuration(start, end)) {
+            /*if (!isValidSlotDuration(start, end)) {
                 setError("Each slot must be at least 90 minutes long.", etTimeStart, etTimeEnd);
                 return false;
-            }
+            }*/
 
             if (!isSlotWithinCourtHours(start, end)) {
                 setError("Slot times must be within court open and close hours.", etTimeStart, etTimeEnd);

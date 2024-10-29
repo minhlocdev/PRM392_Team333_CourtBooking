@@ -437,12 +437,12 @@ public class EditCourt extends AppCompatActivity implements View.OnClickListener
                     return false;
                 }
 
-                // Ensure each slot duration is at least 90 minutes
+                /*// Ensure each slot duration is at least 90 minutes
                 if (java.time.Duration.between(timeStartT, timeEndT).toMinutes() < 90) {
                     etTimeStart.setError("Each slot must be at least 90 minutes long.");
                     etTimeEnd.setError("Each slot must be at least 90 minutes long.");
                     return false;
-                }
+                }*/
 
                 // Ensure each slot is within open and close hours
                 if (!isSlotWithinCourtHours(timeStartT, timeEndT)) {
