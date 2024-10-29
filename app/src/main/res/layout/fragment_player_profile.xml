@@ -26,9 +26,9 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_centerInParent="true"
+                    android:background="@drawable/circle_avatar"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ten_hag"
-                    android:background="@drawable/circle_avatar"/>
+                    android:src="@drawable/ten_hag" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_edit_avatar"
@@ -61,52 +61,51 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Full Name:"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Enter your full name"
-                android:padding="10dp"/>
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Email:"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Enter your email"
-                android:padding="10dp"/>
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Phone:"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Enter your phone"
-                android:padding="10dp"
-                android:enabled="false"/>
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Password:"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,19 +115,19 @@
                 <EditText
                     android:id="@+id/et_password"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="48dp"
+                    android:layout_weight="1"
                     android:hint="Enter your password"
                     android:inputType="textPassword"
-                    android:padding="10dp"/>
+                    android:padding="10dp" />
 
                 <ImageButton
                     android:id="@+id/ib_hide"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/baseline_key_24"
-                    android:contentDescription="Hide/Show Password"/>
+                    android:contentDescription="Hide/Show Password"
+                    android:src="@drawable/baseline_key_24" />
 
                 <TextView
                     android:id="@+id/tv_change_pwd"
@@ -138,23 +137,23 @@
                     android:layout_marginStart="8dp"
                     android:paddingTop="10dp"
                     android:text="Change"
-                    android:textColor="@color/forest_green_dark"
+                    android:textColor="@color/orange"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Created at:"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_create_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10-10-2024"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:text="10-10-2024" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
