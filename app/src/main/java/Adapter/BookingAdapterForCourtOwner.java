@@ -74,6 +74,7 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 holder.btnAccept.setVisibility(View.GONE);
                 holder.btnRefuse.setVisibility(View.GONE);
+                holder.btnCompleted.setVisibility(View.VISIBLE);
                 break;
             }
             case "CANCEL":
@@ -82,20 +83,25 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 holder.btnAccept.setVisibility(View.GONE);
                 holder.btnRefuse.setVisibility(View.GONE);
+                holder.btnCompleted.setVisibility(View.GONE);
                 break;
             }
             case "PENDING":
             {
                 int color = ContextCompat.getColor(context, R.color.pending);
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                holder.btnAccept.setVisibility(View.VISIBLE);
+                holder.btnRefuse.setVisibility(View.VISIBLE);
+                holder.btnCompleted.setVisibility(View.GONE);
                 break;
             }
-            case "COMPLETE":
+            case "COMPLETED":
             {
                 int color = ContextCompat.getColor(context, R.color.booked);
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 holder.btnAccept.setVisibility(View.GONE);
                 holder.btnRefuse.setVisibility(View.GONE);
+                holder.btnCompleted.setVisibility(View.GONE);
                 break;
             }
             case "REFUSED":
@@ -104,6 +110,7 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 holder.btnAccept.setVisibility(View.GONE);
                 holder.btnRefuse.setVisibility(View.GONE);
+                holder.btnCompleted.setVisibility(View.GONE);
                 break;
             }
         }
@@ -129,6 +136,12 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
             dialog.show(fragmentManager, "RefuseBookingDialog");
         });
 
+
+        holder.btnCompleted.setOnClickListener(v -> {
+            bookingRepository.updateBooking(booking.getBookingId(), booking.getCourtId(), booking.getPlayerId(), booking.getBookingDate(), booking.getStartTime(),
+                    booking.getEndTime(), (float) booking.getPrice(), "COMPLETED", "");
+            notifyDataSetChanged();
+        });
 
     }
 
@@ -168,6 +181,7 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
         private final TextView tvPrice;
         private final Button btnAccept;
         private final Button btnRefuse;
+        private final Button btnCompleted;
 
 
         public BookingViewHolder(@NonNull View itemView) {
@@ -182,6 +196,7 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
             tvPrice = itemView.findViewById(R.id.tv_price);
             btnAccept = itemView.findViewById(R.id.btn_accept);
             btnRefuse = itemView.findViewById(R.id.btn_refused);
+            btnCompleted = itemView.findViewById(R.id.btn_completed);
         }
     }
 }

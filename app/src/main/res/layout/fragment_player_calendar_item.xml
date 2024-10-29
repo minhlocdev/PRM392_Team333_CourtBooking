@@ -89,8 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BOOKED"
+                    android:background="@drawable/date_backround"
                     android:textSize="14sp"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
                     android:layout_marginBottom="12dp"/>
 
             </LinearLayout>
