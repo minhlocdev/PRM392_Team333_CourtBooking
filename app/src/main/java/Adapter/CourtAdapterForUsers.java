@@ -23,19 +23,24 @@ import com.example.prm392_team333_courtbooking.R;
 import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedbackCourtOwner;
 import com.example.prm392_team333_courtbooking.fragements.player.feedback.CourtFeedbackPlayer;
 import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingDialog;
+
+import java.util.ArrayList;
 import java.util.List;
 import Models.Court;
 import Repository.BookingRepository;
+import Repository.CourtRepository;
 import Session.SessionManager;
 
 public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUsers.CourtViewHolder> {
 
-    private final List<Court> courts;
+    private List<Court> courts;
     private final int idLayout;
     private final FragmentManager fragmentManager;
     private final Context context;
     private final BookingRepository bookingRepository;
     private final SessionManager sessionManager;
+
+    private CourtRepository courtRepository;
 
     public CourtAdapterForUsers(Context context, List<Court> courts, int idLayout, FragmentManager fragmentManager) {
         this.context = context;
@@ -43,6 +48,7 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
         this.idLayout = idLayout;
         this.fragmentManager = fragmentManager;
         bookingRepository = new BookingRepository(context);
+        courtRepository = new CourtRepository(context);
         sessionManager = new SessionManager(context, user);
     }
 
@@ -114,6 +120,7 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
         });
     }
 
+
     @Override
     public int getItemCount() {
         return courts.size();
@@ -141,5 +148,29 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
             tvAddress = itemView.findViewById(R.id.tv_address);
             btnReview = itemView.findViewById(R.id.btn_review);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filter(String searchTerm) {
+        List<Court> filteredList = new ArrayList<>();
+
+        if (searchTerm.isEmpty()) {
+            this.courts.clear();
+            courts = courtRepository.getAllCourts();
+            filteredList.addAll(courts);
+        } else {
+            for (Court court : courts) {
+                if (court.getCourtName().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                        court.getAddress().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                        court.getProvince().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    filteredList.add(court);
+                }
+            }
+            this.courts.clear();
+        }
+
+        // Update the adapter's data and notify changes
+        this.courts.addAll(filteredList);
+        notifyDataSetChanged();
     }
 }

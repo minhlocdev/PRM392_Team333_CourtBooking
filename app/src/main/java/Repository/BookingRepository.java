@@ -263,8 +263,52 @@ public class BookingRepository {
         db.close();
         return bookings;
     }
+    public double getPriceFromBooking(String timeFrame) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        double totalPrice = 0.0;
 
+        String query = "";
+        switch (timeFrame) {
+            case "yesterday":
+                query = "SELECT IFNULL(SUM(price), 0) FROM Booking WHERE booking_date = strftime('%Y-%m-%d', 'now', '-1 day')";
+                break;
+            case "this_month":
+                query = "SELECT SUM(price) FROM Booking WHERE strftime('%Y-%m', booking_date) = strftime('%Y-%m', 'now')";
+                break;
+            case "last_month":
+                query = "SELECT SUM(price) FROM Booking WHERE strftime('%Y-%m', booking_date) = strftime('%Y-%m', 'now', '-1 month')";
+                break;
+            case "today":
+                query = "SELECT SUM(price) FROM Booking WHERE booking_date = date('now')";
+                break;
+            default:
+                return totalPrice; // Return 0 if no valid timeframe is provided
+        }
 
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            totalPrice = cursor.getDouble(0); // Get the total price from the first column
+        }
 
+        cursor.close();
+        db.close();
+        return totalPrice; // Return the total price
+    }
 
+    // Function to get number of bookings today
+    public int getNumberOfBookings() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int count = 0;
+
+        String query = "SELECT COUNT(*) FROM Booking WHERE booking_date = date('now')";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0); // Get the count from the first column
+        }
+
+        cursor.close();
+        db.close();
+        return count; // Return the number of bookings
+    }
 }

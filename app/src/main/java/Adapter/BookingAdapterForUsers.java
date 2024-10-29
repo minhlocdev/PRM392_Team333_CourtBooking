@@ -2,6 +2,7 @@ package Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.Interface.BookingDialogListener;
@@ -31,7 +33,10 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
     private final CourtRepository courtRepository;
     private final BookingDialogListener listener;
 
+    private Context context;
+
     public BookingAdapterForUsers(Context context, List<Booking> bookings, int idLayout, FragmentManager fragmentManager, BookingDialogListener listener) {
+        this.context = context;
         this.bookings = bookings;
         this.idLayout = idLayout;
         this.fragmentManager = fragmentManager;
@@ -70,6 +75,40 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
         holder.tvTime.setText(booking.getStartTime() + " - " + booking.getEndTime());
         holder.tvStatus.setText(booking.getStatus());
         holder.tvPrice.setText("Total : " + booking.getPrice());
+
+
+        switch (booking.getStatus()){
+            case "BOOKED":
+            {
+                int color = ContextCompat.getColor(context, R.color.olive_drab);
+                holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
+            }
+            case "CANCEL":
+            {
+                int color = ContextCompat.getColor(context, R.color.crimson);
+                holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
+            }
+            case "PENDING":
+            {
+                int color = ContextCompat.getColor(context, R.color.pending);
+                holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
+            }
+            case "COMPLETED":
+            {
+                int color = ContextCompat.getColor(context, R.color.booked);
+                holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
+            }
+            case "REFUSED":
+            {
+                int color = ContextCompat.getColor(context, R.color.dark_orange);
+                holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                break;
+            }
+        }
 
         holder.btnDetail.setOnClickListener( v -> {
                 BookingDetail bookingDetail = new BookingDetail();

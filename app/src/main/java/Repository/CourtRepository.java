@@ -163,4 +163,34 @@ public class CourtRepository {
         return rowsDeleted; // Returns the number of rows deleted
     }
 
+    public List<Court> searchCourts(String searchTerm) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<Court> courtList = new ArrayList<>();
+
+        String query = "SELECT * FROM Court WHERE court_name LIKE ? OR province LIKE ?";
+        String searchPattern = "%" + searchTerm + "%"; // Add wildcards for partial matching
+        Cursor cursor = db.rawQuery(query, new String[]{searchPattern, searchPattern});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int courtId = cursor.getInt(cursor.getColumnIndexOrThrow("court_id"));
+                int courtOwnerId = cursor.getInt(cursor.getColumnIndexOrThrow("court_owner_id"));
+                String courtName = cursor.getString(cursor.getColumnIndexOrThrow("court_name"));
+                String openTime = cursor.getString(cursor.getColumnIndexOrThrow("open_time"));
+                String closedTime = cursor.getString(cursor.getColumnIndexOrThrow("closed_time"));
+                String province = cursor.getString(cursor.getColumnIndexOrThrow("province"));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+
+                Court court = new Court(courtId, status, openTime, closedTime, address, province, courtName, courtOwnerId, image);
+                courtList.add(court);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return courtList;
+    }
+
 }

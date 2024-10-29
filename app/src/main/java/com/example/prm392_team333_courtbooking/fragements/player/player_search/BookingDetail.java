@@ -311,6 +311,9 @@ public class BookingDetail extends DialogFragment {
         // Retrieve existing slots for this court on the selected date
         List<Booking> existingBookings = bookingRepository.getBookingsByCourtIdAndDate(courtId, date);
 
+        existingBookings.removeIf(booking -> booking.getBookingId() == bookingId);
+
+
         // Parse the start and end times of the new booking
         LocalTime newStartTime = LocalTime.parse(timeStart);
         LocalTime newEndTime = LocalTime.parse(timeEnd);

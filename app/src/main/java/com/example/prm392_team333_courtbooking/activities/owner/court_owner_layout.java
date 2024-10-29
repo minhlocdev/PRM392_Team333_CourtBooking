@@ -1,11 +1,15 @@
 package com.example.prm392_team333_courtbooking.activities.owner;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,12 +32,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class court_owner_layout extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_court_owner_layout);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
 
         // Set up the toolbar as the action bar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -94,8 +103,25 @@ public class court_owner_layout extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        setNavigationButtonEnabled(false);
-        updateToolbarTitle(title);
+
+        // Update toolbar visibility based on the fragment
+        if (fragment instanceof CourtListHome) {
+            setToolbarVisible(false); // Hide toolbar for CourtListHome
+        } else {
+            setToolbarVisible(true); // Show toolbar for other fragments
+            updateToolbarTitle(title);
+        }
+    }
+
+    private void setToolbarVisible(boolean visible) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            if (visible) {
+                toolbar.setVisibility(View.VISIBLE);
+            } else {
+                toolbar.setVisibility(View.GONE);
+            }
+        }
     }
     public void setToolbarTitle(String title) {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);

@@ -25,14 +25,6 @@ import Session.SessionManager;
 
 public class CourtFeedbackCourtOwner extends Fragment {
 
-    private EditText etReview;
-
-    private ReviewRepository reviewRepository;
-
-    private SessionManager sessionManager;
-
-    private FeedbackCourtAdapter adapter;
-
     private int courtId;
     @Override
     public void onResume() {
@@ -47,73 +39,26 @@ public class CourtFeedbackCourtOwner extends Fragment {
 
         View view = inflater.inflate(R.layout.court_feedback_layout_court_owner, container, false);
 
-        etReview = view.findViewById(R.id.et_review);
-        Button btnPost = view.findViewById(R.id.btn_post);
-
-        sessionManager = new SessionManager(requireContext(), user);
+        SessionManager sessionManager = new SessionManager(requireContext(), user);
 
         RecyclerView rvReviews = view.findViewById(R.id.rv_feedback_list);
 
-        etReview.setMovementMethod(new ScrollingMovementMethod());
-        etReview.setVerticalScrollBarEnabled(true);
-
-        reviewRepository = new ReviewRepository(requireContext());
-
-        String mode = "disabled";
-
-        if (getArguments() != null) {
-            mode = getArguments().getString("mode");
-        }
-
+        ReviewRepository reviewRepository1 = new ReviewRepository(requireContext());
 
         if (getArguments() != null) {
             courtId = getArguments().getInt("courtId");
         }
 
-
         ReviewRepository reviewRepository = new ReviewRepository(requireContext());
 
         List<Review> reviews = reviewRepository.getAllReviewsByCourtId(courtId);
 
-        if(mode != null && mode.equals("disable")){
-            etReview.setFocusable(false);
-            etReview.setClickable(false);
-            etReview.setCursorVisible(false);
-            etReview.setLongClickable(false);
 
-            btnPost.setEnabled(false);
-
-
-            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "disable");
-        }else{
-            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");
-
-        }
+        FeedbackCourtAdapter adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");
 
         rvReviews.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvReviews.setAdapter(adapter);
 
-        btnPost.setOnClickListener(v -> post());
         return view;
-    }
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void post(){
-        String review = etReview.getText().toString().trim();
-
-        if(review.isEmpty() || review.isBlank()){
-            etReview.setError("Review is empty");
-            etReview.requestFocus();
-            return;
-        }
-
-       reviewRepository.insertReview(sessionManager.getUserId(), courtId, 4, review, LocalDate.now().toString(), "NEW");
-
-        etReview.setText("");
-
-        List<Review> reviews = reviewRepository.getAllReviewsByCourtId(courtId);
-        adapter.setReviews(reviews);
-        adapter.notifyDataSetChanged();
     }
 }
