@@ -102,7 +102,9 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
                     // Optionally refresh the list or update the UI to reflect the change
                     // For example, you might want to update the court's status in your local list if needed
                     courts.get(position).setStatus("INACTIVE");
+
                     notifyItemChanged(position);
+
                 } else {
                     Toast.makeText(context, "Failed to close court", Toast.LENGTH_SHORT).show();
                 }

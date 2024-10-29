@@ -131,7 +131,7 @@ public class Sqlite extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at, reason) " +
                 "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'PENDING', '2024-10-01', '')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at, reason) " +
-                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'COMPLETED', '2024-10-01', '')");
+                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'PENDING', '2024-10-01', '')");
 
         // Insert default court slots
         db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +

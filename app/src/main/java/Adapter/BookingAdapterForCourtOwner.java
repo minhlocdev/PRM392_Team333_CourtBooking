@@ -126,12 +126,16 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
         holder.btnAccept.setOnClickListener(v -> {
             bookingRepository.updateBooking(booking.getBookingId(), booking.getCourtId(), booking.getPlayerId(), booking.getBookingDate(), booking.getStartTime(),
                     booking.getEndTime(), (float) booking.getPrice(), "BOOKED", "");
-            notifyDataSetChanged();
+            bookings.get(position).setStatus("BOOKED");
+            notifyItemChanged(position);
         });
 
         holder.btnRefuse.setOnClickListener(v -> {
             DeleteDialog dialog = new DeleteDialog(booking.getBookingId(), (reason, bookingId) -> {
                 updateBookingStatusToRefused(bookingId, reason);
+
+                bookings.get(position).setStatus("REFUSED");
+                notifyItemChanged(position);
             });
             dialog.show(fragmentManager, "RefuseBookingDialog");
         });
@@ -140,7 +144,10 @@ public class BookingAdapterForCourtOwner extends RecyclerView.Adapter<BookingAda
         holder.btnCompleted.setOnClickListener(v -> {
             bookingRepository.updateBooking(booking.getBookingId(), booking.getCourtId(), booking.getPlayerId(), booking.getBookingDate(), booking.getStartTime(),
                     booking.getEndTime(), (float) booking.getPrice(), "COMPLETED", "");
-            notifyDataSetChanged();
+
+            bookings.get(position).setStatus("COMPLETED");
+
+            notifyItemChanged(position);
         });
 
     }

@@ -207,6 +207,10 @@ public class BookingDetail extends DialogFragment {
                 tvStatus.setText("CANCEL");
                 int color = ContextCompat.getColor(requireContext(), R.color.crimson);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                etTimeStart.setEnabled(false);
+                etTimeEnd.setEnabled(false);
+                tvDate.setEnabled(false);
+                btnSave.setEnabled(false);
                 btnSave.setVisibility(View.GONE);
                 break;
             }
@@ -250,6 +254,7 @@ public class BookingDetail extends DialogFragment {
                 etTimeEnd.setEnabled(false);
                 tvDate.setEnabled(false);
                 btnSave.setEnabled(false);
+                btnSave.setVisibility(View.GONE);
                 int color = ContextCompat.getColor(requireContext(), R.color.dark_orange);
                 tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
                 break;
