@@ -58,4 +58,31 @@ public class ReplyRepository {
         replies.sort((r1, r2) -> r2.getCreateAt().compareTo(r1.getCreateAt()));
         return replies;
     }
+
+    public Reply getReplyById(int replyId) {
+        Reply reply = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Query the Reply table with the given reply_id
+        Cursor cursor = db.query("Reply", null, "reply_id = ?", new String[]{String.valueOf(replyId)}, null, null, null);
+
+        // Check if the result is available
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int reviewId = cursor.getInt(cursor.getColumnIndexOrThrow("review_id"));
+                int userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
+                String createdAt = cursor.getString(cursor.getColumnIndexOrThrow("create_at"));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+
+                // Create a Reply object using the retrieved values
+                reply = new Reply(replyId, reviewId, userId, content, createdAt, status);
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return reply; // Return the Reply object, or null if not found
+    }
+
 }

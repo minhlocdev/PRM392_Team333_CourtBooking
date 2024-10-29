@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingFragment;
+import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingFragment;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public class CalendarPagerAdapter extends FragmentStateAdapter {

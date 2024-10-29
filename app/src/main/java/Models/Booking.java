@@ -13,11 +13,12 @@ public class Booking implements Serializable {
     private String startTime;
     private String endTime;
     private double price;
+    private String reason;
     private String status;
     private String createdAt;
 
 
-    public Booking(int bookingId, int courtId, int playerId, String bookingDate, String startTime, String endTime, double price, String status, String createdAt) {
+    public Booking(int bookingId, int courtId, int playerId, String bookingDate, String startTime, String endTime, double price, String status, String createdAt, String reason) {
         this.bookingId = bookingId;
         this.courtId = courtId;
         this.playerId = playerId;
@@ -27,7 +28,12 @@ public class Booking implements Serializable {
         this.price = price;
         this.status = status;
         this.createdAt = createdAt;
+        this.reason = reason;
     }
+
+    public String getReason() {return reason;}
+
+    public void setReason(String reason) {this.reason = reason;}
 
     public int getBookingId() {
         return bookingId;

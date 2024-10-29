@@ -20,8 +20,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_team333_courtbooking.R;
-import com.example.prm392_team333_courtbooking.court_manage.CourtFeedback;
-import com.example.prm392_team333_courtbooking.fragements.player_search.BookingDialog;
+import com.example.prm392_team333_courtbooking.fragements.court_owner.feedback.CourtFeedbackCourtOwner;
+import com.example.prm392_team333_courtbooking.fragements.player.feedback.CourtFeedbackPlayer;
+import com.example.prm392_team333_courtbooking.fragements.player.player_search.BookingDialog;
 import java.util.List;
 import Models.Court;
 import Repository.BookingRepository;
@@ -93,13 +94,13 @@ public class CourtAdapterForUsers extends RecyclerView.Adapter<CourtAdapterForUs
 
             boolean hasBookingCompleted = bookingRepository.hasCompletedBooking(sessionManager.getUserId(), court.getCourtId());
 
-            CourtFeedback courtFeedback = new CourtFeedback();
+            CourtFeedbackPlayer courtFeedback = new CourtFeedbackPlayer();
             Bundle args = new Bundle();
 
             if(hasBookingCompleted){
-                args.putString("edit_mode", "enable");
+                args.putString("mode", "enable");
             }else{
-                args.putString("edit_mode", "disable");
+                args.putString("mode", "disable");
             }
 
             courtFeedback.setArguments(args);

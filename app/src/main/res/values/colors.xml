@@ -13,6 +13,8 @@
     <color name="pending">#EEE8AA</color>
     <color name="dark_orange">#FF8C00</color>
     <color name="dark_green">#006400</color>
+    <color name="olive">#808000</color>
+    <color name="olive_drab">#6B8E23</color>
 
     <!-- Blue Shades -->
     <color name="blue">#6495ED</color>
