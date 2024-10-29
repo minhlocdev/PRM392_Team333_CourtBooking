@@ -119,11 +119,11 @@ public class Sqlite extends SQLiteOpenHelper {
 
         // Insert default courts
         db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
-                "VALUES (1, 1, 'City Tennis Court', '08:00', '21:00', 'City Center', '123 Main St',null, 'OPEN')");
+                "VALUES (1, 1, 'City Tennis Court', '08:00', '21:00', 'City Center', '123 Main St',null, 'ACTIVE')");
         db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
-                "VALUES (2, 1, 'Football Arena', '08:00', '21:00', 'Uptown', '456 High St', null, 'OPEN')");
+                "VALUES (2, 1, 'Football Arena', '08:00', '21:00', 'Uptown', '456 High St', null, 'ACTIVE')");
         db.execSQL("INSERT INTO Court (court_id, court_owner_id, court_name, open_time, closed_time, province, address, image, status) " +
-                "VALUES (3, 1, 'Basketball Court', '08:00', '21:00', 'Suburb', '789 Park Ave', null, 'OPEN')");
+                "VALUES (3, 1, 'Basketball Court', '08:00', '21:00', 'Suburb', '789 Park Ave', null, 'ACTIVE')");
 
         // Insert default bookings
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at, reason) " +
@@ -131,7 +131,7 @@ public class Sqlite extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at, reason) " +
                 "VALUES (2, 2, 2, '2024-10-02', '12:00', '13:00', 70.0, 'PENDING', '2024-10-01', '')");
         db.execSQL("INSERT INTO Booking (booking_id, court_id, player_id, booking_date, start_time, end_time, price, status, created_at, reason) " +
-                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'COMPLETED', '2024-10-01', '')");
+                "VALUES (3, 3, 3, '2024-10-03', '14:00', '15:00', 60.0, 'PENDING', '2024-10-01', '')");
 
         // Insert default court slots
         db.execSQL("INSERT INTO CourtSlot (court_slot_id, court_id, time_start, time_end, cost) " +

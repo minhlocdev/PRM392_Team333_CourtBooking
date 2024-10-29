@@ -57,14 +57,18 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         holder.tvStatus.setText(court.getStatus());
 
         // Use more visually appealing colors
-        if ("closed".equals(court.getStatus())) {
+        if ("INACTIVE".equals(court.getStatus())) {
             holder.tvStatus.setBackgroundColor(Color.parseColor("#FF4444")); // Bright red for closed courts
             holder.tvStatus.setTextColor(Color.WHITE); // White text for contrast
             holder.tvStatus.setPadding(8, 8, 8, 8); // Add padding for better readability
+            holder.ibReactive.setVisibility(View.VISIBLE);
+            holder.ibDelete.setVisibility(View.GONE);
         } else {
             holder.tvStatus.setBackgroundColor(Color.parseColor("#4CAF50")); // Green for open courts
             holder.tvStatus.setTextColor(Color.WHITE); // White text for contrast
             holder.tvStatus.setPadding(8, 8, 8, 8); // Add padding for better readability
+            holder.ibReactive.setVisibility(View.GONE);
+            holder.ibDelete.setVisibility(View.VISIBLE);
         }
         // Set court image
         byte[] courtImage = court.getImage();
@@ -91,20 +95,39 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
                 CourtRepository courtRepo = new CourtRepository(context);
 
                 // Update status to closed first
-                int updateResult = courtRepo.updateCourtStatus(courtId);
+                int updateResult = courtRepo.deleteCourt(courtId);
 
                 if (updateResult > 0) {
                     Toast.makeText(context, "Court closed successfully", Toast.LENGTH_SHORT).show();
                     // Optionally refresh the list or update the UI to reflect the change
                     // For example, you might want to update the court's status in your local list if needed
-                    courts.get(position).setStatus("closed");
+                    courts.get(position).setStatus("INACTIVE");
+
                     notifyItemChanged(position);
+
                 } else {
                     Toast.makeText(context, "Failed to close court", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
             builder.show();
+        });
+
+        holder.ibReactive.setOnClickListener(v -> {
+            int courtId = courts.get(position).getCourtId();
+
+            CourtRepository courtRepo = new CourtRepository(context);
+            int updateResult = courtRepo.reactiveCourt(courtId);
+
+            if (updateResult > 0) {
+                Toast.makeText(context, "Court reactivate successfully", Toast.LENGTH_SHORT).show();
+
+                courts.get(position).setStatus("ACTIVE");
+                notifyItemChanged(position);
+            } else {
+                Toast.makeText(context, "Failed to reactivate court", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
     }
@@ -124,6 +147,8 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         ImageButton ibEdit;
         ImageButton ibDelete;
 
+        ImageButton ibReactive;
+
         public CourtViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.court_image);
@@ -132,6 +157,7 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
             tvStatus = itemView.findViewById(R.id.tv_status);
             ibEdit = itemView.findViewById(R.id.ib_edit);
             ibDelete = itemView.findViewById(R.id.ib_delete);
+            ibReactive = itemView.findViewById(R.id.ib_reactivate);
         }
     }
 }

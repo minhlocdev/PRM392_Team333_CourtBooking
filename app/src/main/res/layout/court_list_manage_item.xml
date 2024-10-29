@@ -85,7 +85,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="20dp"
                     android:background="@drawable/baseline_edit_24"
                     android:contentDescription="Edit court"
                     android:text="Edit"
@@ -101,6 +101,18 @@
                     android:background="@drawable/baseline_delete_24"
                     android:contentDescription="Delete court"
                     android:text="Del"
+                    android:textColor="@android:color/white" />
+
+                <!-- Reactivate Button -->
+                <ImageButton
+                    android:id="@+id/ib_reactivate"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/baseline_refresh_24"
+                    android:contentDescription="Reactive court"
+                    android:text="Re-activate"
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>

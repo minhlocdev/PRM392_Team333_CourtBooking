@@ -106,6 +106,7 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
             {
                 int color = ContextCompat.getColor(context, R.color.dark_orange);
                 holder.tvStatus.setBackgroundTintList(ColorStateList.valueOf(color));
+                holder.tvReason.setText("Reason: " + booking.getReason());
                 break;
             }
         }
@@ -137,6 +138,8 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
         private final TextView tvPrice;
         private final Button btnDetail;
 
+        private final TextView tvReason;
+
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -148,6 +151,7 @@ public class BookingAdapterForUsers extends RecyclerView.Adapter<BookingAdapterF
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvPrice = itemView.findViewById(R.id.tv_price);
             btnDetail = itemView.findViewById(R.id.btn_detail);
+            tvReason = itemView.findViewById(R.id.tv_reason);
         }
     }
 }
