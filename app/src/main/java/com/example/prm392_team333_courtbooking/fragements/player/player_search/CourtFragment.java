@@ -35,7 +35,9 @@ public class CourtFragment extends Fragment {
 
         // Initialize CourtRepository and load courts
         CourtRepository courtRepository = new CourtRepository(getContext());
-        List<Court> courtList = courtRepository.getAllCourts(); // Fetch all courts from the repository
+        List<Court> courtList = courtRepository.getAllCourts();
+
+        courtList.removeIf(court ->  court.getStatus().equals("INACTIVE"));
 
 
         // Set up the adapter with the court list
