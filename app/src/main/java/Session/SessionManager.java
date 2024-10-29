@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
 
     private static final String KEY_USER_ID = "user_id";
 

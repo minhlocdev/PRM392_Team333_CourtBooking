@@ -79,12 +79,25 @@ public class CourtFeedbackPlayer extends Fragment {
             etReview.setLongClickable(false);
 
             btnPost.setEnabled(false);
+            btnPost.setVisibility(View.GONE);
+            etReview.setVisibility(View.GONE);
+            etReview.setEnabled(false);
 
 
             adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "disable");
         }else{
-            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");
 
+            etReview.setFocusable(true);
+            etReview.setClickable(true);
+            etReview.setCursorVisible(true);
+            etReview.setLongClickable(true);
+
+            btnPost.setEnabled(true);
+            btnPost.setVisibility(View.VISIBLE);
+            etReview.setVisibility(View.VISIBLE);
+            etReview.setEnabled(true);
+
+            adapter = new FeedbackCourtAdapter(requireContext(), reviews, getParentFragmentManager(), "enable");
         }
 
         rvReviews.setLayoutManager(new LinearLayoutManager(requireContext()));

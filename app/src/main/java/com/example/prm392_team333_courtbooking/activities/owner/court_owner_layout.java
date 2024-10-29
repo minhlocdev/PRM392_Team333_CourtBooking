@@ -32,8 +32,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class court_owner_layout extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
